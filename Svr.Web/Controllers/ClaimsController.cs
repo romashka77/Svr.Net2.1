@@ -178,6 +178,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Claims/Create
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -204,6 +205,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
         public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -224,6 +226,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: Claims/Edit/5
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -240,6 +243,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
         public async Task<IActionResult> Edit(EditViewModel model)
         {
             if (ModelState.IsValid)
@@ -281,6 +285,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: Claims/Delete/5
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -295,7 +300,7 @@ namespace Svr.Web.Controllers
         // POST: Claims/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "Администратор УПФР, Администратор")]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try
