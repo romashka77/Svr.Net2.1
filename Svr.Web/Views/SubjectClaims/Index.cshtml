@@ -1,0 +1,13 @@
+﻿@model Svr.Web.Models.SubjectClaimsViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Список предметов исков";
+}
+
+<h4>@ViewData["Title"]</h4>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+<p>
+    <a asp-action="Create" asp-controller="SubjectClaims" class="btn btn-default">Добавить</a>
+</p>
+
+@Html.Partial("List", Model)

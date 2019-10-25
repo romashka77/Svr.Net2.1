@@ -1,0 +1,38 @@
+﻿@model Svr.Web.Models.MeetingsViewModels.IndexViewModel
+
+@addTagHelper "*, Svr.Web"
+
+<div>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.NameSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Имя
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.DescriptionSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Описание
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CreatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Дата создания
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.UpdatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Дата изменения
+    </sort-header>
+</div>

@@ -1,0 +1,27 @@
+﻿@model Svr.Web.Models.DirNameViewModels.IndexViewModel
+
+@addTagHelper "*, Svr.Web"
+
+<div>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.NameSort"
+                 search-string="@Model.FilterViewModel.SearchString">
+        Имя
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CreatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString">
+        Дата создания
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.UpdatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString">
+        Дата изменения
+    </sort-header>
+</div>

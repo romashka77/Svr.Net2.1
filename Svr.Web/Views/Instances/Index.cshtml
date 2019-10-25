@@ -1,0 +1,22 @@
+﻿@model Svr.Web.Models.InstanceViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = $"Список инстанций для {Model.Claim?.Name}";
+}
+
+<h4>@ViewData["Title"]</h4>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+@if (Model.Claim != null)
+{
+<p>
+    <a asp-action="Details" asp-controller="Claims" asp-route-id="@Model.Claim.Id" class="btn btn-sm btn-primary">Назад к @Model.Claim?.Name</a>
+    @if (Model.ItemViewModels.Count() < 4)
+    {
+        @*<a asp-action="Create" asp-controller="Instances" asp-route-owner="@Model.Claim.Id" class="btn btn-sm btn-primary">Добавить</a>*@
+        @await Html.PartialAsync(partialViewName: $"_AddButton")
+    }
+</p>
+};
+
+@await Html.PartialAsync("List", Model)
+

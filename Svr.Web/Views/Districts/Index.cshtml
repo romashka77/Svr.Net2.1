@@ -1,0 +1,15 @@
+﻿@model Svr.Web.Models.DistrictsViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Список районов";
+}
+
+<h4>@ViewData["Title"]</h4>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<p>
+    @*<a asp-action="Create" asp-controller="Districts" class="btn btn-default">Добавить</a>*@
+    @await Html.PartialAsync(partialViewName: $"_AddButton")
+</p>
+
+@await Html.PartialAsync("List", Model)
+

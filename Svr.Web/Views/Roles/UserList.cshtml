@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Svr.Infrastructure.Identity.ApplicationUser>
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                        <a class="btn btn-sm btn-primary" asp-action="ResetPassword" asp-route-userid="@user.Id">Сброс пароля</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svr.Core", "Svr.Core\Svr.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svr.Infrastructure", "Svr.Infrastructure\Svr.Infrastructure.csproj", "{15D30A36-502C-4ECC-A6D8-EABDF345CE03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svr.Web", "Svr.Web\Svr.Web.csproj", "{ECE7589A-ACC2-46CE-858E-E65AF4606E53}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15D30A36-502C-4ECC-A6D8-EABDF345CE03} = {15D30A36-502C-4ECC-A6D8-EABDF345CE03}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +26,10 @@ Global
 		{15D30A36-502C-4ECC-A6D8-EABDF345CE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15D30A36-502C-4ECC-A6D8-EABDF345CE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15D30A36-502C-4ECC-A6D8-EABDF345CE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE7589A-ACC2-46CE-858E-E65AF4606E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE7589A-ACC2-46CE-858E-E65AF4606E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE7589A-ACC2-46CE-858E-E65AF4606E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE7589A-ACC2-46CE-858E-E65AF4606E53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

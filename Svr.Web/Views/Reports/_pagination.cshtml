@@ -1,0 +1,11 @@
+﻿@model Svr.Web.Models.ReportsViewModels.IndexViewModel
+
+@addTagHelper "*, Svr.Web"
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-searchString="@(Model.FilterViewModel.SearchString)"
+           page-url-lord="@(Model.FilterViewModel.SelectedLord)"
+           page-url-owner="@(Model.FilterViewModel.SelectedOwner)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"
+           page-url-dateS="@(Model.FilterViewModel.DateS)"
+           page-url-datePo="@(Model.FilterViewModel.DatePo)">
+</page-link>

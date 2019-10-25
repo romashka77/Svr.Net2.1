@@ -1,0 +1,27 @@
+﻿@model Svr.Web.Models.DirNameViewModels.ItemViewModel
+
+@{
+    ViewData["Title"] = $"Удалить {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Вы уверены, что хотите удалить?</h3>
+<div>
+    <h4>@Model</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Name" />
+        <input type="submit" value="Удалить" class="btn btn-default" />
+        <a asp-action="Index" class="btn btn-default">Назад</a>
+    </form>
+</div>

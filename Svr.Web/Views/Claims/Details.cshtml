@@ -1,0 +1,93 @@
+﻿@model Svr.Web.Models.ClaimsViewModels.ItemViewModel
+@{
+    ViewData["Title"] = $"Подробности {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>@Model</h4>
+    @await Html.PartialAsync(partialViewName: $"_EditBackButton")
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayTextFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd>
+            <a asp-controller="Regions" asp-action="Details" asp-route-id="@Model.Region.Id">@Model.Region.Name</a>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+        <dd>
+            <a asp-controller="Districts" asp-action="Details" asp-route-id="@Model.District.Id">@Model.District.Name</a>
+        </dd>
+        <dt>
+            <a asp-controller="Instances" asp-action="Index" asp-route-owner="@Model.Id">Список инстанций</a>
+        </dt>
+        <dd>
+            @foreach (var item in Model.Instances)
+            {
+                <a asp-controller="Instances" asp-action="Details" asp-route-id="@item.Id">@item.Number @item.Name</a>
+                <br />
+            }
+        </dd>
+        <dt>
+            <a asp-controller="Meetings" asp-action="Index" asp-route-owner="@Model.Id">График заседаний</a>
+        </dt>
+        <dd>
+            @foreach (var item in Model.Meetings)
+            {
+                <a asp-controller="Meetings" asp-action="Details" asp-route-id="@item.Id">@item.Number @item.Name</a>
+                <br />
+            }
+        </dd>
+        <dt>
+            <a asp-controller="FileEntities" asp-action="Index" asp-route-owner="@Model.Id">Документы по иску</a>
+        </dt>
+        <dd>
+            @foreach (var item in Model.FileEntities)
+            {
+                <a asp-controller="FileEntities" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                <br />
+            }
+        </dd>
+        <dd>
+            @await Html.PartialAsync(partialViewName: $"_EditDeleteBackButton")
+        </dd>
+    </dl>
+</div>
+    
+        
+    
+

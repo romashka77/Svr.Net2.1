@@ -1,0 +1,76 @@
+﻿@model Svr.Web.Models.MeetingsViewModels.IndexViewModel
+
+@await Html.PartialAsync("_filtration", Model.FilterViewModel)
+
+@if (Model.ItemViewModels.Any())
+{
+    @await Html.PartialAsync("_sort", Model)
+    @await Html.PartialAsync("_pagination", Model)
+    foreach (var item in Model.ItemViewModels)
+    {
+        <div>
+            <hr />
+            <h4>@item</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Number)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayTextFor(modelItem => item.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Claim)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Claim.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.CreatedOnUtc)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.CreatedOnUtc)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.UpdatedOnUtc)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.UpdatedOnUtc)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Date)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Time)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </dd>
+                <dd>
+                    @await Html.PartialAsync(partialViewName: $"_EditDetailsDeleteButton", model: @item.Id.ToString())
+                </dd>
+            </dl>
+        </div>
+    }
+    @await Html.PartialAsync("_pagination", Model)
+}
+else
+{
+    <div>
+        НЕТ РЕЗУЛЬТАТОВ, СООТВЕТСТВУЮЩИХ ВАШЕМУ ПОИСКУ
+    </div>
+}

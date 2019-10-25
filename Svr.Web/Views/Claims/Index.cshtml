@@ -1,0 +1,14 @@
+﻿@model Svr.Web.Models.ClaimsViewModels.IndexViewModel
+
+@{
+    ViewData[index: "Title"] = "Список исков ";
+}
+
+<h4>@ViewData[index: "Title"]</h4>
+@await Html.PartialAsync(partialViewName: $"_StatusMessage", model: Model.StatusMessage) 
+<p>
+    @await Html.PartialAsync(partialViewName: $"_AddButton")
+    @*<a asp-action="Create" asp-controller="Claims" asp-all-route-data='new Dictionary<string, string> { { "lord", @Model.FilterViewModel.SelectedLord }, { "owner", @Model.FilterViewModel.SelectedOwner } }' class="btn btn-sm btn-primary">Добавить</a>*@
+</p>
+@await Html.PartialAsync(partialViewName: "List", model: Model)
+

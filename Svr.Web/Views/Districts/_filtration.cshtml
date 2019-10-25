@@ -1,0 +1,8 @@
+﻿@model Svr.Web.Models.FilterViewModel
+    <form method="get" class="form-inline">
+        @await Html.PartialAsync(partialViewName: $"_SearchString", model: Model.SearchString)
+        @await Html.PartialAsync(partialViewName: $"_DropDownListLord", model: Model)
+
+        @await Html.PartialAsync(partialViewName: $"_FilterButton")
+        @await Html.PartialAsync(partialViewName: "_FilterItemsCount", model: Model)
+    </form>

@@ -1,0 +1,54 @@
+﻿@model Svr.Web.Models.ReportsViewModels.IndexViewModel
+
+@addTagHelper "*, Svr.Web"
+
+<div>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.NameSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Имя
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CodeSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Расширение
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CreatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Дата создания
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.UpdatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+        Дата изменения
+    </sort-header>
+</div>
