@@ -1,11 +1,11 @@
 ﻿@model Svr.Web.Models.SubjectClaimsViewModels.IndexViewModel
 
-@Html.Partial("_filtration", Model.FilterViewModel)
+@await Html.PartialAsync("_filtration", Model.FilterViewModel)
 
 @if (Model.ItemViewModels.Any())
 {
-    @Html.Partial("_sort", Model)
-    @Html.Partial("_pagination", Model)
+    @await Html.PartialAsync("_sort", Model)
+    @await Html.PartialAsync("_pagination", Model)
     foreach (var item in Model.ItemViewModels)
     {
         <div>
@@ -56,7 +56,7 @@
             </dl>
         </div>
     }
-    @Html.Partial("_pagination", Model)
+    @await Html.PartialAsync("_pagination", Model)
 }
 else
 {

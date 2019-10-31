@@ -5,7 +5,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
 <h4>@Model</h4>
 <hr />
 @using (Html.BeginForm())

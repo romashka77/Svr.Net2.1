@@ -1,5 +1,5 @@
 ﻿@model Svr.Web.Models.CategoryDisputesViewModels.IndexViewModel
-@*@Html.Partial("_StatusMessage", Model.StatusMessage)*@
+@*@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)*@
 
 @await Html.PartialAsync("_filtration", Model.FilterViewModel)
 
