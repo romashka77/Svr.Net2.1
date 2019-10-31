@@ -28,7 +28,8 @@ namespace Svr.Web
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     // Создание менеджера ролей
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    /*await */AppIdentityDbContextSeed.SeedAsync(userManager, rolesManager);
+                    /*await */
+                    AppIdentityDbContextSeed.SeedAsync(userManager, rolesManager).Wait();
 
                     var dataContext = services.GetRequiredService<DataContext>();
                     //static
