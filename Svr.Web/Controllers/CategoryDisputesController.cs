@@ -54,7 +54,7 @@ namespace Svr.Web.Controllers
             //сортировка
             list = repository.Sort(list, sortOrder);
             //пагинация
-            var totalItems = list.Count();
+            var totalItems = await list.CountAsync();
             var itemsOnPage = list.Skip((page - 1) * itemsPage).Take(itemsPage).ToList();
             var indexModel = new IndexViewModel()
             {

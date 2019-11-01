@@ -106,7 +106,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: FileEntities/Create
-        public async Task<IActionResult> Create(long owner)
+        public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
             return View();
@@ -143,7 +143,7 @@ namespace Svr.Web.Controllers
                 }
             }
             ModelState.AddModelError(string.Empty, model.MessageAddError());
-            await SetViewBag(model);
+            //await SetViewBag(model);
             return View(model);
         }
         #endregion
@@ -174,7 +174,7 @@ namespace Svr.Web.Controllers
                 throw new ApplicationException(id.ToString().ErrorFind());
             }
             var model = new ItemViewModel { Id = item.Id, Name = item.Name, Description = item.Description, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, Claim = item.Claim, ClaimId = item.ClaimId, Path = item.Path };
-            await SetViewBag(model);
+            //await SetViewBag(model);
             return View(model);
         }
         //// POST: FileEntities/Edit/5
@@ -206,7 +206,7 @@ namespace Svr.Web.Controllers
                 }
                 //return RedirectToAction(nameof(Index));
             }
-            await SetViewBag(model);
+            //await SetViewBag(model);
             return View(model);
         }
         #endregion
@@ -253,10 +253,7 @@ namespace Svr.Web.Controllers
             }
         }
         #endregion
-        private static async Task SetViewBag(ItemViewModel model)
-        {
-            return;
-        }
+        
         private string GetFile(string path)
         {
             return Path.Combine(hostingEnvironment.WebRootPath, FilesFolder, path);

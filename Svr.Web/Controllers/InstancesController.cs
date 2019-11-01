@@ -25,7 +25,7 @@ namespace Svr.Web.Controllers
         private readonly IClaimRepository сlaimRepository;
         private readonly IDirRepository dirRepository;
         private readonly ILogger<InstancesController> logger;
-        private readonly UserManager<ApplicationUser> userManager;
+        //private readonly UserManager<ApplicationUser> userManager;
 
         [TempData]
         public string StatusMessage { get; set; }

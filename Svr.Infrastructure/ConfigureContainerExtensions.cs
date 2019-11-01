@@ -2,12 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Svr.Core.Interfaces;
-using Svr.Infrastructure;
 using Svr.Infrastructure.Data;
 using Svr.Infrastructure.Identity;
 using Svr.Infrastructure.Services;
 
-namespace Svr.Web
+namespace Svr.Infrastructure
 {
     public static class ConfigureContainerExtensions
     {

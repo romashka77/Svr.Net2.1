@@ -102,7 +102,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Meetings/Create
-        public async Task<IActionResult> Create(long owner)
+        public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
             return View();
