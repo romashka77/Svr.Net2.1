@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
     public class ClaimsController : Controller
     {
         private readonly IClaimRepository repository;
@@ -63,6 +63,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Index
         // GET: Claims
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null,
             DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
         {
@@ -163,6 +164,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Details
         // GET: Claims/Details/5
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Details(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -178,7 +180,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Claims/Create
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -205,7 +207,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -226,7 +228,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: Claims/Edit/5
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -243,7 +245,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
+        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Edit(EditViewModel model)
         {
             if (ModelState.IsValid)
@@ -285,7 +287,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: Claims/Delete/5
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР")]
+        [Authorize(Roles = "Администратор УПФР, Администратор")]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);

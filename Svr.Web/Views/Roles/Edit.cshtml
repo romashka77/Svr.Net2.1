@@ -15,19 +15,25 @@
             @role.Name
         </div>
     }
-    <div class="form-group">
-        @Html.Label(null, "Регион по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.RegionId, ViewBag.Regions as SelectList, "Выберите регион", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+    @if (User.IsInRole("Администратор"))
+    {
+        <div class="form-group">
+            @Html.Label(null, "Регион по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RegionId, ViewBag.Regions as SelectList, "Выберите регион", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.Label(null, "Район по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.DistrictId, ViewBag.Districts as SelectList, "Выберите район", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+    }
+    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР"))
+    {
+        <div class="form-group">
+            @Html.Label(null, "Район по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DistrictId, ViewBag.Districts as SelectList, "Выберите район", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
+    }
     <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
 </form>

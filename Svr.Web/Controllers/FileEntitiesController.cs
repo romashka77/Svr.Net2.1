@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
     public class FileEntitiesController : Controller
     {
         private const string FilesFolder = "Files";
@@ -54,6 +54,7 @@ namespace Svr.Web.Controllers
 
         #region Index
         // GET: FileEntities
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string owner = null, string searchString = null, int page = 1, int itemsPage = 10, DateTime? date = null)
         {
             var list = repository.List(new FileEntitySpecification(owner.ToLong()));
@@ -90,6 +91,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Details
         // GET: FileEntities/Details/5
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Details(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -106,6 +108,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: FileEntities/Create
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
@@ -117,6 +120,7 @@ namespace Svr.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [DisableRequestSizeLimit]
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Create(ItemViewModel model/*, IFormFile uploadedFile*/)
         {
             if ((ModelState.IsValid) && (model.UploadedFile != null))
@@ -147,6 +151,7 @@ namespace Svr.Web.Controllers
             return View(model);
         }
         #endregion
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Download(string path)
         {
             if (path == null)
@@ -164,6 +169,7 @@ namespace Svr.Web.Controllers
 
         #region Edit
         // GET: FileEntities/Edit/5
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -182,6 +188,7 @@ namespace Svr.Web.Controllers
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -212,6 +219,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: FileEntities/Delete/5
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -228,6 +236,7 @@ namespace Svr.Web.Controllers
         // POST: FileEntities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

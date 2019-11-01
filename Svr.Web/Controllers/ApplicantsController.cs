@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
     public class ApplicantsController : Controller
     {
         private readonly IApplicantRepository repository;

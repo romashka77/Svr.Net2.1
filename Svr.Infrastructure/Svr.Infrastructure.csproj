@@ -22,5 +22,5 @@
   <ItemGroup>
     <None Include="..\Svr.Web\appsettings.json" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties _1_1_4svr_1web_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

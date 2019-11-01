@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор, Администратор ОПФР, Администратор УПФР, Пользователь ОПФР")]
+    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
     public class RegionsController : Controller
     {
         private readonly ILogger<RegionsController> logger;

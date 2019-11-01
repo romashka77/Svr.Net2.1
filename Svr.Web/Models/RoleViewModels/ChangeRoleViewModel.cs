@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Svr.Web.Models.RoleViewModels
@@ -16,6 +17,7 @@ namespace Svr.Web.Models.RoleViewModels
         {
             AllRoles = new List<IdentityRole>();
             UserRoles = new List<string>();
+            
         }
     }
 }

@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Identity;
+using Svr.Web.Models;
 using Svr.Web.Models.RoleViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор")]
+    [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -38,13 +40,11 @@ namespace Svr.Web.Controllers
         }
         #endregion
 
-
         public IActionResult Index() => View(roleManager.Roles.ToList());
-
         [Authorize(Roles = "Администратор")]
         public IActionResult Create() => View();
-        [Authorize(Roles = "Администратор")]
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(string name)
         {
             if (!string.IsNullOrEmpty(name))
@@ -76,26 +76,63 @@ namespace Svr.Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-        public IActionResult UserList() => View(userManager.Users.ToList());
-
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+        public async Task<IActionResult> UserList()
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var list = userManager.Users;
+            if (User.IsInRole("Администратор"))
+            { }
+            else
+            if (User.IsInRole("Администратор ОПФР"))
+            {
+                list = list.Where(i => i.RegionId == user.RegionId);
+            }
+            else
+            if (User.IsInRole("Администратор УПФР"))
+            {
+                list = list.Where(i => i.DistrictId == user.DistrictId);
+            }
+            return View(list.ToList());
+        }
+        private async Task<IEnumerable<SelectListItem>> GetRegionSelectList(string lord)
+        {
+            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole("Администратор")).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+        }
+        private async Task<IEnumerable<SelectListItem>> GetDistrictSelectList(string lord, string owner)
+        {
+            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+        }
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя
-            ApplicationUser user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(userId);
             if (user != null)
             {
                 // получем список ролей пользователя
                 var userRoles = await userManager.GetRolesAsync(user);
-                var allRoles = roleManager.Roles.ToList();
+                var allRoles = roleManager.Roles;
+                if (User.IsInRole("Администратор"))
+                { }
+                else
+                if (User.IsInRole("Администратор ОПФР"))
+                {
+                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь ")|| i.Name.Contains("Администратор УПФР"));
+                }
+                else
+                if (User.IsInRole("Администратор УПФР"))
+                {
+                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь УПФР"));
+                }
+
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
                     UserEmail = user.Email,
                     UserRoles = userRoles,
-                    AllRoles = allRoles,
-                    RegionId = user.RegionId,
-                    DistrictId = user.DistrictId
+                    AllRoles = allRoles.ToList(),
+                    //FilterViewModel = new FilterViewModel(searchString: searchString, owner: owner, owners: await GetDistrictSelectList(lord, owner), lord: lord, lords: await GetRegionSelectList(lord), dateS: dateS, datePo: datePo, category: category, categores: await GetCategoreSelectList(category), groupClaim: groupClaim, groupClaims: await GetGroupClaimSelectList(category, groupClaim), subjectClaim: subjectClaim, subjectClaims: await GetSubjectClaimSelectList(groupClaim, subjectClaim), resultClaim: resultClaim, resultClaims: await GetResultClaimSelectList(), itemsCount: itemsCount)
+                    ////ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification
                 };
                 ViewBag.Regions = new SelectList(await regionRepository.ListAllAsync(), "Id", "Name", model.RegionId);
                 ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification(null)), "Id", "Name", model.DistrictId);
@@ -104,7 +141,6 @@ namespace Svr.Web.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> ResetPassword(string userId)
         {
             ApplicationUser user = await userManager.FindByIdAsync(userId);

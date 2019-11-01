@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор, Администратор ОПФР")]
+    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
     public class SubjectClaimsController : Controller
     {
         private readonly IGroupClaimRepository groupClaimRepository;
@@ -96,6 +96,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: SubjectClaims/Create
+        [Authorize(Roles = "Администратор ОПФР, Администратор")]
         public async Task<IActionResult> Create()
         {
             ViewBag.groupClaims = new SelectList((await groupClaimRepository.ListAllAsync()).Select(a => new { a.Id, Name = $"{a.Code} {a.Name}" }), "Id", "Name", 1);
@@ -106,6 +107,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор ОПФР, Администратор")]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -125,6 +127,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: SubjectClaims/Edit/5
+        [Authorize(Roles = "Администратор ОПФР, Администратор")]
         public async Task<IActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -142,6 +145,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор ОПФР, Администратор")]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -171,6 +175,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: SubjectClaims/Delete/5
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
