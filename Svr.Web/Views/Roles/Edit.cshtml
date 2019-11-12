@@ -25,6 +25,10 @@
             </div>
         </div>
     }
+    else
+    {
+        @Html.HiddenFor(model => model.RegionId)
+    }
     @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР"))
     {
         <div class="form-group">
@@ -34,6 +38,10 @@
                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
             </div>
         </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.DistrictId)
     }
     <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
 </form>

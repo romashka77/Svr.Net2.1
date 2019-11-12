@@ -91,7 +91,7 @@ namespace Svr.Web.Controllers
             else
             if (User.IsInRole("Администратор УПФР"))
             {
-                list = list.Where(i => i.DistrictId == user.DistrictId);
+                list = list.Where(i => i.DistrictId == user.DistrictId || i.RegionId == null);
             }
             return View(list.ToList());
         }
@@ -103,6 +103,7 @@ namespace Svr.Web.Controllers
         {
             return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя
@@ -124,15 +125,15 @@ namespace Svr.Web.Controllers
                 {
                     allRoles = allRoles.Where(i => i.Name.Contains("Пользователь УПФР"));
                 }
-
+                var adm = await userManager.FindByNameAsync(User.Identity.Name);
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
                     UserEmail = user.Email,
                     UserRoles = userRoles,
                     AllRoles = allRoles.ToList(),
-                    RegionId = user.RegionId,
-                    DistrictId = user.DistrictId,
+                    RegionId = adm.RegionId,
+                    DistrictId = adm.DistrictId,
                     //FilterViewModel = new FilterViewModel(searchString: searchString, owner: owner, owners: await GetDistrictSelectList(lord, owner), lord: lord, lords: await GetRegionSelectList(lord), dateS: dateS, datePo: datePo, category: category, categores: await GetCategoreSelectList(category), groupClaim: groupClaim, groupClaims: await GetGroupClaimSelectList(category, groupClaim), subjectClaim: subjectClaim, subjectClaims: await GetSubjectClaimSelectList(groupClaim, subjectClaim), resultClaim: resultClaim, resultClaims: await GetResultClaimSelectList(), itemsCount: itemsCount)
                     ////ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification
                 };
@@ -142,7 +143,7 @@ namespace Svr.Web.Controllers
             }
             return NotFound();
         }
-
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
         public async Task<IActionResult> ResetPassword(string userId)
         {
             ApplicationUser user = await userManager.FindByIdAsync(userId);
@@ -156,15 +157,17 @@ namespace Svr.Web.Controllers
         }
 
 
-
+        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
         [HttpPost]
-        public async Task<IActionResult> Edit(string userId, List<string> roles, long? regionId, long? districtId)
+        //public async Task<IActionResult> Edit(string userId, List<string> roles, long? regionId, long? districtId)
+        public async Task<IActionResult> Edit(ChangeRoleViewModel model, List<string> roles)
         {
             // получаем пользователя
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(model.UserId);
             if (user == null) return NotFound();
-            user.RegionId = regionId;
-            user.DistrictId = districtId;
+
+            user.RegionId = model.RegionId;
+            user.DistrictId = model.DistrictId;
             await userManager.UpdateAsync(user);
             //await userManager.AccessFailedAsync(user);
             // получем список ролей пользователя
