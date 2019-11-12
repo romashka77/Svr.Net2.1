@@ -86,7 +86,7 @@ namespace Svr.Web.Controllers
             else
             if (User.IsInRole("Администратор ОПФР"))
             {
-                list = list.Where(i => i.RegionId == user.RegionId);
+                list = list.Where(i => i.RegionId == user.RegionId || i.RegionId == null);
             }
             else
             if (User.IsInRole("Администратор УПФР"))
@@ -117,7 +117,7 @@ namespace Svr.Web.Controllers
                 else
                 if (User.IsInRole("Администратор ОПФР"))
                 {
-                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь ")|| i.Name.Contains("Администратор УПФР"));
+                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь ") || i.Name.Contains("Администратор УПФР"));
                 }
                 else
                 if (User.IsInRole("Администратор УПФР"))
@@ -131,11 +131,13 @@ namespace Svr.Web.Controllers
                     UserEmail = user.Email,
                     UserRoles = userRoles,
                     AllRoles = allRoles.ToList(),
+                    RegionId = user.RegionId,
+                    DistrictId = user.DistrictId,
                     //FilterViewModel = new FilterViewModel(searchString: searchString, owner: owner, owners: await GetDistrictSelectList(lord, owner), lord: lord, lords: await GetRegionSelectList(lord), dateS: dateS, datePo: datePo, category: category, categores: await GetCategoreSelectList(category), groupClaim: groupClaim, groupClaims: await GetGroupClaimSelectList(category, groupClaim), subjectClaim: subjectClaim, subjectClaims: await GetSubjectClaimSelectList(groupClaim, subjectClaim), resultClaim: resultClaim, resultClaims: await GetResultClaimSelectList(), itemsCount: itemsCount)
                     ////ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification
                 };
-                ViewBag.Regions = new SelectList(await regionRepository.ListAllAsync(), "Id", "Name", model.RegionId);
-                ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification(null)), "Id", "Name", model.DistrictId);
+                ViewBag.Regions = new SelectList(await regionRepository.ListAsync(new RegionSpecification(model.RegionId)), "Id", "Name", model.RegionId);
+                ViewBag.Districts = new SelectList(await districtRepository.ListAsync(new DistrictSpecification(model.RegionId)), "Id", "Name", model.DistrictId);
                 return View(model);
             }
             return NotFound();
