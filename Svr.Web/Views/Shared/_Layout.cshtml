@@ -50,9 +50,10 @@
                         @*<li><a asp-area="" asp-controller="Instances" asp-action="Index">Инстанции</a></li>*@
                         <li><a asp-area="" asp-controller="Reports" asp - action="Index"> Отчеты </a></li>
                     }
-                    @if (User.IsInRole("Администратор")|| User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР"))
+                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР"))
                     {
-                    <li><a asp-area="" asp-controller="Roles" asp-action="Index">Роли</a></li>
+                        <li><a asp-area="" asp-controller="Roles" asp-action="Index">Роли</a></li>
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Пользователи</a></li>
                     }
 
                 </ul>
