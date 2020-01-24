@@ -174,7 +174,8 @@ namespace Svr.Web.Controllers
                 return RedirectToAction(nameof(Index));
                 //throw new ApplicationException($"Не удалось загрузить район с ID {id}.");
             }
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities };
+            
+            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId=item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim=item.GroupClaim, SubjectClaim=item.SubjectClaim };
             return View(model);
         }
         #endregion
