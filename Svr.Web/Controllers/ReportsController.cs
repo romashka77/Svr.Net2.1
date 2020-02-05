@@ -573,13 +573,11 @@ namespace Svr.Web.Controllers
                         var count = await claims.CountAsync();
                         if (count > 0)
                         {
-
                             foreach (var claim in claims)
                             {
                                 cells[$"B{l}"].Value = $"{ claim.Code}";//{ claim.Name}
                                 cells[$"C{l++}"].Value = $"{ claim.Sum}";
                             }
-
                             groupRecord[0].Count += count;
                             var sum = await claims.SumAsync(c => c.Sum);
                             if (sum != null)
@@ -601,7 +599,6 @@ namespace Svr.Web.Controllers
                         {
                             instances = instances.Where(c => c.DateInCourtDecision <= datePo);
                         }
-
                         //-------------------------------
                         var instancesMax = instances.GroupBy(p => p.ClaimId, p => p.Number, (key, g) => new { ClaimsId = key, MaxNumber = g.Max() });
                         instances = instances.Join(instancesMax, p => p.ClaimId, t => t.ClaimsId, (p, t) => new
@@ -655,7 +652,6 @@ namespace Svr.Web.Controllers
                             СostSatisfied = p.СostSatisfied
                         });
                         //-------------------------------
-
                         var instances1 = await instances.Where(i => i.Number == 1).AsNoTracking().ToListAsync();
                         if (instances1.Count > 0)
                         {
@@ -665,7 +661,6 @@ namespace Svr.Web.Controllers
                                 cells[$"E{l}"].Value = $"{ instance.SumSatisfied}";
                                 cells[$"F{l++}"].Value = $"{ instance.SumDenied}";
                             }
-
                             var k = 0;
                             if (flg == 1)
                                 k = 1;
@@ -733,7 +728,6 @@ namespace Svr.Web.Controllers
                 }
             }
             SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
-
             SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
             SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.2" : ""));
             SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.3" : "20.2"));
