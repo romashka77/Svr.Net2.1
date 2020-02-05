@@ -268,36 +268,43 @@ namespace Svr.Web.Controllers
                 {
                     duty.Satisfied.Count++;
                     duty.Satisfied.Sum = duty.Satisfied.Sum + (item?.DutySatisfied ?? 0);
+                    duty.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutySatisfied ?? 0) });
+
                 }
 
                 if (item?.DutyDenied != null && item?.DutyDenied > 0)
                 {
                     duty.Denied.Count++;
                     duty.Denied.Sum = duty.Denied.Sum + (item?.DutyDenied ?? 0);
+                    duty.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutyDenied ?? 0) });
                 }
 
                 if (item?.ServicesSatisfied != null && item?.ServicesSatisfied > 0)
                 {
                     services.Satisfied.Count++;
                     services.Satisfied.Sum = services.Satisfied.Sum + (item?.ServicesSatisfied ?? 0);
+                    services.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.ServicesSatisfied ?? 0) });
                 }
 
                 if (item?.ServicesDenied != null && item?.ServicesDenied > 0)
                 {
                     services.Denied.Count++;
                     services.Denied.Sum = services.Denied.Sum + (item?.ServicesDenied ?? 0);
+                    services.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.ServicesDenied ?? 0) });
                 }
 
                 if (item?.СostSatisfied != null && item?.СostSatisfied > 0)
                 {
                     cost.Satisfied.Count++;
                     cost.Satisfied.Sum = cost.Satisfied.Sum + (item?.СostSatisfied ?? 0);
+                    cost.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.СostSatisfied ?? 0) });
                 }
 
                 if (item?.СostDenied != null && item?.СostDenied > 0)
                 {
                     cost.Denied.Count++;
                     cost.Denied.Sum = cost.Denied.Sum + (item?.СostDenied ?? 0);
+                    cost.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.СostDenied ?? 0) });
                 }
 
                 //-----------------
@@ -305,9 +312,9 @@ namespace Svr.Web.Controllers
                 {
                     dutyPaid.Satisfied.Count++;
                     dutyPaid.Satisfied.Sum = dutyPaid.Satisfied.Sum + (item?.DutyPaid ?? 0);
+                    dutyPaid.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutyPaid ?? 0) });
                 }
             }
-            //return result;
         }
 
         private static int CellToInt(string text, int count)
@@ -319,22 +326,29 @@ namespace Svr.Web.Controllers
         {
             return decimal.TryParse(text, out var t) ? count + t : count;
         }
-
+        private class NameSum
+        {
+            public string Name { get; set; }
+            public decimal Sum { get; set; }
+        }
         private class Rec
         {
             //количество
             public int Count { get; set; }
             //сумма
             public decimal Sum { get; set; }
+            public List<NameSum> ListNameSum { get; }
+            public Rec()
+            {
+                ListNameSum = new List<NameSum>();
+            }
         }
-
         private class Record
         {
             //удовлетворено
             public Rec Satisfied { get; }
             //отказано
             public Rec Denied { get; }
-
             public Record()
             {
                 Satisfied = new Rec();
@@ -404,7 +418,7 @@ namespace Svr.Web.Controllers
         {
             return Math.Round(hundred / 1000, 1);
         }
-        private static void SetCells(ExcelWorksheet worksheet, IReadOnlyList<Record> record, string cat = "", byte d = 0)
+        private static void SetCells(ExcelWorksheet worksheet, ExcelWorksheet worksheetLog, IReadOnlyList<Record> record, ref int l, string cat = "", byte d = 0)
         {
             if (record[1 + d].Satisfied.Count <= 0 && record[1 + d].Denied.Count <= 0 &&
                 record[3 + d].Satisfied.Count <= 0 && record[3 + d].Denied.Count <= 0 &&
@@ -413,22 +427,64 @@ namespace Svr.Web.Controllers
             var n = GetNumRow(worksheet, cat);
             if (n == 0) return;
             var cells = worksheet.Cells;
+            var cellsLog = worksheetLog.Cells;
+            cellsLog[$"A{l++}"].Value = cat;
             //cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[1 + d].Satisfied.Count);
             cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[1 + d].Satisfied.Sum));
+            for (int i = 0; i < record[1 + d].Satisfied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"D{l}"].Value = record[1 + d].Satisfied.ListNameSum[i].Name;
+                cellsLog[$"E{l++}"].Value = record[1 + d].Satisfied.ListNameSum[i].Sum;
+            }
             //cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[1 + d].Denied.Count);
             cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[1 + d].Denied.Sum));
+            for (int i = 0; i < record[1 + d].Denied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"D{l}"].Value = record[1 + d].Denied.ListNameSum[i].Name;
+                cellsLog[$"F{l++}"].Value = record[1 + d].Denied.ListNameSum[i].Sum;
+            }
             //cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[3 + d].Satisfied.Count);
             cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[3 + d].Satisfied.Sum));
+            for (int i = 0; i < record[3 + d].Satisfied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"G{l}"].Value = record[3 + d].Satisfied.ListNameSum[i].Name;
+                cellsLog[$"H{l++}"].Value = record[3 + d].Satisfied.ListNameSum[i].Sum;
+            }
             //cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[3 + d].Denied.Count);
             cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[3 + d].Denied.Sum));
+            for (int i = 0; i < record[3 + d].Denied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"G{l}"].Value = record[3 + d].Denied.ListNameSum[i].Name;
+                cellsLog[$"I{l++}"].Value = record[3 + d].Denied.ListNameSum[i].Sum;
+            }
             //cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[5 + d].Satisfied.Count);
             cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[5 + d].Satisfied.Sum));
+            for (int i = 0; i < record[5 + d].Satisfied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"J{l}"].Value = record[5 + d].Satisfied.ListNameSum[i].Name;
+                cellsLog[$"K{l++}"].Value = record[5 + d].Satisfied.ListNameSum[i].Sum;
+            }
             //cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[5 + d].Denied.Count);
             cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[5 + d].Denied.Sum));
+            for (int i = 0; i < record[5 + d].Denied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"J{l}"].Value = record[5 + d].Denied.ListNameSum[i].Name;
+                cellsLog[$"L{l++}"].Value = record[5 + d].Denied.ListNameSum[i].Sum;
+            }
             //cells[$"O{n}"].Value = CellToInt(cells[$"O{n}"].Text, record[7 + d].Satisfied.Count);
             cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[7 + d].Satisfied.Sum));
+            for (int i = 0; i < record[7 + d].Satisfied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"M{l}"].Value = record[7 + d].Satisfied.ListNameSum[i].Name;
+                cellsLog[$"N{l++}"].Value = record[7 + d].Satisfied.ListNameSum[i].Sum;
+            }
             //cells[$"AA{n}"].Value = CellToInt(cells[$"AA{n}"].Text, record[7 + d].Denied.Count);
             cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[7 + d].Denied.Sum));
+            for (int i = 0; i < record[7 + d].Denied.ListNameSum.Count; i++)
+            {
+                cellsLog[$"M{l}"].Value = record[7 + d].Denied.ListNameSum[i].Name;
+                cellsLog[$"O{l++}"].Value = record[7 + d].Denied.ListNameSum[i].Sum;
+            }
         }
 
         private async Task<ExcelPackage> CreateExcelPackage(string owner = null,
@@ -455,19 +511,32 @@ namespace Svr.Web.Controllers
 
             var cells = worksheetLog.Cells;
             int l = 1;
-            cells[$"A{l}"].Value = "Иски";
-            cells[$"B{l}"].Value = $"Инстанция 1";
-            cells[$"C{l}"].Value = $"Инстанция 2";
-            cells[$"D{l}"].Value = $"Инстанция 3";
-            cells[$"E{l++}"].Value = $"Инстанция 4";
-            worksheetLog.Column(1).Width = 50;
-            worksheetLog.Column(2).Width = 50;
-            worksheetLog.Column(3).Width = 50;
-            worksheetLog.Column(4).Width = 50;
+            cells[$"B{l}"].Value = $"Иски";
+            cells[$"C{l}"].Value = $"Сумма иска";
+            cells[$"D{l}"].Value = $"Инстанция 1";
+            cells[$"E{l}"].Value = $"Сумма удовлетворено 1";
+            cells[$"F{l}"].Value = $"Сумма отказано 1";
+            cells[$"G{l}"].Value = $"Инстанция 2";
+            cells[$"H{l}"].Value = $"Сумма удовлетворено 2";
+            cells[$"I{l}"].Value = $"Сумма отказано 2";
+            cells[$"J{l}"].Value = $"Инстанция 3";
+            cells[$"K{l}"].Value = $"Сумма удовлетворено 3";
+            cells[$"L{l}"].Value = $"Сумма отказано 3";
+            cells[$"M{l}"].Value = $"Инстанция 4";
+            cells[$"N{l}"].Value = $"Сумма удовлетворено 4";
+            cells[$"O{l}"].Value = $"Сумма отказано 4";
+            worksheetLog.Column(l + 1).Width = 50;
+
+            for (int i = 0; i < 12; i++)
+            {
+                if ((i % 3) == 0)
+                    worksheetLog.Column(i + l + 3).Width = 50;
+            }
 
             foreach (var groupClaim in groupClaims)
             {
-                cells[$"A{l++}"].Value = $"{ groupClaim.Code} {groupClaim.Name}";
+                cells[$"A{l}"].Value = $"{ groupClaim.Code}";
+                cells[$"B{l++}"].Value = $"{groupClaim.Name}";
                 byte flg = 0;
                 long? groupClaimCode = groupClaim.Code.ToLong();
                 if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 0) && (groupClaimCode < 5)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 0) && (groupClaimCode < 5)))
@@ -485,16 +554,14 @@ namespace Svr.Web.Controllers
                 {
                     try
                     {
-                        cells[$"A{l++}"].Value = $"{ subjectClaim.Code} {subjectClaim.Name}";
+                        cells[$"A{l}"].Value = $"{ subjectClaim.Code}";
+                        cells[$"B{l++}"].Value = $"{subjectClaim.Name}";
                         var groupRecord = InitialRec();
                         var claims = claimRepository.List(new ClaimSpecificationReport(owner.ToLong())).Where(c => c.SubjectClaimId == subjectClaim.Id);
                         var n = (from cell in worksheet.Cells["A:A"] where cell.Text.Equals(subjectClaim.Code) select cell)
                             ?.Last().End.Row;
                         if (n == null) continue;
-                        //-----------------------
-                        //const int itemp = 1581;
-                        //claims = claims.Where(c => c.Id == itemp);
-                        //---------------------
+
                         if (dateS != null)
                         {
                             claims = claims.Where(c => c.DateIn >= dateS);
@@ -509,7 +576,8 @@ namespace Svr.Web.Controllers
 
                             foreach (var claim in claims)
                             {
-                                cells[$"A{l++}"].Value = $"{ claim.Code}";//{ claim.Name}
+                                cells[$"B{l}"].Value = $"{ claim.Code}";//{ claim.Name}
+                                cells[$"C{l++}"].Value = $"{ claim.Sum}";
                             }
 
                             groupRecord[0].Count += count;
@@ -593,7 +661,9 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances1)
                             {
-                                cells[$"B{l++}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"D{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"E{l}"].Value = $"{ instance.SumSatisfied}";
+                                cells[$"F{l++}"].Value = $"{ instance.SumDenied}";
                             }
 
                             var k = 0;
@@ -608,7 +678,9 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances2)
                             {
-                                cells[$"C{l++}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"G{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"H{l}"].Value = $"{ instance.SumSatisfied}";
+                                cells[$"I{l++}"].Value = $"{ instance.SumDenied}";
                             }
                             var k = 0;
                             if (flg == 1)
@@ -622,7 +694,9 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances3)
                             {
-                                cells[$"D{l++}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"J{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"K{l}"].Value = $"{ instance.SumSatisfied}";
+                                cells[$"L{l++}"].Value = $"{ instance.SumDenied}";
                             }
                             var k = 0;
                             if (flg == 1)
@@ -636,7 +710,9 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances4)
                             {
-                                cells[$"E{l++}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"M{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cells[$"N{l}"].Value = $"{ instance.SumSatisfied}";
+                                cells[$"O{l++}"].Value = $"{ instance.SumDenied}";
                             }
                             var k = 0;
                             if (flg == 1)
@@ -656,27 +732,28 @@ namespace Svr.Web.Controllers
                     }
                 }
             }
-            SetCells(worksheet, duty, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
-            SetCells(worksheet, dutyPaid, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
-            SetCells(worksheet, services, (template.Name.Equals(FileTemplateNameIn) ? "25.2" : ""));
-            SetCells(worksheet, cost, (template.Name.Equals(FileTemplateNameIn) ? "25.3" : "20.2"));
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
+
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
+            SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.2" : ""));
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.3" : "20.2"));
 
 
-            SetCells(worksheet, duty, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
-            SetCells(worksheet, dutyPaid, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
-            SetCells(worksheet, services, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : ""), 1);
-            SetCells(worksheet, cost, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : "20.4"), 1);
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
+            SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : ""), 1);
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : "20.4"), 1);
 
 
-            SetCells(worksheet, duty, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
-            SetCells(worksheet, dutyPaid, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
-            SetCells(worksheet, services, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""));
-            SetCells(worksheet, cost, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
+            SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""));
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
 
-            SetCells(worksheet, duty, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
-            SetCells(worksheet, dutyPaid, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
-            SetCells(worksheet, services, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""), 1);
-            SetCells(worksheet, cost, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
+            SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""), 1);
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
 
             return package;
         }
