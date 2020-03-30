@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Svr.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Svr.Web.Models.ClaimsViewModels
 {
-    public class CreateViewModel : BaseEntity
+    public class CreateViewModel : BaseEntity, IValidatableObject
     {
         [MaxLength(50, ErrorMessage = ErrorStringMaxLength)]
         [Display(Name = "№ дела", Prompt = "Введите № дела")]
@@ -26,7 +27,18 @@ namespace Svr.Web.Models.ClaimsViewModels
         [Display(Name = "Дата регистрации")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = ErrorStringEmpty)]
+        [Remote("ValidateDate", "Claims")]
         public DateTime DateReg { get; set; }
         public override string ToString() => "Иск";
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DateReg.Year < 2018)
+            {
+                yield return new ValidationResult(
+                    $"Год должен быть > 2017",
+                    new[] { nameof(DateReg) });
+            }
+        }
     }
 }

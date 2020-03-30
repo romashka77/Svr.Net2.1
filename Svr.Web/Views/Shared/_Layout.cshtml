@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]-Судебная практика</title>
     @await Html.PartialAsync("_Favicons")
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -32,15 +33,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">О сервисе</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь ОПФР"))
+                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР"))
                     {
                         <li><a asp-area="" asp-controller="Regions" asp-action="Index">Регионы</a></li>
-                    }
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь ОПФР") || User.IsInRole("Пользователь УПФР"))
-                    {
                         <li><a asp-area="" asp-controller="Districts" asp-action="Index">Районы</a></li>
+                    }
+                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))
+                    {
                         <li><a asp-area="" asp-controller="Performers" asp-action="Index">Исполнители</a></li>
-
                         <li><a asp-area="" asp-controller="CategoryDisputes" asp-action="Index">Категории споров</a></li>
                         <li><a asp-area="" asp-controller="GroupClaims" asp-action="Index">Группы исков</a></li>
                         <li><a asp-area="" asp-controller="SubjectClaims" asp-action="Index">Предметы исков</a></li>
@@ -49,6 +49,10 @@
                         <li><a asp-area="" asp-controller="Claims" asp-action="Index">Иски</a></li>
                         @*<li><a asp-area="" asp-controller="Instances" asp-action="Index">Инстанции</a></li>*@
                         <li><a asp-area="" asp-controller="Reports" asp - action="Index"> Отчеты </a></li>
+                    }
+                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР") || User.IsInRole("Пользователь ОПФР"))
+                    {
+                        <li><a asp-area="" asp-controller="Claims" asp-action="Index">Иски</a></li>
                     }
                     @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР"))
                     {

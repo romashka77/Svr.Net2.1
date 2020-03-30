@@ -8,6 +8,9 @@
 
 <p>
     <a asp-action="Details" asp-controller="Claims" asp-route-id="@Model.Claim.Id" class="btn btn-sm btn-primary">Назад к @Model.Claim.Name</a>
-    <a asp-action="Create" asp-controller="Meetings" asp-route-owner="@Model.Claim.Id" class="btn btn-sm btn-primary">Добавить</a>
+    @if (!User.IsInRole("Пользователь ОПФР"))
+    {
+        <a asp-action="Create" asp-controller="Meetings" asp-route-owner="@Model.Claim.Id" class="btn btn-sm btn-primary">Добавить</a>
+    }
 </p>
 @await Html.PartialAsync("List", Model)

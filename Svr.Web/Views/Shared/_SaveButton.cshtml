@@ -1,1 +1,4 @@
-﻿<input type="submit" value="Сохранить" class="btn btn-sm btn-primary" />
+﻿@if (!User.IsInRole("Пользователь ОПФР"))
+{
+    <input type="submit" value="Сохранить" class="btn btn-sm btn-primary" />
+}

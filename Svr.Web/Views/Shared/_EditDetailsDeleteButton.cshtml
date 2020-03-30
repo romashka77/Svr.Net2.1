@@ -2,7 +2,11 @@
 
 @if (!string.IsNullOrEmpty(Model))
 {
-    <a asp-action="Edit" asp-route-id=@Model class="btn btn-sm btn-primary">Редактировать</a>
+    @if (!User.IsInRole("Пользователь ОПФР"))
+    {
+        <a asp-action="Edit" asp-route-id=@Model class="btn btn-sm btn-primary">Редактировать</a>
+        <a asp-action="Delete" asp-route-id=@Model class="btn btn-sm btn-danger">Удалить</a>
+    }
     <a asp-action="Details" asp-route-id=@Model class="btn btn-sm btn-primary">Подробнее</a>
-    <a asp-action="Delete" asp-route-id=@Model class="btn btn-sm btn-danger">Удалить</a>
+
 }

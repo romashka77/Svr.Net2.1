@@ -9,7 +9,7 @@ namespace Svr.Web.Models.ClaimsViewModels
     /// <summary>
     /// Иск
     /// </summary>
-    public class EditViewModel : BaseEntity
+    public class EditViewModel : BaseEntity, IValidatableObject
     {
         [Display(Name = "Регион")]
         public long RegionId { get; set; }
@@ -87,5 +87,14 @@ namespace Svr.Web.Models.ClaimsViewModels
 
         public override string ToString() => "Иск";
         public string StatusMessage { get; set; }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DateReg.Year < 2017)
+            {
+                yield return new ValidationResult(
+                    $"Год должен быть > 2017.",
+                    new[] { nameof(DateReg) });
+            }
+        }
     }
 }

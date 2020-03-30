@@ -1,0 +1,12 @@
+﻿@model Dictionary<string, string>
+@*<a asp-action="Delete" asp-all-route-data="@Model" class="btn btn-sm btn-primary">Удалить</a>*@
+
+
+    <form asp-action="Delete">
+        @foreach (var item in Model)
+        {
+            <input type="hidden" id="@item.Key" name="@item.Key" value="@item.Value" />
+        }
+        <input type="submit" value="Удалить" class="btn btn-sm btn-primary" />
+        @await Html.PartialAsync(partialViewName: $"_BackButton")
+    </form>

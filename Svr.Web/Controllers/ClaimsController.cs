@@ -179,9 +179,32 @@ namespace Svr.Web.Controllers
             return View(model);
         }
         #endregion
-        #region Create
-        // GET: Claims/Create
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+
+        public JsonResult ValidateDate(string DateReg)
+        {
+            DateTime parsedDate;
+
+            if (!DateTime.TryParse(DateReg, out parsedDate))
+            {
+                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)",
+                    JsonRequestBehavior.AllowGet);
+            }
+            else if (DateTime.Now > parsedDate)
+            {
+                return Json("Введите дату относящуюся к будущему",
+                    JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
+    }
+
+
+    #region Create
+    // GET: Claims/Create
+    [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -199,7 +222,8 @@ namespace Svr.Web.Controllers
                 RegionId = (long)lord.ToLong(),
                 DistrictId = (long)owner.ToLong(),
                 Regions = await GetRegionSelectList(lord),
-                Districts = await GetDistrictSelectList(lord, owner)
+                Districts = await GetDistrictSelectList(lord, owner),
+                DateReg = DateTime.Now
             };
             return View(model);
         }
