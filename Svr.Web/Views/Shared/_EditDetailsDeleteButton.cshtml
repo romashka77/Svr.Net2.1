@@ -2,7 +2,7 @@
 
 @if (!string.IsNullOrEmpty(Model))
 {
-    @if (!User.IsInRole("Пользователь ОПФР"))
+    @if (!User.IsInRole(Role.UserOPFR))
     {
         <a asp-action="Edit" asp-route-id=@Model class="btn btn-sm btn-primary">Редактировать</a>
         <a asp-action="Delete" asp-route-id=@Model class="btn btn-sm btn-danger">Удалить</a>

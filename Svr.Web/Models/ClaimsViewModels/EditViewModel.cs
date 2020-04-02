@@ -28,6 +28,9 @@ namespace Svr.Web.Models.ClaimsViewModels
         [Required(ErrorMessage = ErrorStringEmpty)]
         public string Name { get; set; }
 
+        [Display(Name = "№ пенсионного дела")]
+        public int? NumPFR { get; set; }
+
         [Display(Name = "Описание", Prompt = "Введите описание")]
         public string Description { get; set; }
 

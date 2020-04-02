@@ -76,7 +76,7 @@
                      current-filter-date-po="@Model.FilterViewModel.DatePo">
             Дата изменения
         </sort-header>*@
-        @if (User.IsInRole("Администратор"))
+        @if (User.IsInRole(Role.Administrator))
     {
         <sort-header action="Index"
                      up="@Model.SortViewModel.Up"
@@ -94,7 +94,7 @@
             Регион
         </sort-header>
     }
-        @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
+        @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
     {
         <sort-header action="Index"
                      up="@Model.SortViewModel.Up"

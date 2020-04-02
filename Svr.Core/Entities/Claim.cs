@@ -12,6 +12,11 @@ namespace Svr.Core.Entities
     public class Claim : BaseEntity
     {
         /// <summary>
+        /// № пенсионного дела
+        /// </summary>
+        [Display(Name = "№ пенсионного дела")]
+        public int? NumPFR { get; set; }
+        /// <summary>
         /// Регион
         /// </summary>
         public long RegionId { get; set; }

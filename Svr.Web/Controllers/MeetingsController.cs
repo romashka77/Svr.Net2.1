@@ -102,7 +102,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Meetings/Create
-        [[AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;

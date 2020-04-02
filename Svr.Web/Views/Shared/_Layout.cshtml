@@ -33,12 +33,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">О сервисе</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР"))
+                    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR))
                     {
                         <li><a asp-area="" asp-controller="Regions" asp-action="Index">Регионы</a></li>
                         <li><a asp-area="" asp-controller="Districts" asp-action="Index">Районы</a></li>
                     }
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))
+                    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))
                     {
                         <li><a asp-area="" asp-controller="Performers" asp-action="Index">Исполнители</a></li>
                         <li><a asp-area="" asp-controller="CategoryDisputes" asp-action="Index">Категории споров</a></li>
@@ -50,11 +50,11 @@
                         @*<li><a asp-area="" asp-controller="Instances" asp-action="Index">Инстанции</a></li>*@
                         <li><a asp-area="" asp-controller="Reports" asp - action="Index"> Отчеты </a></li>
                     }
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР") || User.IsInRole("Пользователь ОПФР"))
+                    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR) || User.IsInRole(Role.UserOPFR))
                     {
                         <li><a asp-area="" asp-controller="Claims" asp-action="Index">Иски</a></li>
                     }
-                    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Администратор УПФР"))
+                    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.AdminUPFR))
                     {
                         <li><a asp-area="" asp-controller="Roles" asp-action="Index">Роли</a></li>
                         <li><a asp-area="" asp-controller="Users" asp-action="Index">Пользователи</a></li>

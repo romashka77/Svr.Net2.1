@@ -1,4 +1,5 @@
-﻿@if (!User.IsInRole("Пользователь ОПФР"))
+﻿
+@if (!User.IsInRole(Role.UserOPFR))
 {
     <a asp-action="Create" asp-all-route-data='new Dictionary<string, string> { { "lord", @Model.FilterViewModel.SelectedLord }, { "owner", @Model.FilterViewModel.SelectedOwner } }' class="btn btn-sm btn-primary">Добавить</a>
 }

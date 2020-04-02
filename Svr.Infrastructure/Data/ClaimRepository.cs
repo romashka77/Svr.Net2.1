@@ -48,8 +48,9 @@ namespace Svr.Infrastructure.Data
                 result = result.Where(c => c.CategoryDisputeId.ToString() == category);
             if (!string.IsNullOrWhiteSpace(searchString))
             {
+                var upsearch = searchString.ToUpper();
                 result = result.Where(d => d.Name.ToUpper()
-                                                 .Contains(searchString.ToUpper()) || d.Code.ToUpper().Contains(searchString.ToUpper()) || d.SubjectClaim.Code.ToUpper().Contains(searchString.ToUpper()));
+                                                 .Contains(upsearch) || d.Code.ToUpper().Contains(upsearch) || d.SubjectClaim.Code.ToUpper().Contains(upsearch)||d.NumPFR.ToString().Contains(upsearch));
             }
             if (dateS != null)
                 result = result.Where(c => c.DateIn >= dateS);

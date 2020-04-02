@@ -93,6 +93,7 @@ namespace Svr.Web.Controllers
                     Id = i.Id,
                     Code = i.Code,
                     Name = i.Name,
+                    NumPFR = i.NumPFR,
                     Description = i.Description,
                     //CreatedOnUtc = i.CreatedOnUtc,
                     //UpdatedOnUtc = i.UpdatedOnUtc,
@@ -120,11 +121,11 @@ namespace Svr.Web.Controllers
         }
         private async Task<IEnumerable<SelectListItem>> GetRegionSelectList(string lord)
         {
-            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole("Администратор")).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole(Role.Administrator)).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         private async Task<IEnumerable<SelectListItem>> GetDistrictSelectList(string lord, string owner)
         {
-            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         private async Task<IEnumerable<SelectListItem>> GetCategoreSelectList(string category)
         {
@@ -173,7 +174,7 @@ namespace Svr.Web.Controllers
                 //throw new ApplicationException($"Не удалось загрузить район с ID {id}.");
             }
 
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim = item.GroupClaim, SubjectClaim = item.SubjectClaim };
+            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, NumPFR = item.NumPFR, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim = item.GroupClaim, SubjectClaim = item.SubjectClaim };
             return View(model);
         }
         #endregion
@@ -255,7 +256,7 @@ namespace Svr.Web.Controllers
                 StatusMessage = id.ToString().ErrorFind();
                 return RedirectToAction(nameof(Index));
             }
-            var model = new EditViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, RegionId = item.RegionId, Regions = await GetRegionSelectList(item.RegionId.ToString()), StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, DistrictId = item.DistrictId, Districts = await GetDistrictSelectList(item.RegionId.ToString(), item.DistrictId.ToString()), DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDisputes = await GetCategoreSelectList(item.CategoryDisputeId.ToString()), GroupClaimId = item.GroupClaimId, GroupClaims = await GetGroupClaimSelectList(item.CategoryDisputeId.ToString(), item.GroupClaimId.ToString()), SubjectClaimId = item.SubjectClaimId, SubjectClaims = await GetSubjectClaimSelectList(item.GroupClaimId.ToString(), item.SubjectClaimId.ToString()), СourtId = item.СourtId, Сourts = await GetСourtSelectList(item.СourtId.ToString()), PerformerId = item.PerformerId, Performers = await GetPerformerSelectList(item.DistrictId.ToString(), item.PerformerId.ToString()), Applicants = await GetApplicantSelectList(), Sum = item.Sum, PlaintiffId = item.PlaintiffId, RespondentId = item.RespondentId, Person3rdId = item.Person3rdId };
+            var model = new EditViewModel { Id = item.Id, Code = item.Code, Name = item.Name, NumPFR = item.NumPFR, Description = item.Description, RegionId = item.RegionId, Regions = await GetRegionSelectList(item.RegionId.ToString()), StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, DistrictId = item.DistrictId, Districts = await GetDistrictSelectList(item.RegionId.ToString(), item.DistrictId.ToString()), DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDisputes = await GetCategoreSelectList(item.CategoryDisputeId.ToString()), GroupClaimId = item.GroupClaimId, GroupClaims = await GetGroupClaimSelectList(item.CategoryDisputeId.ToString(), item.GroupClaimId.ToString()), SubjectClaimId = item.SubjectClaimId, SubjectClaims = await GetSubjectClaimSelectList(item.GroupClaimId.ToString(), item.SubjectClaimId.ToString()), СourtId = item.СourtId, Сourts = await GetСourtSelectList(item.СourtId.ToString()), PerformerId = item.PerformerId, Performers = await GetPerformerSelectList(item.DistrictId.ToString(), item.PerformerId.ToString()), Applicants = await GetApplicantSelectList(), Sum = item.Sum, PlaintiffId = item.PlaintiffId, RespondentId = item.RespondentId, Person3rdId = item.Person3rdId };
             return View(model);
         }
         // POST: Claims/Edit/5
@@ -273,7 +274,7 @@ namespace Svr.Web.Controllers
                     model.Code = model.Name.GetCode(model.DateReg, model.CreatedOnUtc.Year, model.Id); //$"{model.Id}-{model.CreatedOnUtc.Year}-{model.Name}/{model.DateReg.ToString("D")}";
                     if ((model.RegionId != 0) && (model.DistrictId != 0))
                     {
-                        await repository.UpdateAsync(new Claim { Id = model.Id, Code = model.Code, Description = model.Description, Name = model.Name, CreatedOnUtc = model.CreatedOnUtc, CategoryDisputeId = model.CategoryDisputeId, RegionId = model.RegionId, DistrictId = model.DistrictId, DateReg = model.DateReg, DateIn = model.DateIn, GroupClaimId = model.GroupClaimId, SubjectClaimId = model.SubjectClaimId, СourtId = model.СourtId, PerformerId = model.PerformerId, Sum = model.Sum, PlaintiffId = model.PlaintiffId, RespondentId = model.RespondentId, Person3rdId = model.Person3rdId });
+                        await repository.UpdateAsync(new Claim { Id = model.Id, Code = model.Code, Description = model.Description, Name = model.Name, NumPFR = model.NumPFR, CreatedOnUtc = model.CreatedOnUtc, CategoryDisputeId = model.CategoryDisputeId, RegionId = model.RegionId, DistrictId = model.DistrictId, DateReg = model.DateReg, DateIn = model.DateIn, GroupClaimId = model.GroupClaimId, SubjectClaimId = model.SubjectClaimId, СourtId = model.СourtId, PerformerId = model.PerformerId, Sum = model.Sum, PlaintiffId = model.PlaintiffId, RespondentId = model.RespondentId, Person3rdId = model.Person3rdId });
                         StatusMessage = model.MessageEditOk();
                         logger.LogInformation($"{model} edit");
                     }
@@ -314,7 +315,7 @@ namespace Svr.Web.Controllers
                 StatusMessage = id.ToString().ErrorFind();
                 return RedirectToAction(nameof(Index));
             }
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, CategoryDisputeId = item.CategoryDisputeId, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage, RegionId = item.RegionId, DistrictId = item.DistrictId };
+            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, NumPFR = item.NumPFR, Description = item.Description, CategoryDisputeId = item.CategoryDisputeId, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage, RegionId = item.RegionId, DistrictId = item.DistrictId };
             return View(model);
         }
         // POST: Claims/Delete/5

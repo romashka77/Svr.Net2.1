@@ -186,7 +186,6 @@ namespace Svr.AD.Controllers
         }
         // POST: GroupClaims/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Администратор")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {

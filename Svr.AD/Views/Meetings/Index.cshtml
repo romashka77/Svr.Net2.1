@@ -8,7 +8,7 @@
 
 <p>
     <a asp-action="Details" asp-controller="Claims" asp-route-id="@Model.Claim.Id" class="btn btn-sm btn-primary">Назад к @Model.Claim.Name</a>
-    @if (!User.IsInRole("Пользователь ОПФР"))
+    @if (!User.IsInRole(Role.Manager))
     {
         <a asp-action="Create" asp-controller="Meetings" asp-route-owner="@Model.Claim.Id" class="btn btn-sm btn-primary">Добавить</a>
     }

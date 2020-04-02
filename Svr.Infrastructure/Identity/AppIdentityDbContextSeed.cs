@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Svr.Core.Entities;
 using Svr.Core.Extensions;
+using Svr.Infrastructure.Extensions;
 using System;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace Svr.Infrastructure.Identity
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, RoleState.Administrator.GetDescription());
+                    await userManager.AddToRoleAsync(admin, Role.Administrator);
                 }
             }
         }

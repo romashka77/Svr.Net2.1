@@ -1,4 +1,4 @@
-﻿@if (!User.IsInRole("Пользователь ОПФР"))
+﻿@if (!User.IsInRole(Role.UserOPFR))
 {
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Редактировать</a>
 }

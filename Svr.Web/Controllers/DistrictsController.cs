@@ -60,21 +60,21 @@ namespace Svr.Web.Controllers
         // GET: Districts
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 10)
         {
-            if (User.IsInRole("Администратор"))
+            if (User.IsInRole(Role.Administrator))
             { }
-            else if (User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
+            else if (User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
             {
                 var user = await userManager.FindByNameAsync(User.Identity.Name);
                 lord = user?.RegionId.ToString();
             }
-            else if (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))
+            else if (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))
             {
                 var user = await userManager.FindByNameAsync(User.Identity.Name);
                 lord = user?.RegionId.ToString();
                 owner = user?.DistrictId.ToString();
             }
             //фильтрация
-            var list = repository.Filter(searchString: searchString, lord: lord, owner: owner, flgFilter: (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР")));
+            var list = repository.Filter(searchString: searchString, lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR)));
             // сортировка
             list = repository.Sort(list, sortOrder);
             // пагинация
@@ -104,7 +104,7 @@ namespace Svr.Web.Controllers
         #region GetSelectList
         private async Task<IEnumerable<SelectListItem>> GetRegionSelectList(string lord)
         {
-            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole("Администратор")).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole(Role.Administrator)).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         #endregion
 

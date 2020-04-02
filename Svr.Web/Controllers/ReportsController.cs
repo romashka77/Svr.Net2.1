@@ -98,15 +98,15 @@ namespace Svr.Web.Controllers
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
 
-            if (User.IsInRole("Администратор"))
+            if (User.IsInRole(Role.Administrator))
             {
 
             }
-            else if (User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
+            else if (User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
             {
                 lord = user?.RegionId.ToString();
             }
-            else if (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))
+            else if (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))
             {
                 lord = user?.RegionId.ToString();
                 owner = user?.DistrictId.ToString();

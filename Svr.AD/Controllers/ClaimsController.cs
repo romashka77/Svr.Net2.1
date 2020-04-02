@@ -162,7 +162,6 @@ namespace Svr.AD.Controllers
         #endregion
         #region Details
         // GET: Claims/Details/5
-        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Details(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);

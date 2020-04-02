@@ -15,7 +15,7 @@
             @role.Name
         </div>
     }
-    @if (User.IsInRole("Администратор"))
+    @if (User.IsInRole(Role.Administrator))
     {
         <div class="form-group">
             @Html.Label(null, "Регион по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -29,7 +29,7 @@
     {
         @Html.HiddenFor(model => model.RegionId)
     }
-    @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР"))
+    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR))
     {
         <div class="form-group">
             @Html.Label(null, "Район по умолчанию", htmlAttributes: new { @class = "control-label col-md-2" })

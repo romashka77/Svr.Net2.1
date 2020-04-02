@@ -27,7 +27,7 @@
                 @Html.ValidationMessageFor(model => model.DateReg, "", new { @class = "text-danger" })
             </div>
         </div>
-        @if (User.IsInRole("Администратор"))
+        @if (User.IsInRole(Role.Administrator))
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.RegionId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,7 +41,7 @@
         {
             @Html.HiddenFor(model => model.RegionId)
         }
-        @if (User.IsInRole("Администратор") || User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
+        @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
