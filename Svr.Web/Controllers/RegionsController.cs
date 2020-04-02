@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class RegionsController : Controller
     {
         private readonly ILogger<RegionsController> logger;
@@ -67,12 +67,12 @@ namespace Svr.Web.Controllers
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string searchString = null, string lord = null, int page = 1, int itemsPage = 10)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (!User.IsInRole("Администратор"))
+            if (!User.IsInRole(Role.Administrator))
             {
                 lord = user?.RegionId.ToString();
             }
             //фильтрация
-            var list = repository.Filter(searchString: searchString, lord: lord, flgFilter: !User.IsInRole("Администратор"));
+            var list = repository.Filter(searchString: searchString, lord: lord, flgFilter: !User.IsInRole(Role.Administrator));
             //сортировка
             list = repository.Sort(list, sortOrder);
             //пагинация
@@ -114,7 +114,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Regions/Create
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         public IActionResult Create()
         {
             return View();
@@ -124,7 +124,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -144,7 +144,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: Regions/Edit/5
-        [Authorize(Roles = "Администратор, Администратор ОПФР")]
+        [AuthorizeRoles(Role.Administrator)]
         public async Task<IActionResult> Edit(long? id)
         {
             var region = await repository.GetByIdAsync(id);
@@ -162,7 +162,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор, Администратор ОПФР")]
+        [AuthorizeRoles(Role.Administrator)]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -191,7 +191,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: Regions/Delete/5
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         public async Task<IActionResult> Delete(long? id)
         {
             var region = await repository.GetByIdAsync(id);
@@ -206,7 +206,7 @@ namespace Svr.Web.Controllers
 
         // POST: Regions/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {

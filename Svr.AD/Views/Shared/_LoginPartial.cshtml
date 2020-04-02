@@ -1,1 +1,5 @@
-<p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
+@using System.Security.Claims;
+@if (User.Identity.IsAuthenticated)
+{
+    <p class="nav navbar-text navbar-right">Привет, @User.Identity.Name!</p>
+}

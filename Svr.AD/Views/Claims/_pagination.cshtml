@@ -1,0 +1,16 @@
+﻿@model Svr.AD.Models.ClaimsViewModels.IndexViewModel
+
+@addTagHelper "*, Svr.AD"
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-searchString="@(Model.FilterViewModel.SearchString)"
+           page-url-lord="@(Model.FilterViewModel.SelectedLord)"
+           page-url-owner="@(Model.FilterViewModel.SelectedOwner)"
+           page-url-category="@Model.FilterViewModel.SelectedCategory"
+           page-url-groupClaim="@Model.FilterViewModel.SelectedGroupClaim"
+           page-url-subjectClaim="@Model.FilterViewModel.SelectedSubjectClaim"
+           page-url-resultClaim="@Model.FilterViewModel.SelectedResultClaim"
+           page-url-dateS="@(Model.FilterViewModel.DateS)"
+           page-url-datePo="@(Model.FilterViewModel.DatePo)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"
+           >
+</page-link>

@@ -1,0 +1,11 @@
+﻿@model Svr.AD.Models.FilterViewModel
+<form method="get">
+    <div class="form-group form-inline">
+        <label class="control-label">Поиск: </label>
+        @Html.TextBox("searchString", Model.SearchString, htmlAttributes: new { @class = "form-control" })
+        @Html.EditorFor(model => model.DateS, "dateS", new { @class = "form-control", onchange = @"form.submit();" })
+        <label class="control-label">Дата по: </label>
+        @Html.EditorFor(model => model.DatePo, "datePo", new { @class = "form-control", onchange = @"form.submit();" })
+        <input type="submit" value="Фильтр" class="btn btn-sm btn-primary" />
+    </div>
+</form>

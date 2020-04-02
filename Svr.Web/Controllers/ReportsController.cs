@@ -33,7 +33,7 @@ namespace Svr.Web.Controllers
     //https://riptutorial.com/ru/epplus/example/26411/text-alignment-and-word-wrap
     //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
     //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
-    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class ReportsController : Controller
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";

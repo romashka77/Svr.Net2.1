@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
+using Svr.Infrastructure.Extensions;
 using Svr.Infrastructure.Identity;
+using Svr.Web.Extensions;
 using Svr.Web.Models;
 using Svr.Web.Models.RoleViewModels;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -41,10 +43,10 @@ namespace Svr.Web.Controllers
         #endregion
 
         public IActionResult Index() => View(roleManager.Roles.ToList());
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         public IActionResult Create() => View();
         [HttpPost]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         public async Task<IActionResult> Create(string name)
         {
             if (!string.IsNullOrEmpty(name))
@@ -66,7 +68,7 @@ namespace Svr.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> Delete(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
@@ -76,20 +78,20 @@ namespace Svr.Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> UserList()
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             var list = userManager.Users;
-            if (User.IsInRole("Администратор"))
+            if (User.IsInRole(Role.Administrator))
             { }
             else
-            if (User.IsInRole("Администратор ОПФР"))
+            if (User.IsInRole(Role.AdminOPFR))
             {
                 list = list.Where(i => i.RegionId == user.RegionId || i.RegionId == null);
             }
             else
-            if (User.IsInRole("Администратор УПФР"))
+            if (User.IsInRole(Role.AdminUPFR))
             {
                 list = list.Where(i => i.DistrictId == user.DistrictId || i.RegionId == null);
             }
@@ -97,13 +99,13 @@ namespace Svr.Web.Controllers
         }
         private async Task<IEnumerable<SelectListItem>> GetRegionSelectList(string lord)
         {
-            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole("Администратор")).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole(Role.Administrator)).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         private async Task<IEnumerable<SelectListItem>> GetDistrictSelectList(string lord, string owner)
         {
-            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
-        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя
@@ -113,17 +115,17 @@ namespace Svr.Web.Controllers
                 // получем список ролей пользователя
                 var userRoles = await userManager.GetRolesAsync(user);
                 var allRoles = roleManager.Roles;
-                if (User.IsInRole("Администратор"))
+                if (User.IsInRole(Role.Administrator))
                 { }
                 else
-                if (User.IsInRole("Администратор ОПФР"))
+                if (User.IsInRole(Role.AdminOPFR))
                 {
-                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь ") || i.Name.Contains("Администратор УПФР"));
+                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь ") || i.Name.Contains(Role.AdminUPFR));
                 }
                 else
-                if (User.IsInRole("Администратор УПФР"))
+                if (User.IsInRole(Role.AdminUPFR))
                 {
-                    allRoles = allRoles.Where(i => i.Name.Contains("Пользователь УПФР"));
+                    allRoles = allRoles.Where(i => i.Name.Contains(Role.UserUPFR));
                 }
                 var adm = await userManager.FindByNameAsync(User.Identity.Name);
                 ChangeRoleViewModel model = new ChangeRoleViewModel
@@ -143,7 +145,7 @@ namespace Svr.Web.Controllers
             }
             return NotFound();
         }
-        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> ResetPassword(string userId)
         {
             ApplicationUser user = await userManager.FindByIdAsync(userId);
@@ -156,8 +158,7 @@ namespace Svr.Web.Controllers
             return NotFound();
         }
 
-
-        [Authorize(Roles = "Администратор ОПФР, Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         [HttpPost]
         //public async Task<IActionResult> Edit(string userId, List<string> roles, long? regionId, long? districtId)
         public async Task<IActionResult> Edit(ChangeRoleViewModel model, List<string> roles)

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class MeetingsController : Controller
     {
         private readonly IMeetingRepository repository;
@@ -102,7 +102,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Meetings/Create
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [[AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
@@ -114,7 +114,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -134,7 +134,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: Meetings/Edit/5
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -153,7 +153,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -182,7 +182,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: Meetings/Delete/5
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -199,7 +199,7 @@ namespace Svr.Web.Controllers
         // POST: Meetings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

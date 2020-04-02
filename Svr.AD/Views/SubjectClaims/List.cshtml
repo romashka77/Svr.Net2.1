@@ -1,0 +1,66 @@
+﻿@model Svr.AD.Models.SubjectClaimsViewModels.IndexViewModel
+
+@await Html.PartialAsync("_filtration", Model.FilterViewModel)
+
+@if (Model.ItemViewModels.Any())
+{
+    @await Html.PartialAsync("_sort", Model)
+    @await Html.PartialAsync("_pagination", Model)
+    foreach (var item in Model.ItemViewModels)
+    {
+        <div>
+            <hr />
+            <h4>@item</h4>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Code)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayTextFor(modelItem => item.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.GroupClaim)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.GroupClaim.Code)
+                    @Html.DisplayFor(modelItem => item.GroupClaim.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.CreatedOnUtc)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.CreatedOnUtc)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.UpdatedOnUtc)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.UpdatedOnUtc)
+                </dd>
+                <dd>
+                    @await Html.PartialAsync(partialViewName: $"_EditDetailsDeleteButton", model: @item.Id.ToString())
+                </dd>
+            </dl>
+        </div>
+    }
+    @await Html.PartialAsync("_pagination", Model)
+}
+else
+{
+    <div class="row">
+        НЕТ РЕЗУЛЬТАТОВ, СООТВЕТСТВУЮЩИХ ВАШЕМУ ПОИСКУ
+    </div>
+}

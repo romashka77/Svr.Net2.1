@@ -1,0 +1,10 @@
+﻿@model Svr.AD.Models.FilterViewModel
+<form method="get" class="form-inline">
+    @*<div class="form-group">
+            <label class="control-label">Поиск: </label>
+            @Html.TextBox("searchString", Model.SearchString, htmlAttributes: new { @class = "form-control" })
+        </div>*@
+    @await Html.PartialAsync(partialViewName: $"_SearchString", model: Model.SearchString)
+    @await Html.PartialAsync(partialViewName: $"_FilterButton")
+    @await Html.PartialAsync(partialViewName: "_FilterItemsCount", model: Model)
+</form>

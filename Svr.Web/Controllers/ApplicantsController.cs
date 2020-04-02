@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class ApplicantsController : Controller
     {
         private readonly IApplicantRepository repository;
@@ -208,7 +208,7 @@ namespace Svr.Web.Controllers
         // POST: Applicants/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор, Администратор ОПФР, Администратор УПФР")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

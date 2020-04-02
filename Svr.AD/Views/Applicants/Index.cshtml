@@ -1,0 +1,15 @@
+﻿@model Svr.AD.Models.ApplicantViewModels.IndexViewModel
+
+@{
+    ViewData[index: "Title"] = "Список контрагентов";
+}
+
+<h4>@ViewData[index: "Title"]</h4>
+@await Html.PartialAsync(partialViewName: $"_StatusMessage", model: Model.StatusMessage)
+<p>
+    @*<a asp-action="Create" asp-controller="Applicants" class="btn btn-sm btn-primary">Добавить</a>*@
+    @await Html.PartialAsync(partialViewName: $"_AddButton")
+</p>
+
+@await Html.PartialAsync(partialViewName: "List", model: Model)
+

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор, Администратор ОПФР")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
     public class CategoryDisputesController : Controller
     {
         private readonly ILogger<CategoryDisputesController> logger;
@@ -176,7 +176,7 @@ namespace Svr.Web.Controllers
 
         // POST: CategoryDisputes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {

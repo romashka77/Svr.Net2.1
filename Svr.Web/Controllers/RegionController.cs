@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Svr.Core.Entities;
 using Svr.Core.Interfaces;
+using Svr.Infrastructure.Extensions;
+using Svr.Web.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace Svr.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Region")]
-    [Authorize(Roles = "Администратор, Администратор ОПФР")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
     public class RegionController : Controller
     {
         private ILogger<RegionController> logger;

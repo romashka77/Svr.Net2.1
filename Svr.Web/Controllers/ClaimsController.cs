@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class ClaimsController : Controller
     {
         private readonly IClaimRepository repository;
@@ -63,18 +63,17 @@ namespace Svr.Web.Controllers
         #endregion
         #region Index
         // GET: Claims
-        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null,
             DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
         {
-            if (User.IsInRole("Администратор"))
+            if (User.IsInRole(Role.Administrator))
             { }
-            else if (User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
+            else if (User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
             {
                 var user = await userManager.FindByNameAsync(User.Identity.Name);
                 lord = user?.RegionId.ToString();
             }
-            else if (User.IsInRole("Администратор УПФР") || User.IsInRole("Пользователь УПФР"))
+            else if (User.IsInRole(Role.AdminUPFR) || User.IsInRole(Role.UserUPFR))
             {
                 var user = await userManager.FindByNameAsync(User.Identity.Name);
                 lord = user?.RegionId.ToString();
@@ -164,7 +163,6 @@ namespace Svr.Web.Controllers
         #endregion
         #region Details
         // GET: Claims/Details/5
-        [Authorize(Roles = "Администратор ОПФР, Пользователь ОПФР, Администратор УПФР, Пользователь УПФР, Администратор")]
         public async Task<IActionResult> Details(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -174,8 +172,8 @@ namespace Svr.Web.Controllers
                 return RedirectToAction(nameof(Index));
                 //throw new ApplicationException($"Не удалось загрузить район с ID {id}.");
             }
-            
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId=item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim=item.GroupClaim, SubjectClaim=item.SubjectClaim };
+
+            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim = item.GroupClaim, SubjectClaim = item.SubjectClaim };
             return View(model);
         }
         #endregion
@@ -186,25 +184,20 @@ namespace Svr.Web.Controllers
 
             if (!DateTime.TryParse(DateReg, out parsedDate))
             {
-                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)",
-                    JsonRequestBehavior.AllowGet);
+                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)");//, JsonRequestBehavior.AllowGet);
             }
             else if (DateTime.Now > parsedDate)
             {
-                return Json("Введите дату относящуюся к будущему",
-                    JsonRequestBehavior.AllowGet);
+                return Json("Введите дату относящуюся к будущему");//,                    JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true);//, JsonRequestBehavior.AllowGet);
             }
         }
-    }
-
-
-    #region Create
-    // GET: Claims/Create
-    [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        #region Create
+        // GET: Claims/Create
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -232,7 +225,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -253,7 +246,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // GET: Claims/Edit/5
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -270,7 +263,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Пользователь УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
         public async Task<IActionResult> Edit(EditViewModel model)
         {
             if (ModelState.IsValid)
@@ -312,7 +305,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: Claims/Delete/5
-        [Authorize(Roles = "Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -327,7 +320,7 @@ namespace Svr.Web.Controllers
         // POST: Claims/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор УПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminUPFR, Role.Administrator)]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

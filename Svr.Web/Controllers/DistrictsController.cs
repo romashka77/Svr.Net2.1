@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [Authorize(Roles = "Администратор, Администратор ОПФР, Администратор УПФР, Пользователь ОПФР, Пользователь УПФР")]
+    [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class DistrictsController : Controller
     {
         private readonly IDistrictRepository repository;
@@ -124,7 +124,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Create
         // GET: Districts/Create
-        [Authorize(Roles = "Администратор ОПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         public async Task<IActionResult> Create(string lord = null)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -141,7 +141,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор ОПФР, Администратор")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -161,7 +161,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Edit
         // get: districts/edit/5
-        [Authorize(Roles = "Администратор, Администратор ОПФР")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -180,7 +180,7 @@ namespace Svr.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Администратор, Администратор ОПФР")]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         public async Task<IActionResult> Edit(ItemViewModel model, long[] selectedPerformers)
         {
             if (ModelState.IsValid)
@@ -218,7 +218,7 @@ namespace Svr.Web.Controllers
         }
         #endregion
         #region Delete
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         // GET: Districts/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
@@ -233,7 +233,7 @@ namespace Svr.Web.Controllers
         }
         // POST: Districts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Администратор")]
+        [AuthorizeRoles(Role.Administrator)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {

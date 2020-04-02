@@ -1,0 +1,14 @@
+﻿@model Svr.AD.Models.FileEntityViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = $"Список документов по иску {Model.Claim.Name}";
+}
+
+<h4>@ViewData["Title"]</h4>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<p>
+    <a asp-action="Details" asp-controller="Claims" asp-route-id="@Model.Claim.Id" class="btn btn-default">Назад к @Model.Claim.Name</a>
+    @*<a asp-action="Create" asp-controller="FileEntities" asp-route-owner="@Model.Claim.Id" class="btn btn-default">Добавить</a>*@
+    @await Html.PartialAsync(partialViewName: $"_AddButton")
+</p>
+@await Html.PartialAsync("List", Model)

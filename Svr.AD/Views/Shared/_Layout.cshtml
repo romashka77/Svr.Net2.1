@@ -34,21 +34,25 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">О сервисе</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
-                    @if (User.IsInRole(Role.Admin))
+
+                    @if (User.IsInRole(Role.Admin) || User.IsInRole(Role.User) || User.IsInRole(Role.Manager))
                     {
-                        <li><a asp-area="" asp-controller="Regions" asp-action="Index">Регионы</a></li>
-                        <li><a asp-area="" asp-controller="Districts" asp-action="Index">Районы</a></li>
-                    }
-                    @if (User.IsInRole(Role.Admin) || User.IsInRole(Role.User))
-                    {
+                        @if (User.IsInRole(Role.Admin))
+                        {
+                            <li><a asp-area="" asp-controller="Regions" asp-action="Index">Регионы</a></li>
+                            <li><a asp-area="" asp-controller="Districts" asp-action="Index">Районы</a></li>
+                            <li><a asp-area="" asp-controller="CategoryDisputes" asp-action="Index">Категории споров</a></li>
+                            <li><a asp-area="" asp-controller="GroupClaims" asp-action="Index">Группы исков</a></li>
+                            <li><a asp-area="" asp-controller="SubjectClaims" asp-action="Index">Предметы исков</a></li>
+                        }
                         <li><a asp-area="" asp-controller="Performers" asp-action="Index">Исполнители</a></li>
-                        <li><a asp-area="" asp-controller="CategoryDisputes" asp-action="Index">Категории споров</a></li>
-                        <li><a asp-area="" asp-controller="GroupClaims" asp-action="Index">Группы исков</a></li>
-                        <li><a asp-area="" asp-controller="SubjectClaims" asp-action="Index">Предметы исков</a></li>
-                        <li><a asp-area="" asp-controller="DirNames" asp-action="Index">Справочники</a></li>
+
+                        @if (!User.IsInRole(Role.Manager))
+                        {
+                            <li><a asp-area="" asp-controller="DirNames" asp-action="Index">Справочники</a></li>
+                        }
                         <li><a asp-area="" asp-controller="Applicants" asp-action="Index">Стороны процесса</a></li>
                         <li><a asp-area="" asp-controller="Claims" asp-action="Index">Иски</a></li>
-                        @*<li><a asp-area="" asp-controller="Instances" asp-action="Index">Инстанции</a></li>*@
                         <li><a asp-area="" asp-controller="Reports" asp - action="Index"> Отчеты </a></li>
                     }
                     @if (User.IsInRole(Role.Admin))

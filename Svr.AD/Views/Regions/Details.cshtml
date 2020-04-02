@@ -1,0 +1,65 @@
+﻿@using Svr.Core.Entities
+@model Svr.AD.Models.RegionsViewModels.ItemViewModel
+
+@{
+    ViewData["Title"] = "Подробности " + Model.Name;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>@Model</h4>
+    @await Html.PartialAsync(partialViewName: $"_EditBackButton")
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayTextFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedOnUtc)
+        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Districts)</dt>
+        <dd>
+            <ul>
+                @foreach (District district in Model.Districts)
+                {
+                    <li>
+                        <a asp-controller="Districts" asp-action="Details" asp-route-id="@district.Id">@district.Code @district.Name</a>
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Performers)</dt>
+        <dd>
+            <ul>
+                @foreach (Performer performer in Model.Performers)
+                {
+                    <li>
+                        <a asp-controller="Performers" asp-action="Details" asp-route-id="@performer.Id">@performer.Name</a>
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dd>
+            @await Html.PartialAsync(partialViewName: $"_EditDeleteBackButton")
+        </dd>
+    </dl>
+</div>

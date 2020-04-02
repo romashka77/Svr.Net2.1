@@ -1,0 +1,58 @@
+﻿@using Svr.Core.Entities
+@model Svr.AD.Models.DirViewModels.ItemViewModel
+@{
+    ViewData["Title"] = $"Подробности {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>@Model</h4>
+    @await Html.PartialAsync(partialViewName: $"_EditBackButton")
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DirName)
+        </dt>
+        <dd>
+            <a asp-controller="DirNames" asp-action="Details" asp-route-id="@Model.DirNameId">@Model.DirName.Name</a>
+            @*@Html.RouteLink($"{Model.Region.Name} ({Model.Region.Description})", new { action = "Details", controller = "Regions", id = Model.RegionId })*@
+        </dd>
+        @if (Model.Applicants.Count > 0)
+        {
+            <dt>@Html.DisplayNameFor(model => model.Applicants)</dt>
+            <dd>
+                @*@await Html.PartialAsync("~/Views/Districts/List.cshtml", Model.Districts)*@
+                <ul>
+                    @foreach (Applicant item in Model.Applicants)
+                    {
+                        <li>
+                            <a asp-controller="Applicants" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                        </li>
+                    }
+                </ul>
+            </dd>
+        }
+        <dd>
+            @await Html.PartialAsync(partialViewName: $"_EditDeleteBackButton")
+        </dd>
+    </dl>
+</div>

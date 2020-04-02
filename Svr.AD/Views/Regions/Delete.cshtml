@@ -1,0 +1,36 @@
+﻿@model Svr.AD.Models.RegionsViewModels.ItemViewModel
+
+@{
+    ViewData["Title"] = $"Удалить {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Вы уверены, что хотите удалить?</h3>
+<div>
+    <h4>@Model</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayTextFor(model => model.Description)
+        </dd>
+        <dd>
+            @await Html.PartialAsync(partialViewName: $"_DeleteModelButton", model: new Dictionary<string, string> { { "Id", @Model.Id.ToString() }, { "Name", @Model.Name }, { "Code", @Model.Code } })
+        </dd>
+    </dl>
+</div>

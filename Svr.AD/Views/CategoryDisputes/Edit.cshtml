@@ -1,0 +1,42 @@
+﻿@model Svr.AD.Models.CategoryDisputesViewModels.ItemViewModel
+
+@{
+    ViewData["Title"] = "Редактировать";
+}
+
+<h2>@ViewData["Title"]</h2>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<h4>@Model</h4>
+<hr />
+
+<form asp-action="Edit" asp-antiforgery="true">
+    <div class="form-horizontal">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for=" CreatedOnUtc" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Description"  class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+<a asp-action="Index" class="btn btn-default">Назад</a>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

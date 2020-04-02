@@ -1,0 +1,106 @@
+﻿@model Svr.AD.Models.ApplicantViewModels.ItemViewModel
+@{
+    ViewData["Title"] = $"Подробности {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>@Model</h4>
+    @await Html.PartialAsync(partialViewName: $"_EditBackButton")
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedOnUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedOnUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeApplicant)
+        </dt>
+        <dd>
+            <a asp-controller="Dirs" asp-action="Details" asp-route-id="@Model.TypeApplicantId">@Model.TypeApplicant.Name</a>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        @if (Model.IsMan)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Born)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Born)
+            </dd>
+            <dt>
+                @Html.Label("Место рождения")
+            </dt>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.AddressBank)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AddressBank)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Inn)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Inn)
+            </dd>
+            if (@Model.Opf != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Opf)
+                </dt>
+                <dd>
+                    <a asp-controller="Dirs" asp-action="Details" asp-route-id="@Model.OpfId">@Model.Opf.Name</a>
+                </dd>
+            }
+        }
+        <dd>
+            @Html.DisplayFor(model => model.AddressBank)
+        </dd>
+        <dt>
+            @Html.Label("Иски")
+        </dt>
+        @if (ViewBag.Claims != null)
+        {
+            <dd>
+                @foreach (var item in ViewBag.Claims)
+                {
+                    <a asp-controller="Claims" asp-action="Details" asp-route-id="@item.Id">@item.Code</a>
+                    <br />
+                }
+            </dd>
+        }
+        <dd>
+            @await Html.PartialAsync(partialViewName: $"_EditDeleteBackButton")
+        </dd>
+    </dl>
+</div>
