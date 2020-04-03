@@ -186,7 +186,7 @@ namespace Svr.Web.Controllers
 
             if (!DateTime.TryParse(DateReg, out parsedDate))
             {
-                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)");//, JsonRequestBehavior.AllowGet);
+                return Json("Пожалуйста, введите дату в формате (дд.мм.гггг)");//, JsonRequestBehavior.AllowGet);
             }
             else if (MinDate > parsedDate)
             {
