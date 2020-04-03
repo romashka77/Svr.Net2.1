@@ -182,14 +182,15 @@ namespace Svr.Web.Controllers
         public JsonResult ValidateDate(string DateReg)
         {
             DateTime parsedDate;
+            DateTime MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month-3, 1);
 
             if (!DateTime.TryParse(DateReg, out parsedDate))
             {
                 return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)");//, JsonRequestBehavior.AllowGet);
             }
-            else if (DateTime.Now > parsedDate)
+            else if (MinDate > parsedDate)
             {
-                return Json("Введите дату относящуюся к будущему");//,                    JsonRequestBehavior.AllowGet);
+                return Json($"Введите дату не позднее {MinDate}");//,                    JsonRequestBehavior.AllowGet);
             }
             else
             {
