@@ -98,20 +98,8 @@ namespace Svr.AD.Controllers
         {
             //var user = await userManager.FindByNameAsync(User.Identity.Name);
 
-            if (User.IsInRole(Role.Admin))
-            {
-
-            }
-            else if (User.IsInRole(Role.Manager))
-            {
-                lord = "1";//user?.RegionId.ToString();
-            }
-            else if (User.IsInRole(Role.Users))
-            {
-                lord = "1";// user?.RegionId.ToString();
-                owner = "24";// user?.DistrictId.ToString();
-            }
-
+            lord = this.GetLord(lord);
+            owner = this.GetOwner(owner);
 
             var path = await GetPath(lord.ToLong(), owner.ToLong());
 

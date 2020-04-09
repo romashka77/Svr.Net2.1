@@ -17,7 +17,7 @@ namespace Svr.Infrastructure.Extensions
         private const string opfr = @"ОПФР";
         private const string upfr = @"УПФР";
 
-        public const string Urist = urist;
+        public const string Urist = domain + urist;
         public const string Users = domain + users;
         public const string Admin = domain + admin;
         public const string Manager = domain + manager;

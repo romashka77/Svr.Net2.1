@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin)]
+    [AuthorizeRoles(Role.Admin, Role.Manager, Role.Users)]
     public class RegionsController : Controller
     {
         private readonly ILogger<RegionsController> logger;
@@ -64,13 +64,10 @@ namespace Svr.AD.Controllers
         }
         #endregion
         #region Index
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string searchString = null, string lord = null, int page = 1, int itemsPage = 10)
         {
-            //var user = await userManager.FindByNameAsync(User.Identity.Name);
-            //if (!User.IsInRole("Администратор"))
-            //{
-            //    lord = user?.RegionId.ToString();
-            //}
+            lord = this.GetLord(lord);
             //фильтрация
             var list = repository.Filter(searchString: searchString, lord: lord, flgFilter: !User.IsInRole(Role.Admin));
             //сортировка
@@ -114,6 +111,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Create
         // GET: Regions/Create
+        [AuthorizeRoles(Role.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -123,6 +121,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -142,6 +141,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Edit
         // GET: Regions/Edit/5
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Edit(long? id)
         {
             var region = await repository.GetByIdAsync(id);
@@ -159,6 +159,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -187,6 +188,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Delete
         // GET: Regions/Delete/5
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Delete(long? id)
         {
             var region = await repository.GetByIdAsync(id);
@@ -202,6 +204,7 @@ namespace Svr.AD.Controllers
         // POST: Regions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

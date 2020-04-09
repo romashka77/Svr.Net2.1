@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin)]
+    [AuthorizeRoles(Role.Admin, Role.Manager, Role.Users)]
     public class DistrictsController : Controller
     {
         private readonly IDistrictRepository repository;
@@ -58,6 +58,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Index
         // GET: Districts
+
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 10)
         {
             lord = this.GetLord(lord);
@@ -114,6 +115,8 @@ namespace Svr.AD.Controllers
         // GET: Districts/Details/5
         public async Task<IActionResult> Details(long? id)
         {
+            string owner= this.GetOwner(id?.ToString());
+            id = owner?.ToLong();
             var item = await repository.GetByIdWithItemsAsync(id);
             if (item == null)
             {
@@ -126,13 +129,11 @@ namespace Svr.AD.Controllers
         #endregion
         #region Create
         // GET: Districts/Create
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Create(string lord = null)
         {
-            //var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (string.IsNullOrWhiteSpace(lord))
-            {
-                lord = "1";//user.RegionId.ToString();
-            }
+
+            lord = this.GetLord(lord);
             ViewBag.Regions = new SelectList(await regionRepository.ListAllAsync(), "Id", "Name", 1);
             return View();
         }
@@ -142,6 +143,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -161,6 +163,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Edit
         // get: districts/edit/5
+        [AuthorizeRoles(Role.Admin)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -179,6 +182,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Edit(ItemViewModel model, long[] selectedPerformers)
         {
             if (ModelState.IsValid)
@@ -217,6 +221,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Delete
         // GET: Districts/Delete/5
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -231,6 +236,7 @@ namespace Svr.AD.Controllers
         // POST: Districts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {
             try

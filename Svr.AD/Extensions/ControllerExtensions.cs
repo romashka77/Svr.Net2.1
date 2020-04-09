@@ -16,23 +16,16 @@ namespace Svr.AD.Extensions
         }
         public static string GetOwner(this Controller controller, string owner = null)
         {
-            try
-            {
-                if (controller.User.IsInRole(Role.Users))
-                    for (int i = 1; i < 100; i++)
+            if (controller.User.IsInRole(Role.Users))
+                for (int i = 1; i < 100; i++)
+                {
+                    string s = Role.Urist + i.ToString();
+                    if (controller.User.IsInRole(s))
                     {
-                        string s = Role.Urist + i.ToString();
-                        if (controller.User.IsInRole(s))
-                        {
-                            owner = $"{i}";
-                            break;
-                        }
+                        owner = $"{i}";
+                        break;
                     }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Ошибка: {0}.", e);
-            }
+                }
             return owner;
         }
     }
