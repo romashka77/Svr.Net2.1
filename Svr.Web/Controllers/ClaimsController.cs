@@ -63,8 +63,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Index
         // GET: Claims
-        public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null,
-            DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
+        public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null, DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
         {
             if (User.IsInRole(Role.Administrator))
             { }
@@ -103,6 +102,7 @@ namespace Svr.Web.Controllers
                     SubjectClaim = i.SubjectClaim,
                     District = i.District,
                     Sum = i.Sum,
+
                 }),
                 PageViewModel = new PageViewModel(itemsCount, page, itemsPage),
                 SortViewModel = new SortViewModel(sortOrder),
@@ -182,16 +182,16 @@ namespace Svr.Web.Controllers
         public JsonResult ValidateDate(string DateReg)
         {
             DateTime parsedDate;
-            DateTime MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month-3, 1);
+            DateTime MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 3, 1);
 
             if (!DateTime.TryParse(DateReg, out parsedDate))
             {
                 return Json("Пожалуйста, введите дату в формате (дд.мм.гггг)");//, JsonRequestBehavior.AllowGet);
             }
-            else if (MinDate > parsedDate)
-            {
-                return Json($"Введите дату не позднее {MinDate}");//,                    JsonRequestBehavior.AllowGet);
-            }
+            //else if (MinDate > parsedDate)
+            //{
+            //    return Json($"Введите дату не позднее {MinDate}");//,                    JsonRequestBehavior.AllowGet);
+            //}
             else
             {
                 return Json(true);//, JsonRequestBehavior.AllowGet);

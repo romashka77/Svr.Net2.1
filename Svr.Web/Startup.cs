@@ -69,7 +69,6 @@ namespace Svr.Web
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin, Role.User, Role.Manager)]
+    [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
     public class ClaimsController : Controller
     {
         private readonly IClaimRepository repository;
@@ -65,19 +65,22 @@ namespace Svr.AD.Controllers
         // GET: Claims
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null, DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
         {
-            if (User.IsInRole(Role.Admin))
-            { }
-            else if (User.IsInRole(Role.Manager))
-            {
-                //var user = await userManager.FindByNameAsync(User.Identity.Name);
-                lord = "1";//user?.RegionId.ToString();
-            }
-            else if (User.IsInRole(Role.User))
-            {
-                //var user = await userManager.FindByNameAsync(User.Identity.Name);
-                lord = "1";//user?.RegionId.ToString();
-                owner = "24";//user?.DistrictId.ToString();
-            }
+            lord =this.GetLord(lord);
+            owner= this.GetOwner(owner);
+            
+            //if (User.IsInRole(Role.Admin))
+            //{ }
+            //else if (User.IsInRole(Role.Manager))
+            //{
+            //    //var user = await userManager.FindByNameAsync(User.Identity.Name);
+            //    lord = "1";//user?.RegionId.ToString();
+            //}
+            //else if (User.IsInRole(Role.Users))
+            //{
+            //    //var user = await userManager.FindByNameAsync(User.Identity.Name);
+            //    lord = "1";//user?.RegionId.ToString();
+            //    owner = "24";//user?.DistrictId.ToString();
+            //}
             //фильтрация
             var list = repository.Filter(searchString: searchString, owner: owner, dateS: dateS, datePo: datePo, category: category, groupClaim: groupClaim, subjectClaim: subjectClaim, resultClaim: resultClaim);
             // сортировка
@@ -123,7 +126,7 @@ namespace Svr.AD.Controllers
         }
         private async Task<IEnumerable<SelectListItem>> GetDistrictSelectList(string lord, string owner)
         {
-            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.Admin) || User.IsInRole(Role.User))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
+            return await districtRepository.Filter(lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.Users))).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (owner == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         private async Task<IEnumerable<SelectListItem>> GetCategoreSelectList(string category)
         {
@@ -196,7 +199,7 @@ namespace Svr.AD.Controllers
         }
         #region Create
         // GET: Claims/Create
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
         {
             //var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -224,7 +227,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -245,7 +248,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Edit
         // GET: Claims/Edit/5
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -262,7 +265,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Edit(EditViewModel model)
         {
             if (ModelState.IsValid)

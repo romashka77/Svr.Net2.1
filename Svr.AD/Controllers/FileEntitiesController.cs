@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin, Role.User, Role.Manager)]
+    [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
     public class FileEntitiesController : Controller
     {
         private const string FilesFolder = "Files";
@@ -106,7 +106,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Create
         // GET: FileEntities/Create
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
@@ -118,7 +118,7 @@ namespace Svr.AD.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [DisableRequestSizeLimit]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(ItemViewModel model/*, IFormFile uploadedFile*/)
         {
             if ((ModelState.IsValid) && (model.UploadedFile != null))
@@ -166,7 +166,7 @@ namespace Svr.AD.Controllers
 
         #region Edit
         // GET: FileEntities/Edit/5
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -185,7 +185,7 @@ namespace Svr.AD.Controllers
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -216,7 +216,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Delete
         // GET: FileEntities/Delete/5
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);

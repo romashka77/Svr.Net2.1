@@ -60,8 +60,10 @@ namespace Svr.AD.Controllers
         // GET: Districts
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 10)
         {
-            if (User.IsInRole(Role.Admin))
-            { }
+            lord = this.GetLord(lord);
+            owner = this.GetOwner(owner);
+            //if (User.IsInRole(Role.Admin))
+            //{ }
             //else if (User.IsInRole("Администратор ОПФР") || User.IsInRole("Пользователь ОПФР"))
             //{
             //    var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -74,7 +76,7 @@ namespace Svr.AD.Controllers
             //    owner = user?.DistrictId.ToString();
             //}
             //фильтрация
-            var list = repository.Filter(searchString: searchString, lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.Admin) || User.IsInRole(Role.User)));
+            var list = repository.Filter(searchString: searchString, lord: lord, owner: owner, flgFilter: (User.IsInRole(Role.Users)));
             // сортировка
             list = repository.Sort(list, sortOrder);
             // пагинация

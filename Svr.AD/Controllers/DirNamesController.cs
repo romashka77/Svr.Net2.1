@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin, Role.User)]
+    [AuthorizeRoles(Role.Admin, Role.Users)]
     public class DirNamesController : Controller
     {
         private readonly ILogger<DirNamesController> logger;

@@ -1,4 +1,4 @@
-﻿@if (User.IsInRole(Role.Admin)|| User.IsInRole(Role.User))
+﻿@if (User.IsInRole(Role.Admin)|| User.IsInRole(Role.Manager))
 {
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Редактировать</a>
 }

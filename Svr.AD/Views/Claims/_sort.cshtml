@@ -94,7 +94,7 @@
             Регион
         </sort-header>
     }
-        @if (User.IsInRole(Role.Admin) || User.IsInRole(Role.User))
+        @if (User.IsInRole(Role.Admin) || !User.IsInRole(Role.Users))
     {
         <sort-header action="Index"
                      up="@Model.SortViewModel.Up"

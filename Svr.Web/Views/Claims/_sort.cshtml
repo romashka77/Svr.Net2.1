@@ -1,70 +1,71 @@
 ﻿@model Svr.Web.Models.ClaimsViewModels.IndexViewModel
-
 @addTagHelper "*, Svr.Web"
-
-    <div>
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.NameSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo"
-                     >
-            № дела
-        </sort-header>
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.CodeSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo">
-            Рег.номер
-        </sort-header>
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.DescriptionSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo">
-            Описание
-        </sort-header>
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.CreatedOnUtcSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo">
-            Дата принятия иска
-        </sort-header>
-        @*<sort-header action="Index"
+@{string pattern = "yyyy-MM-dd";
+    string ds = Model.FilterViewModel.DateS?.ToString(format: pattern);
+    string dpo = Model.FilterViewModel.DatePo?.ToString(format: pattern);
+}
+<div>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.NameSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s= "@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo" >
+        № дела
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CodeSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
+        Рег.номер
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.DescriptionSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
+        Описание
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CreatedOnUtcSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
+        Дата принятия иска
+    </sort-header>
+    @*<sort-header action="Index"
                      up="@Model.SortViewModel.Up"
                      current="@Model.SortViewModel.Current"
                      property="@Model.SortViewModel.UpdatedOnUtcSort"
@@ -76,7 +77,7 @@
                      current-filter-date-po="@Model.FilterViewModel.DatePo">
             Дата изменения
         </sort-header>*@
-        @if (User.IsInRole(Role.Administrator))
+    @if (User.IsInRole(Role.Administrator))
     {
         <sort-header action="Index"
                      up="@Model.SortViewModel.Up"
@@ -94,7 +95,7 @@
             Регион
         </sort-header>
     }
-        @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
+    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
     {
         <sort-header action="Index"
                      up="@Model.SortViewModel.Up"
@@ -112,34 +113,34 @@
             Район
         </sort-header>
     }
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.CodeSubjectClaimSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo">
-            Код предмета иска
-        </sort-header>
-        <sort-header action="Index"
-                     up="@Model.SortViewModel.Up"
-                     current="@Model.SortViewModel.Current"
-                     property="@Model.SortViewModel.SumSort"
-                     search-string="@Model.FilterViewModel.SearchString"
-                     current-filter-lord="@Model.FilterViewModel.SelectedLord"
-                     current-filter-owner="@Model.FilterViewModel.SelectedOwner"
-                     current-filter-category="@Model.FilterViewModel.SelectedCategory"
-                     current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
-                     current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
-                     current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                     current-filter-date-s="@Model.FilterViewModel.DateS"
-                     current-filter-date-po="@Model.FilterViewModel.DatePo">
-            Сумма иска
-        </sort-header>
-    </div>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.CodeSubjectClaimSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
+        Код предмета иска
+    </sort-header>
+    <sort-header action="Index"
+                 up="@Model.SortViewModel.Up"
+                 current="@Model.SortViewModel.Current"
+                 property="@Model.SortViewModel.SumSort"
+                 search-string="@Model.FilterViewModel.SearchString"
+                 current-filter-lord="@Model.FilterViewModel.SelectedLord"
+                 current-filter-owner="@Model.FilterViewModel.SelectedOwner"
+                 current-filter-category="@Model.FilterViewModel.SelectedCategory"
+                 current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
+                 current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
+                 current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
+        Сумма иска
+    </sort-header>
+</div>

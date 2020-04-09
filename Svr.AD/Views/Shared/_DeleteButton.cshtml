@@ -1,4 +1,4 @@
-﻿@if (User.IsInRole(Role.Admin)|| User.IsInRole(Role.User))
+﻿@if (User.IsInRole(Role.Admin))
 {
     <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Удалить</a>
 }

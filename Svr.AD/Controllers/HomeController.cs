@@ -13,22 +13,20 @@ namespace Svr.AD.Controllers
 {
     public class HomeController : Controller
     {
-        [AuthorizeRoles(Role.Admin, Role.User)]
         public IActionResult Index()
         {
+            ViewData["Message"] = "";
             return View();
         }
 
-        [AuthorizeRoles(Role.User)]
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Страница описания сервиса.";
             return View();
         }
-        [AuthorizeRoles(Role.Admin)]
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Наши контакты.";
 
             return View();
         }

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Svr.Web.Controllers
 {
-    [AuthorizeRoles(Role.Admin, Role.User)]
+    [AuthorizeRoles(Role.Admin, Role.Users)]
     public class ApplicantsController : Controller
     {
         private readonly IApplicantRepository repository;

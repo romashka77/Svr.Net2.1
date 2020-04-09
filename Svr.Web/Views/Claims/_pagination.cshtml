@@ -1,5 +1,5 @@
 ﻿@model Svr.Web.Models.ClaimsViewModels.IndexViewModel
-
+@{string dateformat = "yyyy-MM-dd"; }
 @addTagHelper "*, Svr.Web"
 <page-link page-model="Model.PageViewModel" page-action="Index"
            page-url-searchString="@(Model.FilterViewModel.SearchString)"
@@ -9,8 +9,7 @@
            page-url-groupClaim="@Model.FilterViewModel.SelectedGroupClaim"
            page-url-subjectClaim="@Model.FilterViewModel.SelectedSubjectClaim"
            page-url-resultClaim="@Model.FilterViewModel.SelectedResultClaim"
-           page-url-dateS="@(Model.FilterViewModel.DateS)"
-           page-url-datePo="@(Model.FilterViewModel.DatePo)"
-           page-url-sortOrder="@(Model.SortViewModel.Current)"
-           >
+           page-url-dateS="@(Model.FilterViewModel.DateS?.ToString(format:dateformat))"
+           page-url-datePo="@(Model.FilterViewModel.DatePo?.ToString(format:dateformat))"
+           page-url-sortOrder="@(Model.SortViewModel.Current)">
 </page-link>

@@ -33,7 +33,7 @@ namespace Svr.AD.Controllers
     //https://riptutorial.com/ru/epplus/example/26411/text-alignment-and-word-wrap
     //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
     //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
-    [AuthorizeRoles(Role.Admin,Role.User,Role.Manager)]
+    [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
     public class ReportsController : Controller
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -106,7 +106,7 @@ namespace Svr.AD.Controllers
             {
                 lord = "1";//user?.RegionId.ToString();
             }
-            else if (User.IsInRole(Role.User))
+            else if (User.IsInRole(Role.Users))
             {
                 lord = "1";// user?.RegionId.ToString();
                 owner = "24";// user?.DistrictId.ToString();

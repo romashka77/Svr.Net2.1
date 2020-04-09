@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Svr.AD.Controllers
 {
-    [AuthorizeRoles(Role.Admin, Role.User, Role.Manager)]
+    [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
     public class InstancesController : Controller
     {
         private readonly IInstanceRepository repository;
@@ -121,7 +121,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Create
         // GET: Instances/Create
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(long owner)
         {
             ViewBag.Number = (await repository.ListAsync(new InstanceSpecification(owner))).Count() + 1;
@@ -153,7 +153,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(ItemViewModel model)
         {
             if (ModelState.IsValid)
@@ -174,7 +174,7 @@ namespace Svr.AD.Controllers
         #endregion
         #region Edit
         // GET: Instances/Edit/5
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<ActionResult> Edit(long? id)
         {
             var item = await repository.GetByIdWithItemsAsync(id);
@@ -193,7 +193,7 @@ namespace Svr.AD.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeRoles(Role.Admin, Role.User)]
+        [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Edit(ItemViewModel model)
         {
             if (ModelState.IsValid)

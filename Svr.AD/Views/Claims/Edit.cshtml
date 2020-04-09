@@ -61,7 +61,7 @@
         {
             @Html.HiddenFor(model => model.RegionId)
         }
-        @if (User.IsInRole(Role.Admin) || User.IsInRole(Role.User))
+        @if (User.IsInRole(Role.Admin) || !User.IsInRole(Role.Users))
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })

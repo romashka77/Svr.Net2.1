@@ -42,7 +42,7 @@ namespace Svr.Infrastructure.Identity
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, Role.Administrator);
+                    await userManager.AddToRoleAsync(admin, RoleBase.Administrator);
                 }
             }
         }

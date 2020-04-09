@@ -7,15 +7,15 @@ namespace Svr.Infrastructure.Extensions
     /// </summary>
     public enum RoleState : byte
     {
-        [Description(Role.Administrator)]
+        [Description(RoleBase.Administrator)]
         Administrator,
-        [Description(Role.AdminOPFR)]
+        [Description(RoleBase.AdminOPFR)]
         AdministratorOPFR,
-        [Description(Role.AdminUPFR)]
+        [Description(RoleBase.AdminUPFR)]
         AdministratorUPFR,
-        [Description(Role.UserOPFR)]
+        [Description(RoleBase.UserOPFR)]
         UserOPFR,
-        [Description(Role.UserUPFR)]
+        [Description(RoleBase.UserUPFR)]
         UserUPFR
         //    ,
         //[Description("Пользователь")]

@@ -12,7 +12,7 @@
         <label class="control-label">Дата по: </label>
         @Html.EditorFor(model => model.DatePo, "datePo", new { htmlAttributes = new { @class = "form-control", onchange = @"form.submit();" } })
     </div>
-    @if (User.IsInRole(Role.Admin)|| User.IsInRole(Role.User))
+    @if (User.IsInRole(Role.Admin) || !User.IsInRole(Role.Users))
     {
         <div class="form-group">
             @if (User.IsInRole(Role.Admin))
