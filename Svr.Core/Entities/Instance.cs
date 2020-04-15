@@ -38,7 +38,6 @@ namespace Svr.Core.Entities
         /// </summary>
         [Display(Name = "Решение суда")]
         [ForeignKey("CourtDecisionId")]
-        [Required(ErrorMessage = ErrorStringEmpty)]
         public virtual Dir CourtDecision { get; set; }
         /// <summary>
         /// Дата решения
