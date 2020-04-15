@@ -659,7 +659,10 @@ namespace Svr.Web.Controllers
                             {
                                 cells[$"D{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
                                 cells[$"E{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"F{l++}"].Value = $"{ instance.SumDenied}";
+                                cells[$"F{l}"].Value = $"{ instance.SumDenied}";
+                                if (instance.CourtDecision != null)
+                                    cells[$"G{l}"].Value = $"{instance.CourtDecision}";
+                                l++;
                             }
                             var k = 0;
                             if (flg == 1)
@@ -675,7 +678,10 @@ namespace Svr.Web.Controllers
                             {
                                 cells[$"G{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
                                 cells[$"H{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"I{l++}"].Value = $"{ instance.SumDenied}";
+                                cells[$"I{l}"].Value = $"{ instance.SumDenied}";
+                                if (instance.CourtDecision != null)
+                                    cells[$"J{l}"].Value = $"{instance.CourtDecision}";
+                                l++;
                             }
                             var k = 0;
                             if (flg == 1)
@@ -691,7 +697,10 @@ namespace Svr.Web.Controllers
                             {
                                 cells[$"J{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
                                 cells[$"K{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"L{l++}"].Value = $"{ instance.SumDenied}";
+                                cells[$"L{l}"].Value = $"{ instance.SumDenied}";
+                                if (instance.CourtDecision != null)
+                                    cells[$"M{l}"].Value = $"{instance.CourtDecision}";
+                                l++;
                             }
                             var k = 0;
                             if (flg == 1)
@@ -708,6 +717,9 @@ namespace Svr.Web.Controllers
                                 cells[$"M{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
                                 cells[$"N{l}"].Value = $"{ instance.SumSatisfied}";
                                 cells[$"O{l++}"].Value = $"{ instance.SumDenied}";
+                                if (instance.CourtDecision != null)
+                                    cells[$"P{l}"].Value = $"{instance.CourtDecision}";
+                                l++;
                             }
                             var k = 0;
                             if (flg == 1)
