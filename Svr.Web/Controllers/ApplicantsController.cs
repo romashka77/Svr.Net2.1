@@ -116,7 +116,7 @@ namespace Svr.Web.Controllers
                 var item = await repository.AddAsync(new Applicant { Name = model.Name, TypeApplicantId = model.TypeApplicantId, /*Description = model.Description, FullName = model.FullName, OpfId = model.OpfId, Inn = model.Inn, Address = model.Address, AddressBank = model.AddressBank, Born = model.Born */});
                 if (item != null)
                 {
-                    logger.LogInformation($"{model} create");
+                    logger.LogInformation($"{model} создано");
                     StatusMessage = item.MessageAddOk();
                     return RedirectToAction(nameof(Index));
                 }
@@ -160,7 +160,7 @@ namespace Svr.Web.Controllers
                 {
                     await repository.UpdateAsync(new Applicant { Id = model.Id, Name = model.Name, CreatedOnUtc = model.CreatedOnUtc, TypeApplicantId = model.TypeApplicantId, Description = model.Description, FullName = model.FullName, OpfId = model.OpfId, Address = model.Address, AddressBank = model.AddressBank, Born = model.Born, Inn = model.Inn });
                     StatusMessage = model.MessageEditOk();
-                    logger.LogInformation($"{model} edit");
+                    logger.LogInformation($"{model} изменено");
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {

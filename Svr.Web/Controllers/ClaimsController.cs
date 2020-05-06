@@ -236,7 +236,7 @@ namespace Svr.Web.Controllers
                 if (item != null)
                 {
                     StatusMessage = item.MessageAddOk();
-                    logger.LogInformation($"{model} create");
+                    logger.LogInformation($"{model} создано");
                     return RedirectToAction(nameof(Edit), new { id = item.Id });
                 }
             }
@@ -277,7 +277,7 @@ namespace Svr.Web.Controllers
                     {
                         await repository.UpdateAsync(new Claim { Id = model.Id, Code = model.Code, Description = model.Description, Name = model.Name, NumPFR = model.NumPFR, CreatedOnUtc = model.CreatedOnUtc, CategoryDisputeId = model.CategoryDisputeId, RegionId = model.RegionId, DistrictId = model.DistrictId, DateReg = model.DateReg, DateIn = model.DateIn, GroupClaimId = model.GroupClaimId, SubjectClaimId = model.SubjectClaimId, СourtId = model.СourtId, PerformerId = model.PerformerId, Sum = model.Sum, PlaintiffId = model.PlaintiffId, RespondentId = model.RespondentId, Person3rdId = model.Person3rdId });
                         StatusMessage = model.MessageEditOk();
-                        logger.LogInformation($"{model} edit");
+                        logger.LogInformation($"{model} изменено");
                     }
                     else { StatusMessage = $"Проверте заполнение полей"; }
                 }
@@ -329,7 +329,7 @@ namespace Svr.Web.Controllers
             {
                 await repository.DeleteAsync(new Claim { Id = model.Id, Name = model.Name, Code = model.Code, });
                 StatusMessage = model.MessageDeleteOk();
-                logger.LogInformation($"{model} delete");
+                logger.LogInformation($"{model} удалено");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

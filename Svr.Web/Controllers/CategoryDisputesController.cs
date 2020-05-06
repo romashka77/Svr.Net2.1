@@ -108,7 +108,7 @@ namespace Svr.Web.Controllers
                 if (item != null)
                 {
                     StatusMessage = item.MessageAddOk();
-                    logger.LogInformation($"{model} create");
+                    logger.LogInformation($"{model} создано");
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -142,7 +142,7 @@ namespace Svr.Web.Controllers
                 {
                     await repository.UpdateAsync(new CategoryDispute { Id = model.Id, Description = model.Description, Name = model.Name, CreatedOnUtc = model.CreatedOnUtc });
                     StatusMessage = model.MessageEditOk();
-                    logger.LogInformation($"{model} edit");
+                    logger.LogInformation($"{model} изменено");
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
@@ -184,7 +184,7 @@ namespace Svr.Web.Controllers
             {
                 await repository.DeleteAsync(new CategoryDispute { Id = model.Id, Name = model.Name });
                 StatusMessage = model.MessageDeleteOk();
-                logger.LogInformation($"{model} delete");
+                logger.LogInformation($"{model} удален");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

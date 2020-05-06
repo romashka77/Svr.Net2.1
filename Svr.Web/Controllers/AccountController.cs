@@ -132,18 +132,18 @@ namespace Svr.Web.Controllers
 
             if (result.Succeeded)
             {
-                logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
+                logger.LogInformation("Пользователь с ID {UserId} вошел в систему с 2fa.", user.Id);
                 return RedirectToLocal(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
+                logger.LogWarning("Пользователь с ID {UserId} заблокирован.", user.Id);
                 return RedirectToAction(nameof(Lockout));
             }
             else
             {
-                logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                logger.LogWarning("Введен неверный код аутентификации для пользователя с ID {UserId}.", user.Id);
+                ModelState.AddModelError(string.Empty, "Неверный код аутентификации.");
                 return View();
             }
         }
@@ -157,7 +157,7 @@ namespace Svr.Web.Controllers
             var user = await signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
+                throw new ApplicationException($"Невозможно загрузить пользователя двухфакторной аутентификации.");
             }
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -178,7 +178,7 @@ namespace Svr.Web.Controllers
             var user = await signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load two-factor authentication user.");
+                throw new ApplicationException($"Невозможно загрузить пользователя двухфакторной аутентификации.");
             }
 
             var recoveryCode = model.RecoveryCode.Replace(" ", string.Empty);
@@ -187,18 +187,18 @@ namespace Svr.Web.Controllers
 
             if (result.Succeeded)
             {
-                logger.LogInformation("User with ID {UserId} logged in with a recovery code.", user.Id);
+                logger.LogInformation("Пользователь с ID {UserId} вошел в систему с кодом восстановления.", user.Id);
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
             {
-                logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
+                logger.LogWarning("Пользователь с ID {UserId} заблокированUser.", user.Id);
                 return RedirectToAction(nameof(Lockout));
             }
             else
             {
-                logger.LogWarning("Invalid recovery code entered for user with ID {UserId}", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
+                logger.LogWarning("Введен неверный код восстановления для пользователя с ID {UserId}", user.Id);
+                ModelState.AddModelError(string.Empty, "Введен неверный код восстановления.");
                 return View();
             }
         }
@@ -294,7 +294,7 @@ namespace Svr.Web.Controllers
             var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+                logger.LogInformation("Пользователь вошел используя провайдер {Name}.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
@@ -324,7 +324,7 @@ namespace Svr.Web.Controllers
                 var info = await signInManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    throw new ApplicationException("Error loading external login information during confirmation.");
+                    throw new ApplicationException("Ошибка загрузки информации о внешнем логине при подтверждении.");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await userManager.CreateAsync(user);
@@ -334,7 +334,7 @@ namespace Svr.Web.Controllers
                     if (result.Succeeded)
                     {
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        logger.LogInformation("Пользователь создал учетную запись, используя провайдера {Name}.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -356,7 +356,7 @@ namespace Svr.Web.Controllers
             var user = await userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+                throw new ApplicationException($"Невозможно загрузить пользователя с ID '{userId}'.");
             }
             var result = await userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
