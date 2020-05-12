@@ -108,7 +108,7 @@ namespace Svr.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
-        public async Task<IActionResult> Create(ItemViewModel model)
+        public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -136,7 +136,7 @@ namespace Svr.Web.Controllers
                 StatusMessage = id.ToString().ErrorFind();
                 return RedirectToAction(nameof(Index));
             }
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc };
+            var model = new CreateViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc};
             ViewBag.groupClaims = new SelectList((await groupClaimRepository.ListAllAsync()).Select(a => new { a.Id, Name = $"{a.Code} {a.Name}" }), "Id", "Name", 1);
             return View(model);
         }
@@ -146,7 +146,7 @@ namespace Svr.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
-        public async Task<IActionResult> Edit(ItemViewModel model)
+        public async Task<IActionResult> Edit(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -175,7 +175,7 @@ namespace Svr.Web.Controllers
         #endregion
         #region Delete
         // GET: SubjectClaims/Delete/5
-        [AuthorizeRoles(Role.Administrator)]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         public async Task<IActionResult> Delete(long? id)
         {
             var item = await repository.GetByIdAsync(id);
@@ -190,7 +190,7 @@ namespace Svr.Web.Controllers
 
         // POST: SubjectClaims/Delete/5
         [HttpPost, ActionName("Delete")]
-        [AuthorizeRoles(Role.Administrator)]
+        [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
         {

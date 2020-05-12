@@ -92,6 +92,7 @@ namespace Svr.Web.Controllers
         }
 
         #endregion
+        #region Index
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null,
             string owner = null, string searchString = null, int page = 1, int itemsPage = 10, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
@@ -164,7 +165,8 @@ namespace Svr.Web.Controllers
             };
             return View(indexModel);
         }
-
+        #endregion
+        #region InMemoryReport
         public async Task<IActionResult> InMemoryReport(string lord = null, string owner = null, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
         {
@@ -184,7 +186,8 @@ namespace Svr.Web.Controllers
             }
             return File(reportBytes, XlsxContentType, GetFileName(dateS, datePo));
         }
-
+        #endregion 
+        #region FileReport
         public async Task<IActionResult> FileReport(string lord = null, string owner = null, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
         {
@@ -209,7 +212,8 @@ namespace Svr.Web.Controllers
             return File( /*path*/ /*reportBytes*/Path.Combine(path, GetFileName(dateS, datePo)), XlsxContentType,
                 GetFileName(dateS, datePo));
         }
-
+        #endregion
+        #region GetFileTemplateName
         private async Task<FileInfo> GetFileTemplateName(string category)
         {
             string fileTemplateName;
@@ -235,7 +239,8 @@ namespace Svr.Web.Controllers
             StatusMessage = $"Ошибка: Файл Excel-шаблона {fileTemplateName} отсутствует.";
             return null;
         }
-
+        #endregion
+        #region GetSumInstances
         private void GetSumInstances(List<Instance> instances, Rec satisfied,
             Rec denied, Rec end, Rec no, Record duty, Record services, Record cost, Record dutyPaid)
         {
@@ -316,16 +321,19 @@ namespace Svr.Web.Controllers
                 }
             }
         }
-
+        #endregion
+        #region CellToInt
         private static int CellToInt(string text, int count)
         {
             return int.TryParse(text, out var t) ? count + t : count;
         }
-
+        #endregion
+        #region CellToDec
         private static decimal CellToDec(string text, decimal count)
         {
             return decimal.TryParse(text, out var t) ? count + t : count;
         }
+        #endregion
         private class NameSum
         {
             public string Name { get; set; }
@@ -410,7 +418,6 @@ namespace Svr.Web.Controllers
             cells[$"AG{n}"].Value = CellToInt(cells[$"AG{n}"].Text, record[10].Count);
             cells[$"AH{n}"].Value = CellToDec(cells[$"AH{n}"].Text, RoundHundred(record[10].Sum));
             var regex = new Regex(@"(\d+|\.[^.]*)$");//(@"\.[^.]*$");
-            // ReSharper disable once TailRecursiveCall
             SetCells2(worksheet, record, regex.Replace(cat, string.Empty, 1));
         }
 
