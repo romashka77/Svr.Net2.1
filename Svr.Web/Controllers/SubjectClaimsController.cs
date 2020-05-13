@@ -136,7 +136,7 @@ namespace Svr.Web.Controllers
                 StatusMessage = id.ToString().ErrorFind();
                 return RedirectToAction(nameof(Index));
             }
-            var model = new CreateViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc};
+            var model = new CreateViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc };
             ViewBag.groupClaims = new SelectList((await groupClaimRepository.ListAllAsync()).Select(a => new { a.Id, Name = $"{a.Code} {a.Name}" }), "Id", "Name", 1);
             return View(model);
         }
@@ -187,7 +187,6 @@ namespace Svr.Web.Controllers
             var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage };
             return View(model);
         }
-
         // POST: SubjectClaims/Delete/5
         [HttpPost, ActionName("Delete")]
         [AuthorizeRoles(Role.AdminOPFR, Role.Administrator)]

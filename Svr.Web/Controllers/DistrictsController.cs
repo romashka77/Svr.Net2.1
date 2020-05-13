@@ -107,7 +107,6 @@ namespace Svr.Web.Controllers
             return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole(Role.Administrator)).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         #endregion
-
         #region Details
         // GET: Districts/Details/5
         public async Task<IActionResult> Details(long? id)

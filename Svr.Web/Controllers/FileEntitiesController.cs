@@ -51,7 +51,6 @@ namespace Svr.Web.Controllers
             base.Dispose(disposing);
         }
         #endregion
-
         #region Index
         // GET: FileEntities
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string owner = null, string searchString = null, int page = 1, int itemsPage = 10, DateTime? date = null)
@@ -147,6 +146,7 @@ namespace Svr.Web.Controllers
             return View(model);
         }
         #endregion
+        #region Download
         public async Task<IActionResult> Download(string path)
         {
             if (path == null)
@@ -161,7 +161,7 @@ namespace Svr.Web.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(GetFile(path)));
         }
-
+        #endregion
         #region Edit
         // GET: FileEntities/Edit/5
         public async Task<ActionResult> Edit(long? id)
@@ -255,7 +255,7 @@ namespace Svr.Web.Controllers
             }
         }
         #endregion
-        
+        #region Utils
         private string GetFile(string path)
         {
             return Path.Combine(hostingEnvironment.WebRootPath, FilesFolder, path);
@@ -283,5 +283,6 @@ namespace Svr.Web.Controllers
                 {".csv", "text/csv"}
             };
         }
+        #endregion
     }
 }

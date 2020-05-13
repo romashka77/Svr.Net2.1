@@ -258,6 +258,7 @@ namespace Svr.Web.Controllers
             }
         }
         #endregion
+        #region SetViewBag
         private async Task SetViewBag(ItemViewModel model)
         {
             switch (model.Number)
@@ -279,5 +280,6 @@ namespace Svr.Web.Controllers
                     break;
             }
         }
+        #endregion
     }
 }

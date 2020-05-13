@@ -27,7 +27,7 @@ namespace Svr.Web.Controllers
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
-
+        #region Конструктор
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
@@ -41,10 +41,23 @@ namespace Svr.Web.Controllers
             this.logger = logger;
             this.urlEncoder = urlEncoder;
         }
-
+        #endregion
+        #region Деструктор
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //сlaimRepository = null;
+                //repository = null;
+                //dirRepository = null;
+                //logger = null;
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
         [TempData]
         public string StatusMessage { get; set; }
-
+        #region Index
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -126,7 +139,8 @@ namespace Svr.Web.Controllers
             StatusMessage = "Ваш профиль обновлен";
             return RedirectToAction(nameof(Index));
         }
-
+        #endregion
+        #region SendVerificationEmail
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)
@@ -150,7 +164,8 @@ namespace Svr.Web.Controllers
             StatusMessage = "Письмо с подтверждением отправлено. Пожалуйста, проверьте свою электронную почту.";
             return RedirectToAction(nameof(Index));
         }
-
+        #endregion
+        #region ChangePassword
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
@@ -169,7 +184,8 @@ namespace Svr.Web.Controllers
             var model = new ChangePasswordViewModel { StatusMessage = StatusMessage };
             return View(model);
         }
-
+        #endregion
+        #region ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -198,7 +214,8 @@ namespace Svr.Web.Controllers
 
             return RedirectToAction(nameof(ChangePassword));
         }
-
+        #endregion
+        #region SetPassword
         [HttpGet]
         public async Task<IActionResult> SetPassword()
         {
@@ -218,7 +235,8 @@ namespace Svr.Web.Controllers
             var model = new SetPasswordViewModel { StatusMessage = StatusMessage };
             return View(model);
         }
-
+        #endregion
+        #region SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
@@ -246,7 +264,8 @@ namespace Svr.Web.Controllers
 
             return RedirectToAction(nameof(SetPassword));
         }
-
+        #endregion
+        #region ExternalLogins
         [HttpGet]
         public async Task<IActionResult> ExternalLogins()
         {
@@ -265,7 +284,8 @@ namespace Svr.Web.Controllers
 
             return View(model);
         }
-
+        #endregion
+        #region LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LinkLogin(string provider)
@@ -280,7 +300,8 @@ namespace Svr.Web.Controllers
             var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, userManager.GetUserId(User));
             return new ChallengeResult(provider, properties);
         }
-
+        #endregion
+        #region LinkLoginCallback
         [HttpGet]
         public async Task<IActionResult> LinkLoginCallback()
         {
@@ -309,7 +330,8 @@ namespace Svr.Web.Controllers
             StatusMessage = "Добавлен внешний логин";
             return RedirectToAction(nameof(ExternalLogins));
         }
-
+        #endregion
+        #region RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel model)
@@ -330,7 +352,8 @@ namespace Svr.Web.Controllers
             StatusMessage = "Внешние логин был удален.";
             return RedirectToAction(nameof(ExternalLogins));
         }
-
+        #endregion
+        #region TwoFactorAuthentication
         [HttpGet]
         public async Task<IActionResult> TwoFactorAuthentication()
         {
@@ -349,7 +372,8 @@ namespace Svr.Web.Controllers
 
             return View(model);
         }
-
+        #endregion
+        #region Disable2FaWarning
         [HttpGet]
         public async Task<IActionResult> Disable2FaWarning()
         {
@@ -366,7 +390,8 @@ namespace Svr.Web.Controllers
 
             return View(nameof(Disable2Fa));
         }
-
+        #endregion
+        #region Disable2Fa
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Disable2Fa()
@@ -386,7 +411,8 @@ namespace Svr.Web.Controllers
             logger.LogInformation("Пользователь с ID {UserId} отключил 2fa.", user.Id);
             return RedirectToAction(nameof(TwoFactorAuthentication));
         }
-
+        #endregion
+        #region EnableAuthenticator
         [HttpGet]
         public async Task<IActionResult> EnableAuthenticator()
         {
@@ -401,7 +427,8 @@ namespace Svr.Web.Controllers
 
             return View(model);
         }
-
+        #endregion
+        #region EnableAuthenticator
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EnableAuthenticator(EnableAuthenticatorViewModel model)
@@ -439,7 +466,8 @@ namespace Svr.Web.Controllers
 
             return RedirectToAction(nameof(ShowRecoveryCodes));
         }
-
+        #endregion
+        #region ShowRecoveryCodes
         [HttpGet]
         public IActionResult ShowRecoveryCodes()
         {
@@ -452,7 +480,8 @@ namespace Svr.Web.Controllers
             var model = new ShowRecoveryCodesViewModel { RecoveryCodes = recoveryCodes };
             return View(model);
         }
-
+        #endregion
+        #region ResetAuthenticator
         [HttpGet]
         public IActionResult ResetAuthenticatorWarning()
         {
@@ -475,7 +504,8 @@ namespace Svr.Web.Controllers
 
             return RedirectToAction(nameof(EnableAuthenticator));
         }
-
+        #endregion
+        #region GenerateRecoveryCodesWarning
         [HttpGet]
         public async Task<IActionResult> GenerateRecoveryCodesWarning()
         {
@@ -492,7 +522,8 @@ namespace Svr.Web.Controllers
 
             return View(nameof(GenerateRecoveryCodes));
         }
-
+        #endregion
+        #region GenerateRecoveryCodes
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GenerateRecoveryCodes()
@@ -515,9 +546,9 @@ namespace Svr.Web.Controllers
 
             return View(nameof(ShowRecoveryCodes), model);
         }
-
+        #endregion
         #region Helpers
-
+        #region AddErrors
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -525,7 +556,8 @@ namespace Svr.Web.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
-
+        #endregion
+        #region FormatKey
         private string FormatKey(string unformattedKey)
         {
             var result = new StringBuilder();
@@ -542,7 +574,8 @@ namespace Svr.Web.Controllers
 
             return result.ToString().ToLowerInvariant();
         }
-
+        #endregion
+        #region GenerateQrCodeUri
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(
@@ -551,7 +584,8 @@ namespace Svr.Web.Controllers
                 urlEncoder.Encode(email),
                 unformattedKey);
         }
-
+        #endregion
+        #region LoadSharedKeyAndQrCodeUriAsync
         private async Task LoadSharedKeyAndQrCodeUriAsync(ApplicationUser user, EnableAuthenticatorViewModel model)
         {
             var unformattedKey = await userManager.GetAuthenticatorKeyAsync(user);
@@ -564,7 +598,7 @@ namespace Svr.Web.Controllers
             model.SharedKey = FormatKey(unformattedKey);
             model.AuthenticatorUri = GenerateQrCodeUri(user.Email, unformattedKey);
         }
-
+        #endregion
         #endregion
     }
 }

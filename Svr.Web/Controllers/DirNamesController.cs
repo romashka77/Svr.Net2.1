@@ -21,7 +21,6 @@ namespace Svr.Web.Controllers
         private readonly IDirNameRepository repository;
         [TempData]
         public string StatusMessage { get; set; }
-
         #region Конструктор
         public DirNamesController(IDirNameRepository repository, ILogger<DirNamesController> logger = null)
         {

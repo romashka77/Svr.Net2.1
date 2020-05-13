@@ -22,7 +22,7 @@ namespace Svr.Web.Controllers
         private readonly IEmailSender emailSender;
         private readonly ILogger logger;
         //ApplicationDbContext context;
-
+        #region Конструктор
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -35,11 +35,19 @@ namespace Svr.Web.Controllers
             this.logger = logger;
             //this.context = context;
         }
-
-
+        #endregion
+        #region Деструктор
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
         [TempData]
         public string ErrorMessage { get; set; }
-
+        #region Login
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -51,7 +59,6 @@ namespace Svr.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -90,7 +97,8 @@ namespace Svr.Web.Controllers
             //Если мы зашли так далеко, что не перерисовка формы
             return View(model);
         }
-
+        #endregion
+        #region LoginWith2Fa
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWith2Fa(bool rememberMe, string returnUrl = null)
@@ -109,7 +117,6 @@ namespace Svr.Web.Controllers
 
             return View(model);
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -147,7 +154,8 @@ namespace Svr.Web.Controllers
                 return View();
             }
         }
-
+        #endregion
+        #region LoginWithRecoveryCode
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
@@ -202,14 +210,16 @@ namespace Svr.Web.Controllers
                 return View();
             }
         }
-
+        #endregion
+        #region Lockout
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
         {
             return View();
         }
-
+        #endregion
+        #region Register
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -217,7 +227,6 @@ namespace Svr.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -252,7 +261,8 @@ namespace Svr.Web.Controllers
             //Если мы зашли так далеко, что не перерисовка формы
             return View(model);
         }
-
+        #endregion
+        #region Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -261,7 +271,8 @@ namespace Svr.Web.Controllers
             logger.LogInformation("Пользователь вышел из системы.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
+        #endregion
+        #region ExternalLogin
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -344,7 +355,8 @@ namespace Svr.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View(nameof(ExternalLogin), model);
         }
-
+        #endregion
+        #region ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -361,7 +373,8 @@ namespace Svr.Web.Controllers
             var result = await userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
+        #endregion
+        #region ForgotPassword
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
@@ -405,7 +418,8 @@ namespace Svr.Web.Controllers
         {
             return View();
         }
-
+        #endregion
+        #region ResetPassword
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
@@ -449,14 +463,14 @@ namespace Svr.Web.Controllers
         {
             return View();
         }
-
-
+        #endregion
+        #region AccessDenied
         [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();
         }
-
+        #endregion
         #region Helpers
 
         private void AddErrors(IdentityResult result)

@@ -178,7 +178,7 @@ namespace Svr.Web.Controllers
             return View(model);
         }
         #endregion
-
+        #region Validate
         public JsonResult ValidateDate(string DateReg)
         {
             DateTime parsedDate;
@@ -197,6 +197,7 @@ namespace Svr.Web.Controllers
                 return Json(true);//, JsonRequestBehavior.AllowGet);
             }
         }
+        #endregion
         #region Create
         // GET: Claims/Create
         [AuthorizeRoles(Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
