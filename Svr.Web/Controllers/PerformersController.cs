@@ -17,16 +17,13 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class PerformersController : Controller
+    public class PerformersController : MessageController
     {
         private readonly IPerformerRepository repository;
         private readonly IRegionRepository regionRepository;
         private readonly IDistrictRepository districtRepository;
         private readonly IDistrictPerformerRepository districtPerformerRepository;
         private readonly ILogger<PerformersController> logger;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public PerformersController(IPerformerRepository repository, IRegionRepository regionRepository, IDistrictRepository districtRepository, IDistrictPerformerRepository districtPerformerRepository, ILogger<PerformersController> logger)
         {

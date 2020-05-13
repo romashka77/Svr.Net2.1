@@ -17,7 +17,7 @@ namespace Svr.Web.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class ManageController : Controller
+    public class ManageController : MessageController
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -55,8 +55,6 @@ namespace Svr.Web.Controllers
             base.Dispose(disposing);
         }
         #endregion
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Index
         [HttpGet]
         public async Task<IActionResult> Index()

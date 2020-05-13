@@ -19,17 +19,13 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class InstancesController : Controller
+    public class InstancesController : MessageController
     {
         private readonly IInstanceRepository repository;
         private readonly IClaimRepository сlaimRepository;
         private readonly IDirRepository dirRepository;
         private readonly ILogger<InstancesController> logger;
         //private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
-
         #region Конструктор
         public InstancesController(IInstanceRepository repository, IClaimRepository сlaimRepository, IDirRepository dirRepository, ILogger<InstancesController> logger)
         {

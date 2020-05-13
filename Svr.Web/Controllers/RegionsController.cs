@@ -19,15 +19,11 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class RegionsController : Controller
+    public class RegionsController : MessageController
     {
         private readonly ILogger<RegionsController> logger;
         private readonly IRegionRepository repository;
         private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
-
         #region Конструктор
         public RegionsController(IRegionRepository repository, ILogger<RegionsController> logger, UserManager<ApplicationUser> userManager)
         {

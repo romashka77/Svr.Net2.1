@@ -17,14 +17,11 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class GroupClaimsController : Controller
+    public class GroupClaimsController : MessageController
     {
         private readonly IGroupClaimRepository repository;
         private readonly ICategoryDisputeRepository categoryDisputeRepository;
         private readonly ILogger<GroupClaimsController> logger;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public GroupClaimsController(IGroupClaimRepository repository, ICategoryDisputeRepository categoryDisputeRepository, ILogger<GroupClaimsController> logger)
         {

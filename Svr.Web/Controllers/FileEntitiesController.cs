@@ -19,16 +19,13 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class FileEntitiesController : Controller
+    public class FileEntitiesController : MessageController
     {
         private const string FilesFolder = "Files";
         private readonly IFileEntityRepository repository;
         private readonly IClaimRepository сlaimRepository;
         private readonly ILogger<FileEntitiesController> logger;
         private readonly IHostingEnvironment hostingEnvironment;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public FileEntitiesController(IFileEntityRepository repository, IClaimRepository сlaimRepository, IHostingEnvironment hostingEnvironment, ILogger<FileEntitiesController> logger)
         {

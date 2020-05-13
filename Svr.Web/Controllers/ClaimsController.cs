@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class ClaimsController : Controller
+    public class ClaimsController : MessageController
     {
         private readonly IClaimRepository repository;
         private readonly IDistrictRepository districtRepository;
@@ -33,9 +33,6 @@ namespace Svr.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<ClaimsController> logger;
         private readonly IInstanceRepository instanceRepository;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public ClaimsController(IClaimRepository repository, IRegionRepository regionRepository, IDistrictRepository districtRepository, ICategoryDisputeRepository categoryDisputeRepository, IGroupClaimRepository groupClaimRepository, ISubjectClaimRepository subjectClaimRepository, IDirRepository dirRepository, IApplicantRepository applicantRepository, ILogger<ClaimsController> logger, UserManager<ApplicationUser> userManager, IInstanceRepository instanceRepository)
         {

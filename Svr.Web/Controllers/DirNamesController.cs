@@ -15,12 +15,10 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class DirNamesController : Controller
+    public class DirNamesController : MessageController
     {
         private readonly ILogger<DirNamesController> logger;
         private readonly IDirNameRepository repository;
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public DirNamesController(IDirNameRepository repository, ILogger<DirNamesController> logger = null)
         {

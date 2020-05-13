@@ -18,15 +18,13 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class ApplicantsController : Controller
+    public class ApplicantsController : MessageController
     {
         private readonly IApplicantRepository repository;
         private readonly IDirRepository dirRepository;
         private readonly IClaimRepository claimRepository;
         private readonly ILogger<ApplicantsController> logger;
 
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public ApplicantsController(IApplicantRepository repository, IDirRepository dirRepository, IClaimRepository claimRepository, ILogger<ApplicantsController> logger)
         {

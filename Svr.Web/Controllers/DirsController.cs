@@ -17,14 +17,11 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class DirsController : Controller
+    public class DirsController : MessageController
     {
         private readonly IDirRepository repository;
         private readonly IDirNameRepository repositoryDirName;
         private readonly ILogger<DirsController> logger;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public DirsController(IDirRepository repository, IDirNameRepository repositoryDirName, ILogger<DirsController> logger)
         {

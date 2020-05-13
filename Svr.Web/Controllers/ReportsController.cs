@@ -34,7 +34,7 @@ namespace Svr.Web.Controllers
     //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
     //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class ReportsController : Controller
+    public class ReportsController : MessageController
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
         private readonly IHostingEnvironment hostingEnvironment;
@@ -52,9 +52,6 @@ namespace Svr.Web.Controllers
         private readonly IGroupClaimRepository groupClaimRepository;
         private readonly IClaimRepository claimRepository;
         private readonly IInstanceRepository instanceRepository;
-
-        [TempData] public string StatusMessage { get; set; }
-
         #region Конструктор
 
         public ReportsController(IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager,
@@ -76,7 +73,6 @@ namespace Svr.Web.Controllers
         }
 
         #endregion
-
         #region Деструктор
 
         protected override void Dispose(bool disposing)

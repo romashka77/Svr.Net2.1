@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Svr.Web.Controllers
 {
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
-    public class DistrictsController : Controller
+    public class DistrictsController : MessageController
     {
         private readonly IDistrictRepository repository;
         private readonly IRegionRepository regionRepository;
@@ -28,9 +28,6 @@ namespace Svr.Web.Controllers
         private readonly IPerformerRepository performerRepository;
         private readonly ILogger<DistrictsController> logger;
         private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public DistrictsController(IDistrictRepository repository, IRegionRepository regionRepository, IPerformerRepository performerRepository, IDistrictPerformerRepository districtPerformerRepository, ILogger<DistrictsController> logger, UserManager<ApplicationUser> userManager)
         {
