@@ -15,13 +15,10 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin)]
-    public class CategoryDisputesController : Controller
+    public class CategoryDisputesController : MessageController
     {
         private readonly ILogger<CategoryDisputesController> logger;
         private readonly ICategoryDisputeRepository repository;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public CategoryDisputesController(ICategoryDisputeRepository repository, ILogger<CategoryDisputesController> logger = null)
         {

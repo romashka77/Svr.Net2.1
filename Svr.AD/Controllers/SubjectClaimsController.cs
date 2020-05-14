@@ -108,7 +108,7 @@ namespace Svr.AD.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Role.Admin)]
-        public async Task<IActionResult> Create(ItemViewModel model)
+        public async Task<IActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +146,7 @@ namespace Svr.AD.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeRoles(Role.Admin)]
-        public async Task<IActionResult> Edit(ItemViewModel model)
+        public async Task<IActionResult> Edit(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -184,7 +184,7 @@ namespace Svr.AD.Controllers
                 StatusMessage = id.ToString().ErrorFind();
                 return RedirectToAction(nameof(Index));
             }
-            var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage };
+            var model = new CreateViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, GroupClaimId = item.GroupClaimId, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage };
             return View(model);
         }
 
@@ -192,7 +192,7 @@ namespace Svr.AD.Controllers
         [HttpPost, ActionName("Delete")]
         [AuthorizeRoles(Role.Admin)]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(ItemViewModel model)
+        public async Task<IActionResult> DeleteConfirmed(CreateViewModel model)
         {
             try
             {

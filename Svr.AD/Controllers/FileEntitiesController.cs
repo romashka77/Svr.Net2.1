@@ -19,16 +19,13 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
-    public class FileEntitiesController : Controller
+    public class FileEntitiesController : MessageController
     {
         private const string FilesFolder = "Files";
         private readonly IFileEntityRepository repository;
         private readonly IClaimRepository сlaimRepository;
         private readonly ILogger<FileEntitiesController> logger;
         private readonly IHostingEnvironment hostingEnvironment;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public FileEntitiesController(IFileEntityRepository repository, IClaimRepository сlaimRepository, IHostingEnvironment hostingEnvironment, ILogger<FileEntitiesController> logger)
         {
@@ -51,7 +48,6 @@ namespace Svr.AD.Controllers
             base.Dispose(disposing);
         }
         #endregion
-
         #region Index
         // GET: FileEntities
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string owner = null, string searchString = null, int page = 1, int itemsPage = 10, DateTime? date = null)
@@ -149,6 +145,7 @@ namespace Svr.AD.Controllers
             return View(model);
         }
         #endregion
+        #region Download
         public async Task<IActionResult> Download(string path)
         {
             if (path == null)
@@ -163,7 +160,7 @@ namespace Svr.AD.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(GetFile(path)));
         }
-
+        #endregion
         #region Edit
         // GET: FileEntities/Edit/5
         [AuthorizeRoles(Role.Admin, Role.Users)]
@@ -259,7 +256,7 @@ namespace Svr.AD.Controllers
             }
         }
         #endregion
-
+        #region Utils
         private string GetFile(string path)
         {
             return Path.Combine(hostingEnvironment.WebRootPath, FilesFolder, path);
@@ -287,5 +284,6 @@ namespace Svr.AD.Controllers
                 {".csv", "text/csv"}
             };
         }
+        #endregion
     }
 }

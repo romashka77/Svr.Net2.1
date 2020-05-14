@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
-    public class ClaimsController : Controller
+    public class ClaimsController : MessageController
     {
         private readonly IClaimRepository repository;
         private readonly IDistrictRepository districtRepository;
@@ -33,9 +33,6 @@ namespace Svr.AD.Controllers
         //private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<ClaimsController> logger;
         private readonly IInstanceRepository instanceRepository;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public ClaimsController(IClaimRepository repository, IRegionRepository regionRepository, IDistrictRepository districtRepository, ICategoryDisputeRepository categoryDisputeRepository, IGroupClaimRepository groupClaimRepository, ISubjectClaimRepository subjectClaimRepository, IDirRepository dirRepository, IApplicantRepository applicantRepository, ILogger<ClaimsController> logger, /*UserManager<ApplicationUser> userManager, */IInstanceRepository instanceRepository)
         {
@@ -65,9 +62,9 @@ namespace Svr.AD.Controllers
         // GET: Claims
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 5, DateTime? dateS = null, DateTime? datePo = null, string category = null, string groupClaim = null, string subjectClaim = null, string resultClaim = null)
         {
-            lord =this.GetLord(lord);
-            owner=this.GetOwner(owner);
-            
+            lord = this.GetLord(lord);
+            owner = this.GetOwner(owner);
+
             //if (User.IsInRole(Role.Admin))
             //{ }
             //else if (User.IsInRole(Role.Manager))
@@ -114,8 +111,8 @@ namespace Svr.AD.Controllers
             };
             return View(indexModel);
         }
-#endregion
-            #region GetSelectList
+        #endregion
+        #region GetSelectList
         private async Task<IEnumerable<SelectListItem>> GetResultClaimSelectList(string resultClaim = null)
         {
             return await dirRepository.Filter(lord: "Решения суда 1-ой инстанции").Select(a => new SelectListItem { Text = a.Name, Value = a.Name, Selected = (resultClaim == a.Name) }).OrderBy(a => a.Text).ToListAsync();
@@ -162,8 +159,8 @@ namespace Svr.AD.Controllers
         {
             return await applicantRepository.Filter().OrderBy(a => a.Name).Select(a => new SelectListItem { Value = a.Id.ToString(), Text = string.Concat(a.Name, " ", a.Address) }).ToListAsync();
         }
-            #endregion
-            #region Details
+        #endregion
+        #region Details
         // GET: Claims/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -178,8 +175,8 @@ namespace Svr.AD.Controllers
             var model = new ItemViewModel { Id = item.Id, Code = item.Code, Name = item.Name, Description = item.Description, /*RegionId = item.RegionId,*/ Region = item.Region, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, District = item.District, Instances = item.Instances, Meetings = item.Meetings, FileEntities = item.FileEntities, DateReg = item.DateReg, DateIn = item.DateIn, CategoryDisputeId = item.CategoryDisputeId, CategoryDispute = item.CategoryDispute, GroupClaim = item.GroupClaim, SubjectClaim = item.SubjectClaim };
             return View(model);
         }
-            #endregion
-
+        #endregion
+        #region Validate
         public JsonResult ValidateDate(string DateReg)
         {
             DateTime parsedDate;
@@ -198,7 +195,8 @@ namespace Svr.AD.Controllers
                 return Json(true);//, JsonRequestBehavior.AllowGet);
             }
         }
-            #region Create
+        #endregion
+        #region Create
         // GET: Claims/Create
         [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<IActionResult> Create(string lord = null, string owner = null)
@@ -246,8 +244,8 @@ namespace Svr.AD.Controllers
             model.Districts = await GetDistrictSelectList(model.RegionId.ToString(), model.DistrictId.ToString());
             return View(model);
         }
-            #endregion
-            #region Edit
+        #endregion
+        #region Edit
         // GET: Claims/Edit/5
         [AuthorizeRoles(Role.Admin, Role.Users)]
         public async Task<ActionResult> Edit(long? id)
@@ -305,8 +303,8 @@ namespace Svr.AD.Controllers
             model.StatusMessage = StatusMessage;
             return View(model);
         }
-            #endregion
-            #region Delete
+        #endregion
+        #region Delete
         // GET: Claims/Delete/5
         [AuthorizeRoles(Role.Admin)]
         public async Task<IActionResult> Delete(long? id)
@@ -339,6 +337,6 @@ namespace Svr.AD.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-            #endregion
+        #endregion
     }
 }

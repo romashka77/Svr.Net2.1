@@ -19,17 +19,13 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
-    public class InstancesController : Controller
+    public class InstancesController : MessageController
     {
         private readonly IInstanceRepository repository;
         private readonly IClaimRepository сlaimRepository;
         private readonly IDirRepository dirRepository;
         private readonly ILogger<InstancesController> logger;
         //private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
-
         #region Конструктор
         public InstancesController(IInstanceRepository repository, IClaimRepository сlaimRepository, IDirRepository dirRepository, ILogger<InstancesController> logger)
         {
@@ -258,6 +254,7 @@ namespace Svr.AD.Controllers
             }
         }
         #endregion
+        #region SetViewBag
         private async Task SetViewBag(ItemViewModel model)
         {
             switch (model.Number)
@@ -279,5 +276,6 @@ namespace Svr.AD.Controllers
                     break;
             }
         }
+        #endregion
     }
 }

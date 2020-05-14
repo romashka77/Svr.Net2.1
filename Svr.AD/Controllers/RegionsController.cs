@@ -19,15 +19,11 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Manager, Role.Users)]
-    public class RegionsController : Controller
+    public class RegionsController : MessageController
     {
         private readonly ILogger<RegionsController> logger;
         private readonly IRegionRepository repository;
         //private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
-
         #region Конструктор
         public RegionsController(IRegionRepository repository, ILogger<RegionsController> logger/*, UserManager<ApplicationUser> userManager*/)
         {
@@ -50,8 +46,6 @@ namespace Svr.AD.Controllers
         //    }
         //    return View("Dropdown");
         //}
-
-
         #region Деструктор
         protected override void Dispose(bool disposing)
         {

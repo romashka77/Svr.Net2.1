@@ -34,7 +34,7 @@ namespace Svr.AD.Controllers
     //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
     //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
-    public class ReportsController : Controller
+    public class ReportsController : MessageController
     {
         private const string XlsxContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
         private readonly IHostingEnvironment hostingEnvironment;
@@ -52,11 +52,7 @@ namespace Svr.AD.Controllers
         private readonly IGroupClaimRepository groupClaimRepository;
         private readonly IClaimRepository claimRepository;
         private readonly IInstanceRepository instanceRepository;
-
-        [TempData] public string StatusMessage { get; set; }
-
         #region Конструктор
-
         public ReportsController(IHostingEnvironment hostingEnvironment, /*UserManager<ApplicationUser> userManager,*/
             ILogger<ReportsController> logger, IDistrictRepository districtRepository,
             IRegionRepository regionRepository, ICategoryDisputeRepository categoryDisputeRepository,
@@ -76,7 +72,6 @@ namespace Svr.AD.Controllers
         }
 
         #endregion
-
         #region Деструктор
 
         protected override void Dispose(bool disposing)
@@ -92,6 +87,7 @@ namespace Svr.AD.Controllers
         }
 
         #endregion
+        #region Index
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null,
             string owner = null, string searchString = null, int page = 1, int itemsPage = 10, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
@@ -152,7 +148,8 @@ namespace Svr.AD.Controllers
             };
             return View(indexModel);
         }
-
+        #endregion
+        #region InMemoryReport
         public async Task<IActionResult> InMemoryReport(string lord = null, string owner = null, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
         {
@@ -172,7 +169,8 @@ namespace Svr.AD.Controllers
             }
             return File(reportBytes, XlsxContentType, GetFileName(dateS, datePo));
         }
-
+        #endregion
+        #region FileReport
         public async Task<IActionResult> FileReport(string lord = null, string owner = null, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)
         {
@@ -197,7 +195,8 @@ namespace Svr.AD.Controllers
             return File( /*path*/ /*reportBytes*/Path.Combine(path, GetFileName(dateS, datePo)), XlsxContentType,
                 GetFileName(dateS, datePo));
         }
-
+        #endregion
+        #region GetFileTemplateName
         private async Task<FileInfo> GetFileTemplateName(string category)
         {
             string fileTemplateName;
@@ -223,7 +222,8 @@ namespace Svr.AD.Controllers
             StatusMessage = $"Ошибка: Файл Excel-шаблона {fileTemplateName} отсутствует.";
             return null;
         }
-
+        #endregion
+        #region GetSumInstances
         private void GetSumInstances(List<Instance> instances, Rec satisfied,
             Rec denied, Rec end, Rec no, Record duty, Record services, Record cost, Record dutyPaid)
         {
@@ -304,7 +304,7 @@ namespace Svr.AD.Controllers
                 }
             }
         }
-
+        #endregion
         private static int CellToInt(string text, int count)
         {
             return int.TryParse(text, out var t) ? count + t : count;

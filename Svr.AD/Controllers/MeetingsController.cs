@@ -16,14 +16,11 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
-    public class MeetingsController : Controller
+    public class MeetingsController : MessageController
     {
         private readonly IMeetingRepository repository;
         private readonly IClaimRepository сlaimRepository;
         private readonly ILogger<MeetingsController> logger;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public MeetingsController(IMeetingRepository repository, IClaimRepository сlaimRepository, ILogger<MeetingsController> logger)
         {

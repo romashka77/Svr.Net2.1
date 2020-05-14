@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin, Role.Manager, Role.Users)]
-    public class DistrictsController : Controller
+    public class DistrictsController : MessageController
     {
         private readonly IDistrictRepository repository;
         private readonly IRegionRepository regionRepository;
@@ -28,9 +28,6 @@ namespace Svr.AD.Controllers
         private readonly IPerformerRepository performerRepository;
         private readonly ILogger<DistrictsController> logger;
         //private readonly UserManager<ApplicationUser> userManager;
-
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public DistrictsController(IDistrictRepository repository, IRegionRepository regionRepository, IPerformerRepository performerRepository, IDistrictPerformerRepository districtPerformerRepository, ILogger<DistrictsController> logger/*, UserManager<ApplicationUser> userManager*/)
         {
@@ -58,7 +55,6 @@ namespace Svr.AD.Controllers
         #endregion
         #region Index
         // GET: Districts
-
         public async Task<IActionResult> Index(SortState sortOrder = SortState.NameAsc, string lord = null, string owner = null, string searchString = null, int page = 1, int itemsPage = 10)
         {
             lord = this.GetLord(lord);
@@ -110,7 +106,6 @@ namespace Svr.AD.Controllers
             return await regionRepository.Filter(lord: lord, flgFilter: !User.IsInRole(Role.Admin)).Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }).OrderBy(a => a.Text).ToListAsync();
         }
         #endregion
-
         #region Details
         // GET: Districts/Details/5
         public async Task<IActionResult> Details(long? id)
