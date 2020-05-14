@@ -17,7 +17,7 @@ namespace Svr.Infrastructure.Extensions
         UserOPFR,
         [Description(RoleBase.UserUPFR)]
         UserUPFR
-        //    ,
+        //,
         //[Description("Пользователь")]
         //User
     }
