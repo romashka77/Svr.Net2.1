@@ -11,6 +11,7 @@ using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
 using Svr.Infrastructure.Identity;
+using Svr.Utils;
 using Svr.Web.Extensions;
 using Svr.Web.Models;
 using Svr.Web.Models.ReportsViewModels;
@@ -546,7 +547,7 @@ namespace Svr.Web.Controllers
                 {
                     flg = 1;
                 }
-                else if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 4) && (groupClaimCode <= 25)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 4) && (groupClaimCode <= 20)))
+                else if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 4) && (groupClaimCode <= 25)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 4) && (groupClaimCode <= 18)))
                 {
                     flg = 2;
                 }
@@ -742,27 +743,27 @@ namespace Svr.Web.Controllers
                     }
                 }
             }
-            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
-            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "20.1"));
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "18.1"));
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.1" : "18.1"));
             SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.2" : ""));
-            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.3" : "20.2"));
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.3" : "18.2"));
 
 
-            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
-            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "20.3"), 1);
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "18.3"), 1);
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.4" : "18.3"), 1);
             SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : ""), 1);
-            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : "20.4"), 1);
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25.5" : "18.4"), 1);
 
 
-            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
-            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"));
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"));
             SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""));
-            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"));
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"));
 
-            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
-            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
+            SetCells(worksheet, worksheetLog, duty, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"), 1);
+            SetCells(worksheet, worksheetLog, dutyPaid, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"), 1);
             SetCells(worksheet, worksheetLog, services, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : ""), 1);
-            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "20"), 1);
+            SetCells(worksheet, worksheetLog, cost, ref l, (template.Name.Equals(FileTemplateNameIn) ? "25" : "18"), 1);
 
             return package;
         }

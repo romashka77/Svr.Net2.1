@@ -12,7 +12,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svr.Web", "Svr.Web\Svr.Web.
 		{15D30A36-502C-4ECC-A6D8-EABDF345CE03} = {15D30A36-502C-4ECC-A6D8-EABDF345CE03}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svr.AD", "Svr.AD\Svr.AD.csproj", "{1DEFE725-CEFE-4405-AB26-EFD24B553D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svr.AD", "Svr.AD\Svr.AD.csproj", "{1DEFE725-CEFE-4405-AB26-EFD24B553D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svr.Utils", "Svr.Utils\Svr.Utils.csproj", "{4EEA6C64-BD03-4796-BD79-1F81872EC714}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15D30A36-502C-4ECC-A6D8-EABDF345CE03} = {15D30A36-502C-4ECC-A6D8-EABDF345CE03}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +41,10 @@ Global
 		{1DEFE725-CEFE-4405-AB26-EFD24B553D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DEFE725-CEFE-4405-AB26-EFD24B553D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DEFE725-CEFE-4405-AB26-EFD24B553D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEA6C64-BD03-4796-BD79-1F81872EC714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEA6C64-BD03-4796-BD79-1F81872EC714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEA6C64-BD03-4796-BD79-1F81872EC714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEA6C64-BD03-4796-BD79-1F81872EC714}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

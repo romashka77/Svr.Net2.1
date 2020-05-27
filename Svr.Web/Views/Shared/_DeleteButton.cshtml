@@ -1,4 +1,5 @@
-﻿@if (!User.IsInRole(Role.UserOPFR))
+﻿@using Svr.Utils
+@if (!User.IsInRole(Role.UserOPFR))
 {
     <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Удалить</a>
 }

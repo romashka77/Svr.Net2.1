@@ -1,4 +1,5 @@
-﻿@model Svr.Web.Models.ClaimsViewModels.EditViewModel
+﻿@using Svr.Utils
+@model Svr.Web.Models.ClaimsViewModels.EditViewModel
 
 @{
     ViewData["Title"] = "Редактировать";
@@ -12,159 +13,159 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.CreatedOnUtc)
-    @Html.HiddenFor(model => model.CreatedOnUtc)
-    @Html.HiddenFor(model => model.Code)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedOnUtc)
+        @Html.HiddenFor(model => model.CreatedOnUtc)
+        @Html.HiddenFor(model => model.Code)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.NumPFR, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NumPFR, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NumPFR, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DateReg, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateReg, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateReg, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.DateIn, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateIn, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateIn, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @if (User.IsInRole(Role.Administrator))
-    {
         <div class="form-group">
-            @Html.LabelFor(model => model.RegionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.RegionId, Model.Regions, "Выберите регион", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
-                @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
-    else
-    {
-        @Html.HiddenFor(model => model.RegionId)
-    }
-    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
-    {
         <div class="form-group">
-            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.DistrictId, Model.Districts, "Выберите район", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
-                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
-    else
-    {
-        @Html.HiddenFor(model => model.DistrictId)
-    }
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoryDisputeId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CategoryDisputeId, Model.CategoryDisputes, "Выберите категорию споров", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
-            @Html.ValidationMessageFor(model => model.CategoryDisputeId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumPFR, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumPFR, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumPFR, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.GroupClaimId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.GroupClaimId, Model.GroupClaims, "Выберите группу исков", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
-            @Html.ValidationMessageFor(model => model.GroupClaimId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateReg, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateReg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateReg, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.SubjectClaimId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SubjectClaimId, Model.SubjectClaims, "Выберите предмет иска", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.SubjectClaimId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateIn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateIn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateIn, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Сourt, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.СourtId, Model.Сourts, "Выберите суд", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.СourtId, "", new { @class = "text-danger" })
+        @if (User.IsInRole(Role.Administrator))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.RegionId, Model.Regions, "Выберите регион", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+                    @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.RegionId)
+        }
+        @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.DistrictId, Model.Districts, "Выберите район", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.DistrictId)
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryDisputeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryDisputeId, Model.CategoryDisputes, "Выберите категорию споров", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+                @Html.ValidationMessageFor(model => model.CategoryDisputeId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.PerformerId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.PerformerId, Model.Performers, "Выберите исполнителя", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PerformerId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroupClaimId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GroupClaimId, Model.GroupClaims, "Выберите группу исков", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+                @Html.ValidationMessageFor(model => model.GroupClaimId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.PlaintiffId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.PlaintiffId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PlaintiffId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectClaimId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SubjectClaimId, Model.SubjectClaims, "Выберите предмет иска", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectClaimId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.RespondentId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.RespondentId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.RespondentId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Сourt, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.СourtId, Model.Сourts, "Выберите суд", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.СourtId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Person3rdId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Person3rdId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Person3rdId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PerformerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PerformerId, Model.Performers, "Выберите исполнителя", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PerformerId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlaintiffId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PlaintiffId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PlaintiffId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RespondentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RespondentId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RespondentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Person3rdId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Person3rdId, Model.Applicants, "Выберите сторону процесса", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Person3rdId, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Sum, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Sum, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Sum, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sum, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sum, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Sum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, 5, 10, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-sm btn-primary" />
+                <a asp-controller="Instances" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">Список инстанций</a>
+                <a asp-controller="Meetings" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">График заседаний</a>
+                <a asp-controller="FileEntities" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">Документы по иску</a>
+                <a asp-controller="Claims" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Удалить</a>
+                <a asp-action="Index" class="btn btn-sm btn-primary">Назад</a>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Description, 5, 10, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-sm btn-primary" />
-            <a asp-controller="Instances" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">Список инстанций</a>
-            <a asp-controller="Meetings" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">График заседаний</a>
-            <a asp-controller="FileEntities" asp-action="Index" asp-route-owner="@Model.Id" class="btn btn-sm btn-primary">Документы по иску</a>
-            <a asp-controller="Claims" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Удалить</a>
-            <a asp-action="Index" class="btn btn-sm btn-primary">Назад</a>
-        </div>
-    </div>
-</div>
 }
 
 

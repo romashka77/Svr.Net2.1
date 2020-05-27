@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Svr.AD.Extensions
+namespace Svr.Utils
 {
     public class AuthorizeRolesAttribute : AuthorizeAttribute
     {

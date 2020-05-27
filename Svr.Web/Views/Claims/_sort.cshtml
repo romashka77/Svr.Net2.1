@@ -1,4 +1,5 @@
-﻿@model Svr.Web.Models.ClaimsViewModels.IndexViewModel
+﻿@using Svr.Utils
+@model Svr.Web.Models.ClaimsViewModels.IndexViewModel
 @addTagHelper "*, Svr.Web"
 @{string pattern = "yyyy-MM-dd";
     string ds = Model.FilterViewModel.DateS?.ToString(format: pattern);
@@ -16,8 +17,8 @@
                  current-filter-group-claim="@Model.FilterViewModel.SelectedGroupClaim"
                  current-filter-subject-claim="@Model.FilterViewModel.SelectedSubjectClaim"
                  current-filter-result-claim="@Model.FilterViewModel.SelectedResultClaim"
-                 current-filter-date-s= "@Model.FilterViewModel.DateS"
-                 current-filter-date-po="@Model.FilterViewModel.DatePo" >
+                 current-filter-date-s="@Model.FilterViewModel.DateS"
+                 current-filter-date-po="@Model.FilterViewModel.DatePo">
         № дела
     </sort-header>
     <sort-header action="Index"
