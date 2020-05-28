@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -394,26 +393,36 @@ namespace Svr.Web.Controllers
             var cells = worksheet.Cells;
             cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
             cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
-            cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[1].Count);
-            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[1].Sum));
-            cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[2].Count);
-            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[2].Sum));
-            cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[3].Count);
-            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[3].Sum));
-            cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[4].Count);
-            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[4].Sum));
-            cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[5].Count);
-            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[5].Sum));
-            cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[6].Count);
-            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[6].Sum));
-            cells[$"O{n}"].Value = CellToInt(cells[$"O{n}"].Text, record[7].Count);
-            cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[7].Sum));
-            cells[$"AA{n}"].Value = CellToInt(cells[$"AA{n}"].Text, record[8].Count);
-            cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[8].Sum));
-            cells[$"AE{n}"].Value = CellToInt(cells[$"AE{n}"].Text, record[9].Count);
-            cells[$"AF{n}"].Value = CellToDec(cells[$"AF{n}"].Text, RoundHundred(record[9].Sum));
-            cells[$"AG{n}"].Value = CellToInt(cells[$"AG{n}"].Text, record[10].Count);
-            cells[$"AH{n}"].Value = CellToDec(cells[$"AH{n}"].Text, RoundHundred(record[10].Sum));
+
+            cells[$"G{n}"].Value = CellToInt(cells[$"G{n}"].Text, record[1].Count);
+            cells[$"H{n}"].Value = CellToDec(cells[$"H{n}"].Text, RoundHundred(record[1].Sum));
+
+            cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[2].Count);
+            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[2].Sum));
+
+            cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[3].Count);
+            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[3].Sum));
+
+            cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[4].Count);
+            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[4].Sum));
+
+            cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[5].Count);
+            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[5].Sum));
+
+            cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[6].Count);
+            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[6].Sum));
+
+            cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[7].Count);
+            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[7].Sum));
+
+            cells[$"O{n}"].Value = CellToInt(cells[$"O{n}"].Text, record[8].Count);
+            cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[8].Sum));
+            
+            cells[$"AA{n}"].Value = CellToInt(cells[$"AA{n}"].Text, record[9].Count);
+            cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[9].Sum));
+
+            cells[$"AE{n}"].Value = CellToInt(cells[$"AE{n}"].Text, record[10].Count);
+            cells[$"AF{n}"].Value = CellToDec(cells[$"AF{n}"].Text, RoundHundred(record[10].Sum));
             var regex = new Regex(@"(\d+|\.[^.]*)$");//(@"\.[^.]*$");
             SetCells2(worksheet, record, regex.Replace(cat, string.Empty, 1));
         }
@@ -513,22 +522,22 @@ namespace Svr.Web.Controllers
 
             var dutyPaid = InitialRecord();
 
-            var cells = worksheetLog.Cells;
+            var cellslog = worksheetLog.Cells;
             int l = 1;
-            cells[$"B{l}"].Value = $"Иски";
-            cells[$"C{l}"].Value = $"Сумма иска";
-            cells[$"D{l}"].Value = $"Инстанция 1";
-            cells[$"E{l}"].Value = $"Сумма удовлетворено 1";
-            cells[$"F{l}"].Value = $"Сумма отказано 1";
-            cells[$"G{l}"].Value = $"Инстанция 2";
-            cells[$"H{l}"].Value = $"Сумма удовлетворено 2";
-            cells[$"I{l}"].Value = $"Сумма отказано 2";
-            cells[$"J{l}"].Value = $"Инстанция 3";
-            cells[$"K{l}"].Value = $"Сумма удовлетворено 3";
-            cells[$"L{l}"].Value = $"Сумма отказано 3";
-            cells[$"M{l}"].Value = $"Инстанция 4";
-            cells[$"N{l}"].Value = $"Сумма удовлетворено 4";
-            cells[$"O{l}"].Value = $"Сумма отказано 4";
+            cellslog[$"B{l}"].Value = $"Иски";
+            cellslog[$"C{l}"].Value = $"Сумма иска";
+            cellslog[$"D{l}"].Value = $"Инстанция 1";
+            cellslog[$"E{l}"].Value = $"Сумма удовлетворено 1";
+            cellslog[$"F{l}"].Value = $"Сумма отказано 1";
+            cellslog[$"G{l}"].Value = $"Инстанция 2";
+            cellslog[$"H{l}"].Value = $"Сумма удовлетворено 2";
+            cellslog[$"I{l}"].Value = $"Сумма отказано 2";
+            cellslog[$"J{l}"].Value = $"Инстанция 3";
+            cellslog[$"K{l}"].Value = $"Сумма удовлетворено 3";
+            cellslog[$"L{l}"].Value = $"Сумма отказано 3";
+            cellslog[$"M{l}"].Value = $"Инстанция 4";
+            cellslog[$"N{l}"].Value = $"Сумма удовлетворено 4";
+            cellslog[$"O{l}"].Value = $"Сумма отказано 4";
             worksheetLog.Column(l + 1).Width = 50;
 
             for (int i = 0; i < 12; i++)
@@ -539,15 +548,18 @@ namespace Svr.Web.Controllers
 
             foreach (var groupClaim in groupClaims)
             {
-                cells[$"A{l}"].Value = $"{ groupClaim.Code}";
-                cells[$"B{l++}"].Value = $"{groupClaim.Name}";
+                if ((groupClaim.Id == 83)||(groupClaim.Id == 52))
+                    continue;
+
+                cellslog[$"A{l}"].Value = $"{ groupClaim.Code}";
+                cellslog[$"B{l++}"].Value = $"{groupClaim.Name}";
                 byte flg = 0;
                 long? groupClaimCode = groupClaim.Code.ToLong();
-                if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 0) && (groupClaimCode < 5)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 0) && (groupClaimCode < 5)))
+                if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 0) && (groupClaimCode < 5)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 0) && (groupClaimCode < 4)))
                 {
                     flg = 1;
                 }
-                else if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 4) && (groupClaimCode <= 25)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 4) && (groupClaimCode <= 18)))
+                else if ((template.Name.Equals(FileTemplateNameIn) && (groupClaimCode > 4) && (groupClaimCode <= 25)) || (template.Name.Equals(FileTemplateNameOut) && (groupClaimCode > 3) && (groupClaimCode <= 18)))
                 {
                     flg = 2;
                 }
@@ -558,12 +570,12 @@ namespace Svr.Web.Controllers
                 {
                     try
                     {
-                        cells[$"A{l}"].Value = $"{ subjectClaim.Code}";
-                        cells[$"B{l++}"].Value = $"{subjectClaim.Name}";
+                        cellslog[$"A{l}"].Value = $"{ subjectClaim.Code}";
+                        cellslog[$"B{l++}"].Value = $"{subjectClaim.Name}";
                         var groupRecord = InitialRec();
                         var claims = claimRepository.List(new ClaimSpecificationReport(owner.ToLong())).Where(c => c.SubjectClaimId == subjectClaim.Id);
                         var n = (from cell in worksheet.Cells["A:A"] where cell.Text.Equals(subjectClaim.Code) select cell)
-                            ?.Last().End.Row;
+                            ?.Last()?.End?.Row;
                         if (n == null) continue;
 
                         if (dateS != null)
@@ -579,8 +591,8 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var claim in claims)
                             {
-                                cells[$"B{l}"].Value = $"{ claim.Code}";//{ claim.Name}
-                                cells[$"C{l++}"].Value = $"{ claim.Sum}";
+                                cellslog[$"B{l}"].Value = $"{ claim.Code}";//{ claim.Name}
+                                cellslog[$"C{l++}"].Value = $"{ claim.Sum}";
                             }
                             groupRecord[0].Count += count;
                             var sum = await claims.SumAsync(c => c.Sum);
@@ -661,11 +673,11 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances1)
                             {
-                                cells[$"D{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
-                                cells[$"E{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"F{l}"].Value = $"{ instance.SumDenied}";
+                                cellslog[$"D{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cellslog[$"E{l}"].Value = $"{ instance.SumSatisfied}";
+                                cellslog[$"F{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cells[$"G{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"G{l}"].Value = $"{instance.CourtDecision}";
                                 l++;
                             }
                             var k = 0;
@@ -680,11 +692,11 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances2)
                             {
-                                cells[$"G{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
-                                cells[$"H{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"I{l}"].Value = $"{ instance.SumDenied}";
+                                cellslog[$"G{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cellslog[$"H{l}"].Value = $"{ instance.SumSatisfied}";
+                                cellslog[$"I{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cells[$"J{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"J{l}"].Value = $"{instance.CourtDecision}";
                                 l++;
                             }
                             var k = 0;
@@ -699,11 +711,11 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances3)
                             {
-                                cells[$"J{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
-                                cells[$"K{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"L{l}"].Value = $"{ instance.SumDenied}";
+                                cellslog[$"J{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cellslog[$"K{l}"].Value = $"{ instance.SumSatisfied}";
+                                cellslog[$"L{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cells[$"M{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"M{l}"].Value = $"{instance.CourtDecision}";
                                 l++;
                             }
                             var k = 0;
@@ -718,11 +730,11 @@ namespace Svr.Web.Controllers
                         {
                             foreach (var instance in instances4)
                             {
-                                cells[$"M{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
-                                cells[$"N{l}"].Value = $"{ instance.SumSatisfied}";
-                                cells[$"O{l++}"].Value = $"{ instance.SumDenied}";
+                                cellslog[$"M{l}"].Value = $"{ instance.Name} {instance.Claim.Code}";
+                                cellslog[$"N{l}"].Value = $"{ instance.SumSatisfied}";
+                                cellslog[$"O{l++}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cells[$"P{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"P{l}"].Value = $"{instance.CourtDecision}";
                                 l++;
                             }
                             var k = 0;
