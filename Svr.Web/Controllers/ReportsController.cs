@@ -270,7 +270,6 @@ namespace Svr.Web.Controllers
                     duty.Satisfied.Count++;
                     duty.Satisfied.Sum = duty.Satisfied.Sum + (item?.DutySatisfied ?? 0);
                     duty.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutySatisfied ?? 0) });
-
                 }
 
                 if (item?.DutyDenied != null && item?.DutyDenied > 0)
