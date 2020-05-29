@@ -390,8 +390,8 @@ namespace Svr.Web.Controllers
             var n = GetNumRow(worksheet, cat);
             if (n == 0) return;
             var cells = worksheet.Cells;
-            cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
-            cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
+            //cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
+            //cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
 
             cells[$"G{n}"].Value = CellToInt(cells[$"G{n}"].Text, record[1].Count);
             cells[$"H{n}"].Value = CellToDec(cells[$"H{n}"].Text, RoundHundred(record[1].Sum));
@@ -573,8 +573,9 @@ namespace Svr.Web.Controllers
                         cellslog[$"B{l++}"].Value = $"{subjectClaim.Name}";
                         var groupRecord = InitialRec();
                         var claims = claimRepository.List(new ClaimSpecificationReport(owner.ToLong())).Where(c => c.SubjectClaimId == subjectClaim.Id);
-                        var n = (from cell in worksheet.Cells["A:A"] where cell.Text.Equals(subjectClaim.Code) select cell)
-                            ?.Last()?.End?.Row;
+                        var nn = (from cell in worksheet.Cells["A:A"] where cell.Text.Equals(subjectClaim.Code) select cell);
+                        if (nn.Count() == 0) continue;
+                        var n = nn?.Last().End.Row;
                         if (n == null) continue;
 
                         if (dateS != null)

@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Svr.Web.Extensions
+namespace Svr.Utils
 {
     public class MessageController : Controller
     {

@@ -376,8 +376,8 @@ namespace Svr.AD.Controllers
             var n = GetNumRow(worksheet, cat);
             if (n == 0) return;
             var cells = worksheet.Cells;
-            cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
-            cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
+            //cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
+            //cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
 
             cells[$"G{n}"].Value = CellToInt(cells[$"G{n}"].Text, record[1].Count);
             cells[$"H{n}"].Value = CellToDec(cells[$"H{n}"].Text, RoundHundred(record[1].Sum));
