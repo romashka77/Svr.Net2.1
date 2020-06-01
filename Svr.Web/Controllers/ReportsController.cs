@@ -393,33 +393,38 @@ namespace Svr.Web.Controllers
             //cells[$"C{n}"].Value = CellToInt(cells[$"C{n}"].Text, record[0].Count);
             //cells[$"D{n}"].Value = CellToDec(cells[$"D{n}"].Text, RoundHundred(record[0].Sum));
 
+            //инст.1
+            //удовл.
             cells[$"G{n}"].Value = CellToInt(cells[$"G{n}"].Text, record[1].Count);
             cells[$"H{n}"].Value = CellToDec(cells[$"H{n}"].Text, RoundHundred(record[1].Sum));
-
-            cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[2].Count);
-            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[2].Sum));
-
-            cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[3].Count);
-            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[3].Sum));
-
-            cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[4].Count);
-            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[4].Sum));
-
-            cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[5].Count);
-            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[5].Sum));
-
-            cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[6].Count);
-            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[6].Sum));
-
-            cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[7].Count);
-            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[7].Sum));
-
-            cells[$"O{n}"].Value = CellToInt(cells[$"O{n}"].Text, record[8].Count);
-            cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[8].Sum));
-            
-            cells[$"AA{n}"].Value = CellToInt(cells[$"AA{n}"].Text, record[9].Count);
-            cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[9].Sum));
-
+            //отказ.
+            cells[$"S{n}"].Value = CellToInt(cells[$"S{n}"].Text, record[2].Count);
+            cells[$"T{n}"].Value = CellToDec(cells[$"T{n}"].Text, RoundHundred(record[2].Sum));
+            //инст.2
+            //удовл.
+            cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[3].Count);
+            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[3].Sum));
+            //отказ.
+            cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[4].Count);
+            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[4].Sum));
+            //инст.3
+            //удовл.
+            cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[5].Count);
+            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[5].Sum));
+            //отказ.
+            cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[6].Count);
+            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[6].Sum));
+            //инст.4
+            //удовл.
+            cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[7].Count);
+            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[7].Sum));
+            //отказ.
+            cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[8].Count);
+            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[8].Sum));
+            //прекращ.
+            cells[$"AC{n}"].Value = CellToInt(cells[$"AC{n}"].Text, record[9].Count);
+            cells[$"AD{n}"].Value = CellToDec(cells[$"AD{n}"].Text, RoundHundred(record[9].Sum));
+            //оставлено
             cells[$"AE{n}"].Value = CellToInt(cells[$"AE{n}"].Text, record[10].Count);
             cells[$"AF{n}"].Value = CellToDec(cells[$"AF{n}"].Text, RoundHundred(record[10].Sum));
             var regex = new Regex(@"(\d+|\.[^.]*)$");//(@"\.[^.]*$");
@@ -442,56 +447,64 @@ namespace Svr.Web.Controllers
             var cellsLog = worksheetLog.Cells;
             cellsLog[$"A{l++}"].Value = cat;
             //cells[$"I{n}"].Value = CellToInt(cells[$"I{n}"].Text, record[1 + d].Satisfied.Count);
-            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[1 + d].Satisfied.Sum));
+            //cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[1 + d].Satisfied.Sum));
+            cells[$"H{n}"].Value = CellToDec(cells[$"H{n}"].Text, RoundHundred(record[1 + d].Satisfied.Sum));
             for (int i = 0; i < record[1 + d].Satisfied.ListNameSum.Count; i++)
             {
                 cellsLog[$"D{l}"].Value = record[1 + d].Satisfied.ListNameSum[i].Name;
                 cellsLog[$"E{l++}"].Value = record[1 + d].Satisfied.ListNameSum[i].Sum;
             }
             //cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[1 + d].Denied.Count);
-            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[1 + d].Denied.Sum));
+            //cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[1 + d].Denied.Sum));
+            cells[$"T{n}"].Value = CellToDec(cells[$"T{n}"].Text, RoundHundred(record[1 + d].Denied.Sum));
             for (int i = 0; i < record[1 + d].Denied.ListNameSum.Count; i++)
             {
                 cellsLog[$"D{l}"].Value = record[1 + d].Denied.ListNameSum[i].Name;
                 cellsLog[$"F{l++}"].Value = record[1 + d].Denied.ListNameSum[i].Sum;
             }
             //cells[$"K{n}"].Value = CellToInt(cells[$"K{n}"].Text, record[3 + d].Satisfied.Count);
-            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[3 + d].Satisfied.Sum));
+            //cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[3 + d].Satisfied.Sum));
+            cells[$"J{n}"].Value = CellToDec(cells[$"J{n}"].Text, RoundHundred(record[3 + d].Satisfied.Sum));
             for (int i = 0; i < record[3 + d].Satisfied.ListNameSum.Count; i++)
             {
                 cellsLog[$"G{l}"].Value = record[3 + d].Satisfied.ListNameSum[i].Name;
                 cellsLog[$"H{l++}"].Value = record[3 + d].Satisfied.ListNameSum[i].Sum;
             }
             //cells[$"W{n}"].Value = CellToInt(cells[$"W{n}"].Text, record[3 + d].Denied.Count);
-            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[3 + d].Denied.Sum));
+            //cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[3 + d].Denied.Sum));
+            cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[3 + d].Denied.Sum));
             for (int i = 0; i < record[3 + d].Denied.ListNameSum.Count; i++)
             {
                 cellsLog[$"G{l}"].Value = record[3 + d].Denied.ListNameSum[i].Name;
                 cellsLog[$"I{l++}"].Value = record[3 + d].Denied.ListNameSum[i].Sum;
             }
             //cells[$"M{n}"].Value = CellToInt(cells[$"M{n}"].Text, record[5 + d].Satisfied.Count);
-            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[5 + d].Satisfied.Sum));
+            //cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[5 + d].Satisfied.Sum));
+            cells[$"L{n}"].Value = CellToDec(cells[$"L{n}"].Text, RoundHundred(record[5 + d].Satisfied.Sum));
             for (int i = 0; i < record[5 + d].Satisfied.ListNameSum.Count; i++)
             {
                 cellsLog[$"J{l}"].Value = record[5 + d].Satisfied.ListNameSum[i].Name;
                 cellsLog[$"K{l++}"].Value = record[5 + d].Satisfied.ListNameSum[i].Sum;
             }
             //cells[$"Y{n}"].Value = CellToInt(cells[$"Y{n}"].Text, record[5 + d].Denied.Count);
-            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[5 + d].Denied.Sum));
+            //cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[5 + d].Denied.Sum));
+            cells[$"X{n}"].Value = CellToDec(cells[$"X{n}"].Text, RoundHundred(record[5 + d].Denied.Sum));
             for (int i = 0; i < record[5 + d].Denied.ListNameSum.Count; i++)
             {
                 cellsLog[$"J{l}"].Value = record[5 + d].Denied.ListNameSum[i].Name;
                 cellsLog[$"L{l++}"].Value = record[5 + d].Denied.ListNameSum[i].Sum;
             }
             //cells[$"O{n}"].Value = CellToInt(cells[$"O{n}"].Text, record[7 + d].Satisfied.Count);
-            cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[7 + d].Satisfied.Sum));
+            //cells[$"P{n}"].Value = CellToDec(cells[$"P{n}"].Text, RoundHundred(record[7 + d].Satisfied.Sum));
+            cells[$"N{n}"].Value = CellToDec(cells[$"N{n}"].Text, RoundHundred(record[7 + d].Satisfied.Sum));
             for (int i = 0; i < record[7 + d].Satisfied.ListNameSum.Count; i++)
             {
                 cellsLog[$"M{l}"].Value = record[7 + d].Satisfied.ListNameSum[i].Name;
                 cellsLog[$"N{l++}"].Value = record[7 + d].Satisfied.ListNameSum[i].Sum;
             }
             //cells[$"AA{n}"].Value = CellToInt(cells[$"AA{n}"].Text, record[7 + d].Denied.Count);
-            cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[7 + d].Denied.Sum));
+            //cells[$"AB{n}"].Value = CellToDec(cells[$"AB{n}"].Text, RoundHundred(record[7 + d].Denied.Sum));
+            cells[$"Z{n}"].Value = CellToDec(cells[$"Z{n}"].Text, RoundHundred(record[7 + d].Denied.Sum));
             for (int i = 0; i < record[7 + d].Denied.ListNameSum.Count; i++)
             {
                 cellsLog[$"M{l}"].Value = record[7 + d].Denied.ListNameSum[i].Name;
@@ -677,7 +690,7 @@ namespace Svr.Web.Controllers
                                 cellslog[$"E{l}"].Value = $"{ instance.SumSatisfied}";
                                 cellslog[$"F{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cellslog[$"G{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"G{l}"].Value = $"{instance.CourtDecision.Name}";
                                 l++;
                             }
                             var k = 0;
@@ -696,7 +709,7 @@ namespace Svr.Web.Controllers
                                 cellslog[$"H{l}"].Value = $"{ instance.SumSatisfied}";
                                 cellslog[$"I{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cellslog[$"J{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"J{l}"].Value = $"{instance.CourtDecision.Name}";
                                 l++;
                             }
                             var k = 0;
@@ -715,7 +728,7 @@ namespace Svr.Web.Controllers
                                 cellslog[$"K{l}"].Value = $"{ instance.SumSatisfied}";
                                 cellslog[$"L{l}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cellslog[$"M{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"M{l}"].Value = $"{instance.CourtDecision.Name}";
                                 l++;
                             }
                             var k = 0;
@@ -734,7 +747,7 @@ namespace Svr.Web.Controllers
                                 cellslog[$"N{l}"].Value = $"{ instance.SumSatisfied}";
                                 cellslog[$"O{l++}"].Value = $"{ instance.SumDenied}";
                                 if (instance.CourtDecision != null)
-                                    cellslog[$"P{l}"].Value = $"{instance.CourtDecision}";
+                                    cellslog[$"P{l}"].Value = $"{instance.CourtDecision.Name}";
                                 l++;
                             }
                             var k = 0;
