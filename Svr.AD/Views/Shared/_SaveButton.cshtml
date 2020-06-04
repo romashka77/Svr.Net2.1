@@ -1,4 +1,4 @@
-﻿@using Svr.Utils
+﻿@using Svr.Utils.Roles
 @if (User.IsInRole(Role.Admin) || User.IsInRole(Role.Manager))
 {
     <input type="submit" value="Сохранить" class="btn btn-sm btn-primary" />

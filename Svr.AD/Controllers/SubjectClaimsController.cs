@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,24 +6,22 @@ using Svr.Core.Entities;
 using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
-using Svr.AD.Extensions;
 using Svr.AD.Models;
 using Svr.AD.Models.SubjectClaimsViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Svr.Utils;
+using Svr.Utils.Roles;
+using Svr.Utils.Controllers;
 
 namespace Svr.AD.Controllers
 {
     [AuthorizeRoles(Role.Admin)]
-    public class SubjectClaimsController : Controller
+    public class SubjectClaimsController : MessageController
     {
         private readonly IGroupClaimRepository groupClaimRepository;
         private readonly ISubjectClaimRepository repository;
         private readonly ILogger<SubjectClaimsController> logger;
-        [TempData]
-        public string StatusMessage { get; set; }
         #region Конструктор
         public SubjectClaimsController(IGroupClaimRepository groupClaimRepository, ISubjectClaimRepository repository, ILogger<SubjectClaimsController> logger)
         {
