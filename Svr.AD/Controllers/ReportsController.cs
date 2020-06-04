@@ -39,9 +39,6 @@ namespace Svr.AD.Controllers
     {
         //private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<ReportsController> logger;
-        private readonly IGroupClaimRepository groupClaimRepository;
-        private readonly IClaimRepository claimRepository;
-        private readonly IInstanceRepository instanceRepository;
         #region Конструктор
         public ReportsController(IHostingEnvironment hostingEnvironment, /*UserManager<ApplicationUser> userManager,*/
             ILogger<ReportsController> logger, IDistrictRepository districtRepository,
@@ -55,7 +52,6 @@ namespace Svr.AD.Controllers
 
         #endregion
         #region Деструктор
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
