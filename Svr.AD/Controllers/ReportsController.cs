@@ -20,20 +20,13 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Svr.Utils;
+using Svr.Utils.Roles;
+using Svr.Utils.Controllers;
 
 //using OfficeOpenXml.Table;
 
 namespace Svr.AD.Controllers
 {
-    //https://zennolab.com/discussion/threads/generacija-krasivyx-excel-otchjotov-po-shablonu.33585/
-
-    //https://habr.com/ru/post/109820/
-    //http://www.pvsm.ru/programmirovanie/49187#begin
-
-    //https://riptutorial.com/ru/epplus/example/26411/text-alignment-and-word-wrap
-    //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
-    //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
     [AuthorizeRoles(Role.Admin, Role.Users, Role.Manager)]
     public class ReportsController : MessageReportController
     {

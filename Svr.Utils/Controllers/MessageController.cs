@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Svr.Utils
+namespace Svr.Utils.Controllers
 {
     public class MessageController : Controller
     {

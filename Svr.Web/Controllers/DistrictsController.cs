@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +8,8 @@ using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
 using Svr.Infrastructure.Identity;
-using Svr.Utils;
-using Svr.Web.Extensions;
+using Svr.Utils.Controllers;
+using Svr.Utils.Roles;
 using Svr.Web.Models;
 using Svr.Web.Models.DistrictsViewModels;
 using System;

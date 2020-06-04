@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace Svr.Utils
+namespace Svr.Utils.Roles
 {
     public class AuthorizeRolesAttribute : AuthorizeAttribute
     {

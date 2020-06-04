@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Svr.Core.Entities;
 using Svr.Core.Interfaces;
-using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
-using Svr.Utils;
-using Svr.Web.Extensions;
+using Svr.Utils.Controllers;
+using Svr.Utils.Roles;
 using Svr.Web.Models;
 using Svr.Web.Models.ApplicantViewModels;
 using System;

@@ -2,40 +2,26 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
-using OfficeOpenXml;
-
 using Svr.Core.Entities;
 using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
 using Svr.Infrastructure.Identity;
-using Svr.Utils;
-using Svr.Web.Extensions;
+using Svr.Utils.Controllers;
+using Svr.Utils.Roles;
 using Svr.Web.Models;
 using Svr.Web.Models.ReportsViewModels;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 //using OfficeOpenXml.Table;
 
 namespace Svr.Web.Controllers
 {
-    //https://zennolab.com/discussion/threads/generacija-krasivyx-excel-otchjotov-po-shablonu.33585/
-
-    //https://habr.com/ru/post/109820/
-    //http://www.pvsm.ru/programmirovanie/49187#begin
-
-    //https://riptutorial.com/ru/epplus/example/26411/text-alignment-and-word-wrap
-    //https://ru.inettools.net/image/opredelit-tsvet-piksela-na-kartinke-onlayn
-    //https://stackoverflow.com/questions/3604562/download-file-of-any-type-in-asp-net-mvc-using-fileresult
     [AuthorizeRoles(Role.AdminOPFR, Role.UserOPFR, Role.AdminUPFR, Role.UserUPFR, Role.Administrator)]
     public class ReportsController : MessageReportController
     {
