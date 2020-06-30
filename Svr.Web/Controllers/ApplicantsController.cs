@@ -6,6 +6,7 @@ using Svr.Core.Entities;
 using Svr.Core.Interfaces;
 using Svr.Infrastructure.Extensions;
 using Svr.Utils.Controllers;
+using Svr.Utils.Models;
 using Svr.Utils.Roles;
 using Svr.Web.Models;
 using Svr.Web.Models.ApplicantViewModels;

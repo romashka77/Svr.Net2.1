@@ -1,6 +1,6 @@
 ﻿using Svr.Core.Entities;
 
-namespace Svr.Web.Models
+namespace Svr.Utils.Models
 {
     public class SortViewModel
     {
