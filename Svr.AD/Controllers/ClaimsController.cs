@@ -10,8 +10,6 @@ using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
 using Svr.Infrastructure.Identity;
-using Svr.AD.Models;
-using Svr.AD.Models.ClaimsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +17,7 @@ using System.Threading.Tasks;
 using Svr.Utils.Controllers;
 using Svr.Utils.Roles;
 using Svr.Utils.Models;
+using Svr.Utils.Models.ClaimsViewModels;
 
 namespace Svr.AD.Controllers
 {

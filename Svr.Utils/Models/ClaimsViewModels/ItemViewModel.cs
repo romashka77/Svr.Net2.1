@@ -1,6 +1,6 @@
 ﻿using Svr.Core.Entities;
 
-namespace Svr.AD.Models.ClaimsViewModels
+namespace Svr.Utils.Models.ClaimsViewModels
 {
     public class ItemViewModel : Claim
     {

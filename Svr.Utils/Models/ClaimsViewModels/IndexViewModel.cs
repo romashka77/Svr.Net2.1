@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Svr.Web.Models.ClaimsViewModels
+namespace Svr.Utils.Models.ClaimsViewModels
 {
     public class IndexViewModel : StatusMessageViewModel
     {

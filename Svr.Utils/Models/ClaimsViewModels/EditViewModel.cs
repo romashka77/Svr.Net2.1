@@ -4,19 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Svr.AD.Models.ClaimsViewModels
+namespace Svr.Utils.Models.ClaimsViewModels
 {
     /// <summary>
     /// Иск
     /// </summary>
     public class EditViewModel : BaseEntity, IValidatableObject
     {
-        /// <summary>
-        /// № пенсионного дела
-        /// </summary>
-        [Display(Name = "№ пенсионного дела")]
-        public int? NumPFR { get; set; }
-
         [Display(Name = "Регион")]
         public long RegionId { get; set; }
         public IEnumerable<SelectListItem> Regions { get; set; } // список владельцев владельцев
@@ -33,6 +27,9 @@ namespace Svr.AD.Models.ClaimsViewModels
         [Display(Name = "№ дела", Prompt = "Введите № дела")]
         [Required(ErrorMessage = ErrorStringEmpty)]
         public string Name { get; set; }
+
+        [Display(Name = "№ пенсионного дела")]
+        public int? NumPFR { get; set; }
 
         [Display(Name = "Описание", Prompt = "Введите описание")]
         public string Description { get; set; }
