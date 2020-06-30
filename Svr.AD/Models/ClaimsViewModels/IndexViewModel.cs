@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Svr.Utils.Models;
+
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Svr.AD.Models.ClaimsViewModels

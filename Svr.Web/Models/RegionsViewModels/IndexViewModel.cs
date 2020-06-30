@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Svr.Utils.Models;
+
+using System.Collections.Generic;
 
 namespace Svr.Web.Models.RegionsViewModels
 {

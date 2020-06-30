@@ -1,4 +1,4 @@
-﻿namespace Svr.Web.Models
+﻿namespace Svr.Utils.Models
 {
     public class StatusMessageViewModel
     {
