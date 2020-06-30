@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Svr.AD.Models
+namespace Svr.Utils.Models
 {
     public class FilterViewModel
     {

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Svr.Web.Models;
+using Svr.Utils.Models;
 using System.Collections.Generic;
 
-namespace Svr.Web.TagHelpers
+namespace Svr.Utils.TagHelpers
 {
     public class PageLinkTagHelper : TagHelper
     {

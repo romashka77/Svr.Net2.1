@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svr.AD.Models
+namespace Svr.Utils.Models
 {
     public class PageViewModel
     {

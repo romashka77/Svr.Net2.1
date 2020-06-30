@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Svr.Core.Entities;
 using System;
 
-namespace Svr.Web.Models
+namespace Svr.Utils.Models
 {
     public class SortHeaderTagHelper : TagHelper
     {
