@@ -11,6 +11,12 @@ namespace Svr.AD.Models.ClaimsViewModels
     /// </summary>
     public class EditViewModel : BaseEntity, IValidatableObject
     {
+        /// <summary>
+        /// № пенсионного дела
+        /// </summary>
+        [Display(Name = "№ пенсионного дела")]
+        public int? NumPFR { get; set; }
+
         [Display(Name = "Регион")]
         public long RegionId { get; set; }
         public IEnumerable<SelectListItem> Regions { get; set; } // список владельцев владельцев
