@@ -2,7 +2,59 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\CategoryDisputes\Create.cshtml" />
+    <None Remove="Views\CategoryDisputes\Delete.cshtml" />
+    <None Remove="Views\CategoryDisputes\Details.cshtml" />
+    <None Remove="Views\CategoryDisputes\Edit.cshtml" />
+    <None Remove="Views\CategoryDisputes\Index.cshtml" />
+    <None Remove="Views\CategoryDisputes\List.cshtml" />
+    <None Remove="Views\CategoryDisputes\_filtration.cshtml" />
+    <None Remove="Views\CategoryDisputes\_pagination.cshtml" />
+    <None Remove="Views\CategoryDisputes\_sort.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\CategoryDisputes\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\List.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\_filtration.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\_pagination.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\CategoryDisputes\_sort.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />

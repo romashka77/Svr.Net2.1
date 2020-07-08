@@ -1,15 +1,15 @@
 ﻿@using Svr.Core.Entities
-@model Svr.Web.Models.CategoryDisputesViewModels.ItemViewModel
+@model Svr.Utils.Models.CategoryDisputesViewModels.ItemViewModel
 
 @{
-        ViewData["Title"] = "Подробности " + Model.Name;
+    ViewData["Title"] = "Подробности " + Model.Name;
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <div>
     <h4>@Model</h4>
-    @await Html.PartialAsync(partialViewName: $"_EditBackButton")
+    @{await Html.RenderPartialAsync(partialViewName: $"_EditBackButton"); }
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -49,7 +49,7 @@
             </ul>
         </dd>
         <dd>
-            @await Html.PartialAsync(partialViewName: $"_EditDeleteBackButton")
+            @{await Html.RenderPartialAsync(partialViewName: $"_EditDeleteBackButton"); }
         </dd>
     </dl>
 </div>

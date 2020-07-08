@@ -1,4 +1,4 @@
-﻿@model Svr.Web.Models.CategoryDisputesViewModels.ItemViewModel
+﻿@model Svr.Utils.Models.CategoryDisputesViewModels.ItemViewModel
 
 @{
     ViewData["Title"] = "Регистрация новой категории споров";
@@ -38,5 +38,5 @@
 </div>
 
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

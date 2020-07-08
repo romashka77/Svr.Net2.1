@@ -5,7 +5,7 @@ using Svr.Core.Entities;
 using Svr.Core.Interfaces;
 using Svr.Infrastructure.Extensions;
 using Svr.AD.Models;
-using Svr.AD.Models.CategoryDisputesViewModels;
+using Svr.Utils.Models.CategoryDisputesViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -9,7 +9,7 @@ using Svr.Utils.Controllers;
 using Svr.Utils.Models;
 using Svr.Utils.Roles;
 using Svr.Web.Models;
-using Svr.Web.Models.CategoryDisputesViewModels;
+using Svr.Utils.Models.CategoryDisputesViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

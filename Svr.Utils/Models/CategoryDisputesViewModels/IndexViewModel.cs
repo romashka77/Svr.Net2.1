@@ -1,7 +1,7 @@
 ﻿using Svr.Utils.Models;
 using System.Collections.Generic;
 
-namespace Svr.Web.Models.CategoryDisputesViewModels
+namespace Svr.Utils.Models.CategoryDisputesViewModels
 {
     public class IndexViewModel : StatusMessageViewModel
     {

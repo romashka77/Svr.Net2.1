@@ -1,6 +1,6 @@
 ﻿using Svr.Core.Entities;
 
-namespace Svr.Web.Models.CategoryDisputesViewModels
+namespace Svr.Utils.Models.CategoryDisputesViewModels
 {
     public class ItemViewModel : CategoryDispute
     {
