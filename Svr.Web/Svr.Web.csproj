@@ -16,9 +16,7 @@
     <ProjectReference Include="..\Svr.Infrastructure\Svr.Infrastructure.csproj" />
     <ProjectReference Include="..\Svr.Utils\Svr.Utils.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-
 </Project>
