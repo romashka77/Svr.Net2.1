@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <!--<UserSecretsId>75ebe5f1-1d29-45f6-b38f-e80a36ef3230</UserSecretsId>-->
   </PropertyGroup>
 
   <ItemGroup>

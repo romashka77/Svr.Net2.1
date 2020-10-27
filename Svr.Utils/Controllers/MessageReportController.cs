@@ -1,19 +1,16 @@
-﻿using Svr.Core.Interfaces;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using Svr.Core.Entities;
+using Svr.Core.Interfaces;
+using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using OfficeOpenXml;
 using System.Linq;
-using Svr.Core.Specifications;
-using Microsoft.EntityFrameworkCore;
-using Svr.Core.Entities;
 using System.Text.RegularExpressions;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using System.Threading.Tasks;
 
 namespace Svr.Utils.Controllers
 {
@@ -169,10 +166,10 @@ namespace Svr.Utils.Controllers
         }
         private void SetCells(ExcelWorksheet worksheet, ExcelWorksheet worksheetLog, IReadOnlyList<Record> record, ref int l, string cat = "", byte d = 0)
         {
-            if (record[1 + d].Satisfied.Count <= 0 && record[1 + d].Denied.Count <= 0 &&
-                record[3 + d].Satisfied.Count <= 0 && record[3 + d].Denied.Count <= 0 &&
-                record[5 + d].Satisfied.Count <= 0 && record[5 + d].Denied.Count <= 0 &&
-                record[7 + d].Satisfied.Count <= 0 && record[7 + d].Denied.Count <= 0) return;
+            //if (record[1 + d].Satisfied.Count <= 0 && record[1 + d].Denied.Count <= 0 &&
+            //    record[3 + d].Satisfied.Count <= 0 && record[3 + d].Denied.Count <= 0 &&
+            //    record[5 + d].Satisfied.Count <= 0 && record[5 + d].Denied.Count <= 0 &&
+            //    record[7 + d].Satisfied.Count <= 0 && record[7 + d].Denied.Count <= 0) return;
             var n = GetNumRow(worksheet, cat);
             if (n == 0) return;
             var cells = worksheet.Cells;
@@ -186,6 +183,7 @@ namespace Svr.Utils.Controllers
             {
                 cellsLog[$"D{l}"].Value = record[1 + d].Satisfied.ListNameSum[i].Name;
                 cellsLog[$"E{l++}"].Value = record[1 + d].Satisfied.ListNameSum[i].Sum;
+
             }
             //cells[$"U{n}"].Value = CellToInt(cells[$"U{n}"].Text, record[1 + d].Denied.Count);
             //cells[$"V{n}"].Value = CellToDec(cells[$"V{n}"].Text, RoundHundred(record[1 + d].Denied.Sum));
@@ -259,13 +257,13 @@ namespace Svr.Utils.Controllers
             foreach (var item in instances)
             {
                 if (item.CourtDecision == null) continue;
-                if (item.CourtDecision.Name.ToUpper().Equals("Удовлетворено (частично)".ToUpper()))
+                if (item.CourtDecision.Name.ToUpper().Equals("Удовлетворено (частично)".ToUpper()) && (((item?.SumSatisfied ?? 0) > 0) || ((item?.SumDenied ?? 0) > 0)))
                 {
                     satisfied.Count++;
                     satisfied.Sum += item?.SumSatisfied ?? 0;
                     denied.Sum += item?.SumDenied ?? 0;
                 }
-                else if (item.CourtDecision.Name.ToUpper().Equals("Отказано".ToUpper()))
+                else if (item.CourtDecision.Name.ToUpper().Equals("Отказано".ToUpper())&&((item?.SumDenied ?? 0)>0))
                 {
                     denied.Count++;
                     denied.Sum += item?.SumDenied ?? 0;
@@ -280,53 +278,72 @@ namespace Svr.Utils.Controllers
                     no.Count++;
                     no.Sum += item?.Claim?.Sum ?? 0;
                 }
-
-                if (item?.DutySatisfied != null && item.DutySatisfied > 0)
-                {
-                    duty.Satisfied.Count++;
-                    duty.Satisfied.Sum = duty.Satisfied.Sum + (item?.DutySatisfied ?? 0);
-                    duty.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutySatisfied ?? 0) });
-                }
-
-                if (item?.DutyDenied != null && item?.DutyDenied > 0)
-                {
-                    duty.Denied.Count++;
-                    duty.Denied.Sum = duty.Denied.Sum + (item?.DutyDenied ?? 0);
-                    duty.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutyDenied ?? 0) });
-                }
-
+                bool flgCount = true;
+                // Услуги пред.удов.
                 if (item?.ServicesSatisfied != null && item?.ServicesSatisfied > 0)
                 {
-                    services.Satisfied.Count++;
+                    if (flgCount)
+                        services.Satisfied.Count++;
+                    flgCount = false;
                     services.Satisfied.Sum = services.Satisfied.Sum + (item?.ServicesSatisfied ?? 0);
                     services.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.ServicesSatisfied ?? 0) });
                 }
-
-                if (item?.ServicesDenied != null && item?.ServicesDenied > 0)
+                // Гос.пошлина удов.
+                if (item?.DutySatisfied != null && item.DutySatisfied > 0)
                 {
-                    services.Denied.Count++;
-                    services.Denied.Sum = services.Denied.Sum + (item?.ServicesDenied ?? 0);
-                    services.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.ServicesDenied ?? 0) });
+                    if (flgCount)
+                        duty.Satisfied.Count++;
+                    flgCount = false;
+                    duty.Satisfied.Sum = duty.Satisfied.Sum + (item?.DutySatisfied ?? 0);
+                    duty.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutySatisfied ?? 0) });
                 }
-
+                // Суд.издер.удов.
                 if (item?.СostSatisfied != null && item?.СostSatisfied > 0)
                 {
-                    cost.Satisfied.Count++;
+                    if (flgCount)
+                        cost.Satisfied.Count++;
+                    flgCount = false;
                     cost.Satisfied.Sum = cost.Satisfied.Sum + (item?.СostSatisfied ?? 0);
                     cost.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.СostSatisfied ?? 0) });
                 }
 
+
+                flgCount = true;
+                // Услуги пред.отк.
+                if (item?.ServicesDenied != null && item?.ServicesDenied > 0)
+                {
+                    if (flgCount)
+                        services.Denied.Count++;
+                    flgCount = false;
+                    services.Denied.Sum = services.Denied.Sum + (item?.ServicesDenied ?? 0);
+                    services.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.ServicesDenied ?? 0) });
+                }
+                // Гос.пошлина отк.
+                if (item?.DutyDenied != null && item?.DutyDenied > 0)
+                {
+                    if (flgCount)
+                        duty.Denied.Count++;
+                    flgCount = false;
+                    duty.Denied.Sum = duty.Denied.Sum + (item?.DutyDenied ?? 0);
+                    duty.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutyDenied ?? 0) });
+                }
+                //Суд.издер.отк.
                 if (item?.СostDenied != null && item?.СostDenied > 0)
                 {
-                    cost.Denied.Count++;
+                    if (flgCount)
+                        cost.Denied.Count++;
+                    flgCount = false;
                     cost.Denied.Sum = cost.Denied.Sum + (item?.СostDenied ?? 0);
                     cost.Denied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.СostDenied ?? 0) });
                 }
 
                 //-----------------
+                flgCount = true;
                 if (item?.DutyPaid != null && item?.DutyPaid > 0)
                 {
-                    dutyPaid.Satisfied.Count++;
+                    if (flgCount)
+                        dutyPaid.Satisfied.Count++;
+                    flgCount = false;
                     dutyPaid.Satisfied.Sum = dutyPaid.Satisfied.Sum + (item?.DutyPaid ?? 0);
                     dutyPaid.Satisfied.ListNameSum.Add(new NameSum { Name = $"{ item.Name} {item.Claim.Code}", Sum = (item?.DutyPaid ?? 0) });
                 }
@@ -387,7 +404,7 @@ namespace Svr.Utils.Controllers
             const int MAX0902 = 25;
 
             const int I0901 = 4;
-            const int I0902 = 5;
+            const int I0902 = 6;
 
             Template = await GetFileTemplateName(category);
             if (Template == null) return null;
@@ -410,7 +427,7 @@ namespace Svr.Utils.Controllers
 
             var cellslog = worksheetLog.Cells;
             int l = 1;
-            InitLog(cellslog,l);
+            InitLog(cellslog, l);
 
             worksheetLog.Column(l + 1).Width = 50;
 
@@ -640,7 +657,7 @@ namespace Svr.Utils.Controllers
             SetCells(worksheet, worksheetLog, duty, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}.4" : $"{MAX0901}.3"), 1);
             SetCells(worksheet, worksheetLog, dutyPaid, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}.4" : $"{MAX0901}.3"), 1);
             SetCells(worksheet, worksheetLog, services, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}.5" : ""), 1);
-            SetCells(worksheet, worksheetLog, cost, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}.5" : $"{MAX0901}.4"), 1);
+            SetCells(worksheet, worksheetLog, cost, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}.6" : $"{MAX0901}.4"), 1);
 
 
             SetCells(worksheet, worksheetLog, duty, ref l, (Template.Name.Equals(FileTemplateNameIn) ? $"{MAX0902}" : $"{MAX0901}"));
