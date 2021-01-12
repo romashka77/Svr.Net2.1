@@ -256,14 +256,16 @@ namespace Svr.Utils.Controllers
         {
             foreach (var item in instances)
             {
-                if (item.CourtDecision == null) continue;
-                if (item.CourtDecision.Name.ToUpper().Equals("Удовлетворено (частично)".ToUpper()) && (((item?.SumSatisfied ?? 0) > 0) || ((item?.SumDenied ?? 0) > 0)))
+                if (item.CourtDecision == null) continue;//item?.Claim?.ca
+                if (item.CourtDecision.Name.ToUpper().Equals("Удовлетворено (частично)".ToUpper()) 
+                    && (((Template.Name.Equals(FileTemplateNameIn) && ((item?.Claim?.GroupClaim?.Code?.ToLong() ?? 0) < 25))
+                    ||((Template.Name.Equals(FileTemplateNameOut) && ((item?.Claim?.GroupClaim?.Code?.ToLong() ?? 0) < 18))))))
                 {
                     satisfied.Count++;
                     satisfied.Sum += item?.SumSatisfied ?? 0;
                     denied.Sum += item?.SumDenied ?? 0;
                 }
-                else if (item.CourtDecision.Name.ToUpper().Equals("Отказано".ToUpper())&&((item?.SumDenied ?? 0)>0))
+                else if (item.CourtDecision.Name.ToUpper().Equals("Отказано".ToUpper()))
                 {
                     denied.Count++;
                     denied.Sum += item?.SumDenied ?? 0;

@@ -178,20 +178,29 @@ namespace Svr.Web.Controllers
         public JsonResult ValidateDate(string DateReg)
         {
             DateTime parsedDate;
-            DateTime MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 3, 1);
-
-            if (!DateTime.TryParse(DateReg, out parsedDate))
-            {
-                return Json("Пожалуйста, введите дату в формате (дд.мм.гггг)");//, JsonRequestBehavior.AllowGet);
-            }
-            //else if (MinDate > parsedDate)
-            //{
-            //    return Json($"Введите дату не позднее {MinDate}");//,                    JsonRequestBehavior.AllowGet);
-            //}
-            else
-            {
-                return Json(true);//, JsonRequestBehavior.AllowGet);
-            }
+            DateTime MinDate;
+            if ((((DateTime.Now.Month % 3)==1)&&(DateTime.Now.Day>14))||(((DateTime.Now.Month % 3) == 2) && (DateTime.Now.Day == 1))){
+                if (DateTime.Now.Month < 4)
+                {
+                    MinDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month + (-3 + 12), 1);
+                }
+                else
+                {
+                    MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 3, 1);
+                }
+                if (!DateTime.TryParse(DateReg, out parsedDate))
+                {
+                    return Json("Пожалуйста, введите дату в формате (дд.мм.гггг)");//, JsonRequestBehavior.AllowGet);
+                }
+                else if (MinDate > parsedDate)
+                {
+                    return Json($"Введите дату позже {MinDate}");//,                    JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(true);//, JsonRequestBehavior.AllowGet);
+                }
+            }else return Json(true);
         }
         #endregion
         #region Create
