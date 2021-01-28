@@ -118,7 +118,7 @@ namespace Svr.Web.Controllers
                     new SelectList((await regionRepository.ListAllAsync()).OrderBy(n => n.Name), "Id", "Name", lord),
 
                     //(await regionRepository.ListAllAsync()).ToList().Select(a => new SelectListItem
-                    //{ Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }), 
+                    //{ Text = a.Name, Value = a.Id.ToString(), Selected = (lord == a.Id.ToString()) }),
                     dateS, datePo,
                      category,
                     (await categoryDisputeRepository.ListAllAsync()).Select(a => new SelectListItem
@@ -148,7 +148,7 @@ namespace Svr.Web.Controllers
             }
             return File(reportBytes, XlsxContentType, GetFileName(dateS, datePo));
         }
-        #endregion 
+        #endregion
         #region FileReport
         public async Task<IActionResult> FileReport(string lord = null, string owner = null, DateTime? dateS = null,
             DateTime? datePo = null, string category = null)

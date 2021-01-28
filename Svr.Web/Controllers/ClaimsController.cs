@@ -179,7 +179,10 @@ namespace Svr.Web.Controllers
         {
             DateTime parsedDate;
             DateTime MinDate;
-            if ((((DateTime.Now.Month % 3)==1)&&(DateTime.Now.Day>14))||(((DateTime.Now.Month % 3) == 2) && (DateTime.Now.Day == 1))){
+            if(!User.IsInRole(Role.AdminOPFR)) {
+                return Json(true);
+            }
+            if (((((DateTime.Now.Month % 3)==1)&&(DateTime.Now.Day>14))||(((DateTime.Now.Month % 3) == 2) && (DateTime.Now.Day == 1)))){
                 if (DateTime.Now.Month < 4)
                 {
                     MinDate = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month + (-3 + 12), 1);
