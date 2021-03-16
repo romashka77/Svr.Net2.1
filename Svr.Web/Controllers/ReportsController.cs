@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Svr.Core.Entities;
+using Svr.Core;
 using Svr.Core.Interfaces;
 using Svr.Core.Specifications;
 using Svr.Infrastructure.Extensions;
@@ -11,15 +12,12 @@ using Svr.Infrastructure.Identity;
 using Svr.Utils.Controllers;
 using Svr.Utils.Models;
 using Svr.Utils.Roles;
-using Svr.Web.Models;
 using Svr.Web.Models.ReportsViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
-//using OfficeOpenXml.Table;
 
 namespace Svr.Web.Controllers
 {
