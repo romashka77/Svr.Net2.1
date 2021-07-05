@@ -1,6 +1,6 @@
 ﻿using Svr.Core.Entities;
 
-namespace Svr.Web.Models.ApplicantViewModels
+namespace Svr.Utils.Models.ApplicantViewModels
 {
     public class ItemViewModel : Applicant
     {

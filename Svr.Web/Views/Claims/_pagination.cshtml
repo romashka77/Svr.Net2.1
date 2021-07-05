@@ -1,7 +1,7 @@
-﻿@model Svr.Utils.Models.ClaimsViewModels.IndexViewModel
+﻿@model Svr.Utils.Models.ClaimsViewModels.IndexViewModel;
 @{string dateformat = "yyyy-MM-dd"; }
-@addTagHelper "*, Svr.Web"
-<page-link page-model="Model.PageViewModel" page-action="Index"
+@addTagHelper "*, Svr.Utils"
+<page-link page-model=Model.PageViewModel page-action="Index"
            page-url-searchString="@(Model.FilterViewModel.SearchString)"
            page-url-lord="@(Model.FilterViewModel.SelectedLord)"
            page-url-owner="@(Model.FilterViewModel.SelectedOwner)"

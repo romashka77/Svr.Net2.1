@@ -1,7 +1,7 @@
 ﻿using Svr.Utils.Models;
 using System.Collections.Generic;
 
-namespace Svr.Web.Models.ApplicantViewModels
+namespace Svr.Utils.Models.ApplicantViewModels
 {
     public class IndexViewModel : StatusMessageViewModel
     {
