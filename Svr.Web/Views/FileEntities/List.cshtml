@@ -50,7 +50,7 @@
                 </dd>
                 <dd>
                     @await Html.PartialAsync(partialViewName: $"_EditDetailsDeleteButton", model: @item.Id.ToString())
-                    <a asp-action="Download" asp-controller="FileEntities" asp-route-path="@item.Path" class="btn btn-default">Скачать</a>
+                    <a asp-action="Download" asp-controller="FileEntities" asp-route-path="@item.Path" class="btn btn-sm btn-primary">Скачать</a>
                 </dd>
             </dl>
         </div>

@@ -1,0 +1,8 @@
+﻿@using Svr.Utils.Roles
+@if (!User.IsInRole(Role.UserUPFR))
+{
+	@*<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Удалить</a>*@
+	@*<a asp-action="Delete" class="btn btn-sm btn-danger">Удалить</a>*@
+	<input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
+}
+@await Html.PartialAsync(partialViewName: $"_BackButton")

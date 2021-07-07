@@ -40,7 +40,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Name" />
-        <input type="submit" value="Удалить" class="btn btn-default" />
-        <a asp-action="Index" class="btn btn-default">Назад</a>
+        @await Html.PartialAsync(partialViewName: $"_DeleteBackButton")
     </form>
 </div>

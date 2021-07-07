@@ -98,6 +98,7 @@ namespace Svr.Web.Controllers
                 throw new ApplicationException(id.ToString().ErrorFind());
             }
             var model = new ItemViewModel { Id = item.Id, Name = item.Name, Description = item.Description, Claim = item.Claim, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, ClaimId = item.ClaimId, Path = item.Path };
+            //base.Details();
             return View(model);
         }
         #endregion
@@ -106,6 +107,7 @@ namespace Svr.Web.Controllers
         public IActionResult Create(long owner)
         {
             ViewBag.Owner = owner;
+            ViewData["Reffer"] = Request.Headers["Referer"].ToString();
             return View();
         }
         // POST: FileEntities/Create

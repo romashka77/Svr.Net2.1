@@ -6,6 +6,6 @@
         <label class="control-label">Категория споров: </label>
         @Html.DropDownList("owner", Model.Owners, "Выберите категорию споров",
                 htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
-        <input type="submit" value="Фильтр" class="btn btn-default" />
+        <input type="submit" value="Фильтр" class="btn btn-sm btn-primary" />
     </div>
 </form>

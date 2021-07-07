@@ -8,7 +8,6 @@ using Svr.Infrastructure.Extensions;
 using Svr.Utils.Controllers;
 using Svr.Utils.Models;
 using Svr.Utils.Roles;
-using Svr.Web.Models;
 using Svr.Utils.Models.ApplicantViewModels;
 using System;
 using System.Collections.Generic;

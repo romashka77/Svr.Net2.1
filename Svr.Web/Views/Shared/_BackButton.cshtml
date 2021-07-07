@@ -1,1 +1,10 @@
-﻿<a asp-action="Index" class="btn btn-sm btn-primary">Назад</a>
+﻿<a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-sm btn-primary">Назад</a>
+
+
+@*<a href=@Request.UrlReferrer class="btn btn-sm btn-primary">Назад</a>*@
+
+@*@{Html.ActionLink("Назад", null, null, null, new { href = Request.UrlReferrer})}*@
+
+
+ @*<a asp-area="" onclick="history.go(-1);" class="btn btn-sm btn-primary">Назад</a>*@
+@*<a asp-action="Index" class="btn btn-sm btn-primary">Назад</a>*@

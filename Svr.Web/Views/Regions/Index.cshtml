@@ -7,6 +7,5 @@
 @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
 <p>
     @await Html.PartialAsync(partialViewName: $"_AddButton")
-    @*<a asp-action="Create" asp-controller="Regions" class="btn btn-default">Добавить</a>*@
 </p>
 @await Html.PartialAsync("List", Model)

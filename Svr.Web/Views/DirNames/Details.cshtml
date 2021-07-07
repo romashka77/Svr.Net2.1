@@ -31,7 +31,7 @@
         </dd>
         <dt>@Html.DisplayNameFor(model => model.Dirs)</dt>
         <dd>
-            <a asp-controller="Dirs" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-default">Добавить значение</a>
+            <a asp-controller="Dirs" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Добавить значение</a>
             <ul>
                 @foreach (Dir dir in Model.Dirs)
                 {

@@ -7,7 +7,6 @@
 <h4>@ViewData["Title"]</h4>
 @{await Html.RenderPartialAsync("_StatusMessage", Model.StatusMessage); }
 <p>
-    @*<a asp-action="Create" asp-controller="CategoryDisputes" class="btn btn-default">Добавить</a>*@
     @{await Html.RenderPartialAsync(partialViewName: $"_AddButton");}
 </p>
 @{await Html.RenderPartialAsync("List", Model); }

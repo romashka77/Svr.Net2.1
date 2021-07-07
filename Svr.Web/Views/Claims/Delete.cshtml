@@ -1,56 +1,55 @@
 ﻿@model Svr.Utils.Models.ClaimsViewModels.ItemViewModel
 
 @{
-    ViewData["Title"] = $"Удалить {Model.Name}";
+	ViewData["Title"] = $"Удалить {Model.Name}";
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <h3>Вы уверены, что хотите удалить?</h3>
 <div>
-    <h4>@Model</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumPFR)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumPFR)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayTextFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedOnUtc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedOnUtc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedOnUtc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedOnUtc)
-        </dd>
-        <dd>
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="Name" />
-                <input type="hidden" asp-for="Code" />
-                <input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
-                <a asp-action="Index" class="btn btn-sm btn-primary">Назад</a>
-            </form>
-        </dd>
-    </dl>
-    
-    
+ <h4>@Model</h4>
+ <hr />
+ <dl class="dl-horizontal">
+  <dt>
+			@Html.DisplayNameFor(model => model.Name)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.Name)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.NumPFR)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.NumPFR)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.Description)
+  </dt>
+  <dd>
+			@Html.DisplayTextFor(model => model.Description)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.CreatedOnUtc)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.CreatedOnUtc)
+  </dd>
+  <dt>
+			@Html.DisplayNameFor(model => model.UpdatedOnUtc)
+  </dt>
+  <dd>
+			@Html.DisplayFor(model => model.UpdatedOnUtc)
+  </dd>
+  <dd>
+   <form asp-action="Delete">
+	<input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="Name" />
+	<input type="hidden" asp-for="Code" />
+				@await Html.PartialAsync(partialViewName: $"_DeleteBackButton")
+   </form>
+  </dd>
+ </dl>
+
+
 </div>
