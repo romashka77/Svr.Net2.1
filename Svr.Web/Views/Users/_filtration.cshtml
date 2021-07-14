@@ -1,0 +1,41 @@
+﻿@using Svr.Utils.Roles
+@model Svr.Utils.Models.FilterViewModel
+
+<form method="get" class="form-inline">
+    <div class="form-group">
+        <label class="control-label">Поиск: </label>
+        @Html.TextBox("searchString", Model.SearchString, htmlAttributes: new { @class = "form-control" })
+    </div>
+    @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
+    {
+        <div class="form-group">
+            @if (User.IsInRole(Role.Administrator))
+            {
+                <label class="control-label">Регион: </label>
+                @Html.DropDownList("lord", Model.Lords, "Выберите регион", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.SelectedLord)
+            }
+        </div>
+        <div class="form-group">
+            <label class="control-label">Район: </label>
+            @Html.DropDownList("owner", Model.Owners, "Выберите район", htmlAttributes: new { @class = "form-control", onchange = @"form.submit();" })
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.SelectedLord)
+        @Html.HiddenFor(model => model.SelectedOwner)
+    }
+    <input type="submit" value="Фильтр" class="btn btn-sm btn-primary" />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.ItemsCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.ItemsCount)
+        </dd>
+    </dl>
+</form>

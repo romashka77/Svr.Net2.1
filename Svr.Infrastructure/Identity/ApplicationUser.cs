@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Svr.Core.Entities;
+
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -22,23 +24,45 @@ namespace Svr.Infrastructure.Identity
     //PhoneNumberConfirmed: подтвержден ли номер телефона
     public class ApplicationUser : IdentityUser
     {
+        /// <summary>
+        /// Регион
+        /// </summary>
         public long? RegionId { get; set; }
+        //[Display(Name = "Регион")]
+        //public virtual Region Region { get; set; }
+        /// <summary>
+        /// Район
+        /// </summary>
         public long? DistrictId { get; set; }
-
+        //[Display(Name = "Район")]
+        //public virtual District District { get; set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
         [Required]
         [MaxLength(100)]
-        public string LastName { get; set; }//Фамилия
-
+        [Display(Name = "Фамилия")]
+        public string LastName { get; set; }
+        /// <summary>
+        /// Имя
+        /// </summary>
         [Required]
         [MaxLength(100)]
-        public string FirstName { get; set; }//Имя
-
+        [Display(Name = "Имя")]
+        public string FirstName { get; set; }
+        /// <summary>
+        /// Отчество
+        /// </summary>
         [MaxLength(100)]
-        public string MiddleName { get; set; }//Отчество
-
+        [Display(Name = "Отчество")]
+        public string MiddleName { get; set; }
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
         [Required]
         [DataType(DataType.Date)]
-        public DateTime DateofBirth { get; set; }//Дата рождения
+        [Display(Name = "Отчество")]
+        public DateTime DateofBirth { get; set; }
         /// <summary>
         /// Дата и время создания
         /// </summary>
@@ -49,6 +73,8 @@ namespace Svr.Infrastructure.Identity
         /// </summary>
         [DataType(DataType.Date)]
         public DateTime UpdatedOnUtc { get; set; }
+
+        public virtual string ToString() => "Пользователь";
 
     }
 }

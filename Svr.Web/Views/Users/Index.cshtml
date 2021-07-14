@@ -1,7 +1,13 @@
-﻿
+﻿@model Svr.Web.Models.UsersViewModels.IndexViewModel
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData[index: "Title"] = "Список пользователей ";
 }
 
-<h2>Index</h2>
+<h4>@ViewData[index: "Title"]</h4>
+@await Html.PartialAsync(partialViewName: $"_StatusMessage", model: Model.StatusMessage)
+<p>
+    @*@await Html.PartialAsync(partialViewName: $"_AddButton")*@
+</p>
+@await Html.PartialAsync(partialViewName: "List", model: Model)
 
