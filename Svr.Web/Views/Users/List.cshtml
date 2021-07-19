@@ -1,11 +1,11 @@
 ﻿@model Svr.Web.Models.UsersViewModels.IndexViewModel
 
-@*@await Html.PartialAsync("_filtration", Model.FilterViewModel)*@
+@await Html.PartialAsync("_filtration", Model.FilterViewModel)
 
 @if (Model.ItemViewModels.Any())
 {
-    @*@await Html.PartialAsync("_sort", Model)*@
-    @*@await Html.PartialAsync("_pagination", Model)*@
+    @await Html.PartialAsync("_sort", Model)
+    @await Html.PartialAsync("_pagination", Model)
     foreach (var item in Model.ItemViewModels)
     {
         <div>
@@ -13,10 +13,10 @@
             <h4>@item</h4>
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(modelItem => item.DistrictId)
+                    @Html.DisplayNameFor(modelItem => item.Id)
                 </dt>
                 <dd>
-                    @*@Html.DisplayFor(modelItem => item.District.Name)*@
+                    @Html.DisplayFor(modelItem => item.Id)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(modelItem => item.LastName)

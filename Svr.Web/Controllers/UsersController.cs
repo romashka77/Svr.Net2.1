@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -94,12 +95,12 @@ namespace Svr.Web.Controllers
 		#region Delete
 		// GET: Users/Delete/5
 		[AuthorizeRoles(Role.Administrator)]
-		public async Task<IActionResult> Delete(long? id)
+		public async Task<IActionResult> Delete(string id)
 		{
 			var item = await userManager.FindByIdAsync(id);
 			if (item == null)
 			{
-				StatusMessage = id.ToString().ErrorFind();
+				StatusMessage = id.ErrorFind();
 				return RedirectToAction(nameof(Index));
 			}
 			var model = new ItemViewModel { Id = item.Id, LastName = item.LastName, FirstName = item.FirstName, MiddleName = item.MiddleName, Email = item.Email, PhoneNumber = item.PhoneNumber, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage, RegionId = item.RegionId, DistrictId = item.DistrictId };
@@ -113,16 +114,33 @@ namespace Svr.Web.Controllers
 		{
 			try
 			{
-				await userManager.DeleteAsync(new ApplicationUser { Id = model.Id, LastName = model.LastName, FirstName = model.FirstName, MiddleName = model.MiddleName, });
-				StatusMessage = model.MessageDeleteOk();
+				//await userManager.DeleteAsync(new ApplicationUser { Id = model.Id, LastName = model.LastName, FirstName = model.FirstName, MiddleName = model.MiddleName, Email = model.Email, });
+				await userManager.DeleteAsync(await userManager.FindByIdAsync(model.Id));
+
+				//StatusMessage = model.MessageDeleteOk();
 				logger.LogInformation($"{model} удалено");
 				return RedirectToAction(nameof(Index));
 			}
 			catch (Exception ex)
 			{
-				StatusMessage = $"{model.MessageDeleteError()} {ex.Message}.";
+				//StatusMessage = $"{model.MessageDeleteError()} {ex.Message}.";
 				return RedirectToAction(nameof(Index));
 			}
+		}
+		#endregion
+		#region Details
+		// GET: Users/Details/string
+		public async Task<IActionResult> Details(string id)
+		{
+			var item = await userManager.FindByIdAsync(id);
+			if (item == null)
+			{
+				StatusMessage = id.ToString().ErrorFind();
+				return RedirectToAction(nameof(Index));
+				//throw new ApplicationException($"Не удалось загрузить район с ID {id}.");
+			}
+			var model = new ItemViewModel { Id = item.Id, Email = item.Email, FirstName = item.FirstName, LastName = item.LastName, MiddleName = item.MiddleName, PhoneNumber = item.PhoneNumber, RegionId = item.RegionId, Region = (await regionRepository.GetByIdAsync(item.RegionId)).Name, DistrictId = item.DistrictId, District = (await districtRepository.GetByIdAsync(item.DistrictId)).Name, StatusMessage = StatusMessage, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, };
+			return View(model);
 		}
 		#endregion
 		private async Task<IEnumerable<SelectListItem>> GetRegionSelectList(string lord)

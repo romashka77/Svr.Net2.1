@@ -41,6 +41,13 @@ namespace Svr.Web.Models.AccountViewModels
         [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
         public string ConfirmPassword { get; set; }
 
+        /// <summary>
+		/// Номер телефона
+		/// </summary>
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Номер телефона", Prompt = "Введите номер телефона")]
+        public string PhoneNumber { get; set; }
+
 
     }
 }
