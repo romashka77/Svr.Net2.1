@@ -66,7 +66,34 @@ namespace Svr.Web.Controllers
 			{
 				list = list.Where(i => i.DistrictId == user.DistrictId || i.RegionId == null);
 			}
+			//фильтрация
+			if (!string.IsNullOrWhiteSpace(searchString))
+			{
+				var upsearch = searchString.ToUpper();
+				list = list.Where(d => d.Email.ToUpper().Contains(upsearch) || d.LastName.ToUpper().Contains(upsearch) || d.FirstName.ToUpper().Contains(upsearch) || d.MiddleName.ToUpper().Contains(upsearch));
+
+			}
+
+			switch (sortOrder)
+			{
+				case SortState.NameDesc:
+				list.OrderByDescending(p => p.Email);
+				break;
+				case SortState.NameAsc:
+				list.OrderBy(s => s.Email);
+				break;
+				default:
+				list.OrderBy(s => s.Email);
+				break;
+			}
+
 			var itemsCount = await list.CountAsync();
+
+
+
+
+
+
 			var itemsOnPage = await list.Skip((page - 1) * itemsPage).Take(itemsPage).AsNoTracking().ToListAsync();
 			var indexModel = new IndexViewModel()
 			{
@@ -106,7 +133,7 @@ namespace Svr.Web.Controllers
 			var model = new ItemViewModel { Id = item.Id, LastName = item.LastName, FirstName = item.FirstName, MiddleName = item.MiddleName, Email = item.Email, PhoneNumber = item.PhoneNumber, CreatedOnUtc = item.CreatedOnUtc, UpdatedOnUtc = item.UpdatedOnUtc, StatusMessage = StatusMessage, RegionId = item.RegionId, DistrictId = item.DistrictId };
 			return View(model);
 		}
-		// POST: Claims/Delete/5
+		// POST: Users/Delete/
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		[AuthorizeRoles(Role.AdminUPFR, Role.Administrator)]

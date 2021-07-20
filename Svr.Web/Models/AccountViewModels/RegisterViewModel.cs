@@ -40,7 +40,6 @@ namespace Svr.Web.Models.AccountViewModels
         [Display(Name = "Подтверждение пароля", Prompt = "Подтвердите пароль")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
         public string ConfirmPassword { get; set; }
-
         /// <summary>
 		/// Номер телефона
 		/// </summary>
