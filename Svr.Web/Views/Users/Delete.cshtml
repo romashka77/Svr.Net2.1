@@ -8,59 +8,59 @@
 
 <h3>Вы уверены, что хотите удалить?</h3>
 <div>
- <h4>@Model</h4>
- <hr />
- <dl class="dl-horizontal">
-  <dt>
+	<h4>@Model</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
 			@Html.DisplayNameFor(model => model.Id)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.Id)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.Email)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.Email)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.LastName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.LastName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.FirstName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.FirstName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.MiddleName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayTextFor(model => model.MiddleName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.CreatedOnUtc)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.CreatedOnUtc)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.UpdatedOnUtc)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.UpdatedOnUtc)
-  </dd>
-  <dd>
-   <form asp-action="Delete">
+		</dd>
+		<dd>
+			<form asp-action="Delete">
 				@*<input type="hidden" asp-for="Id" />
 					<input type="hidden" asp-for="Email" /*@
 				@await Html.PartialAsync(partialViewName: $"_DeleteBackButton")
-   </form>
-  </dd>
- </dl>
+			</form>
+		</dd>
+	</dl>
 
 
 </div>

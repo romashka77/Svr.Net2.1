@@ -71,9 +71,16 @@ namespace Svr.Web.Controllers
 			{
 				var upsearch = searchString.ToUpper();
 				list = list.Where(d => d.Email.ToUpper().Contains(upsearch) || d.LastName.ToUpper().Contains(upsearch) || d.FirstName.ToUpper().Contains(upsearch) || d.MiddleName.ToUpper().Contains(upsearch));
-
 			}
-
+			if (!string.IsNullOrWhiteSpace(lord))
+			{
+				list = list.Where(c => c.RegionId.ToString() == lord);
+			}
+			if (!string.IsNullOrWhiteSpace(owner))
+			{
+				list = list.Where(c => c.DistrictId.ToString() == owner);
+			}
+			//сортировка
 			switch (sortOrder)
 			{
 				case SortState.NameDesc:
@@ -86,13 +93,7 @@ namespace Svr.Web.Controllers
 				list.OrderBy(s => s.Email);
 				break;
 			}
-
 			var itemsCount = await list.CountAsync();
-
-
-
-
-
 
 			var itemsOnPage = await list.Skip((page - 1) * itemsPage).Take(itemsPage).AsNoTracking().ToListAsync();
 			var indexModel = new IndexViewModel()

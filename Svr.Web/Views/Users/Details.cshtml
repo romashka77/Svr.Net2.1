@@ -6,58 +6,58 @@
 <h2>@ViewData["Title"]</h2>
 
 <div>
- <h4>@Model</h4>
+	<h4>@Model</h4>
 	@await Html.PartialAsync(partialViewName: $"_BackButton")
- <hr />
- <dl class="dl-horizontal">
-  <dt>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
 			@Html.DisplayNameFor(model => model.FirstName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.FirstName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.MiddleName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.MiddleName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.LastName)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.LastName)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.PhoneNumber)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.PhoneNumber)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.Region)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.Region)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.District)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.District)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.CreatedOnUtc)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.CreatedOnUtc)
-  </dd>
-  <dt>
+		</dd>
+		<dt>
 			@Html.DisplayNameFor(model => model.UpdatedOnUtc)
-  </dt>
-  <dd>
+		</dt>
+		<dd>
 			@Html.DisplayFor(model => model.UpdatedOnUtc)
-  </dd>
+		</dd>
 		@*<dt>
 			@Html.DisplayNameFor(model => model.Region)
 			</dt>
@@ -70,10 +70,10 @@
 			<dd>
 			<a asp-controller="Districts" asp-action="Details" asp-route-id="@Model.District.Id">@Model.District.Name</a>
 			</dd>*@
-  <dd>
+		<dd>
 			@await Html.PartialAsync(partialViewName: $"_DeleteBackButton")
-  </dd>
- </dl>
+		</dd>
+	</dl>
 </div>
 
 

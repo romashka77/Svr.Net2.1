@@ -3,46 +3,46 @@
 @addTagHelper "*, Svr.Utils"
 
 <div>
-	<sort-header action="Index"
-				 up="@Model.SortViewModel.Up"
-				 current="@Model.SortViewModel.Current"
-				 property="@Model.SortViewModel.NameSort"
-				 search-string="@Model.FilterViewModel.SearchString"
-				 current-filter-lord="@Model.FilterViewModel.SelectedLord"
-				 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
-		Логин
-	</sort-header>
-	<sort-header action="Index"
-				 up="@Model.SortViewModel.Up"
-				 current="@Model.SortViewModel.Current"
-				 property="@Model.SortViewModel.DescriptionSort"
-				 search-string="@Model.FilterViewModel.SearchString"
-				 current-filter-lord="@Model.FilterViewModel.SelectedLord"
-				 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
-		Описание
-	</sort-header>
-	@if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR))
+  <sort-header action="Index"
+			   up="@Model.SortViewModel.Up"
+			   current="@Model.SortViewModel.Current"
+			   property="@Model.SortViewModel.NameSort"
+			   search-string="@Model.FilterViewModel.SearchString"
+			   current-filter-lord="@Model.FilterViewModel.SelectedLord"
+			   current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+    Логин
+  </sort-header>
+  <sort-header action="Index"
+			   up="@Model.SortViewModel.Up"
+			   current="@Model.SortViewModel.Current"
+			   property="@Model.SortViewModel.DescriptionSort"
+			   search-string="@Model.FilterViewModel.SearchString"
+			   current-filter-lord="@Model.FilterViewModel.SelectedLord"
+			   current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+    Описание
+  </sort-header>
+  @if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR))
 	{
-	 <sort-header action="Index"
-				 up="@Model.SortViewModel.Up"
-				 current="@Model.SortViewModel.Current"
-				 property="@Model.SortViewModel.LordSort"
-				 search-string="@Model.FilterViewModel.SearchString"
-				 current-filter-lord="@Model.FilterViewModel.SelectedLord"
-				 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
-	  Регион
-	 </sort-header>
+		<sort-header action="Index"
+			   up="@Model.SortViewModel.Up"
+			   current="@Model.SortViewModel.Current"
+			   property="@Model.SortViewModel.LordSort"
+			   search-string="@Model.FilterViewModel.SearchString"
+			   current-filter-lord="@Model.FilterViewModel.SelectedLord"
+			   current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+			Регион
+		</sort-header>
 	}
 	@if (User.IsInRole(Role.Administrator) || User.IsInRole(Role.AdminOPFR) || User.IsInRole(Role.UserOPFR))
 	{
-	 <sort-header action="Index"
-				 up="@Model.SortViewModel.Up"
-				 current="@Model.SortViewModel.Current"
-				 property="@Model.SortViewModel.OwnerSort"
-				 search-string="@Model.FilterViewModel.SearchString"
-				 current-filter-lord="@Model.FilterViewModel.SelectedLord"
-				 current-filter-owner="@Model.FilterViewModel.SelectedOwner">
-	  Район
-	 </sort-header>
+		<sort-header action="Index"
+			   up="@Model.SortViewModel.Up"
+			   current="@Model.SortViewModel.Current"
+			   property="@Model.SortViewModel.OwnerSort"
+			   search-string="@Model.FilterViewModel.SearchString"
+			   current-filter-lord="@Model.FilterViewModel.SelectedLord"
+			   current-filter-owner="@Model.FilterViewModel.SelectedOwner">
+			Район
+		</sort-header>
 	}
 </div>
